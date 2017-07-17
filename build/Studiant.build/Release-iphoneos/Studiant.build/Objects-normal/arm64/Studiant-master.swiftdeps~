@@ -1,0 +1,8 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "938ff4a93a36edf71d8299f7351f822b"
+build_time: [553470988, 862020000]
+inputs:
+  "/Users/lucasreyre/Documents/workspace/Studiant/Studiant/controller/ConnexionViewController.swift": [9223372036854775807, 0]
+  "/Users/lucasreyre/Documents/workspace/Studiant/Studiant/MainViewController.swift": [9223372036854775807, 0]
+  "/Users/lucasreyre/Documents/workspace/Studiant/Studiant/controller/StatusViewController.swift": [9223372036854775807, 0]
+  "/Users/lucasreyre/Documents/workspace/Studiant/Studiant/AppDelegate.swift": [9223372036854775807, 0]
