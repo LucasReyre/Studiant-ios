@@ -15,6 +15,9 @@ class StatusViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
 
         // Do any additional setup after loading the view.
     }
@@ -30,9 +33,25 @@ class StatusViewController: UIViewController {
             
         })
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "inscriptionEtudiantSegue" {
+            let vc = segue.destination as! ConnexionViewController
+            vc.statusUser = 1
+
+            let backItem = UIBarButtonItem()
+            backItem.title = "Inscription"
+            navigationItem.backBarButtonItem = backItem
+        } else if segue.identifier == "chooseCategorieSegue" {
+            let backItem = UIBarButtonItem()
+            backItem.title = "Catégorie"
+            navigationItem.backBarButtonItem = backItem
+            
+        }
+    }
 
     @IBAction func onEtudiantTouch(_ sender: Any) {
-        UIView.animate(withDuration: 0.5, animations: {
+        /*UIView.animate(withDuration: 0.5, animations: {
             self.myViewController.onEtudiantTouch()
             let xPosition = self.statusView.frame.origin.x - self.statusView.frame.width
             let yPosition = self.statusView.frame.origin.y
@@ -41,11 +60,11 @@ class StatusViewController: UIViewController {
             self.statusView.frame = rect
             
             
-        })
+        })*/
     }
     
     @IBAction func particulierTouch(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
+        /*UIView.animate(withDuration: 0.5, animations: {
             self.myViewController.onParticulierTouch()
             let xPosition = self.statusView.frame.origin.x - self.statusView.frame.width
             let yPosition = self.statusView.frame.origin.y
@@ -54,14 +73,15 @@ class StatusViewController: UIViewController {
             self.statusView.frame = rect
             
             
-        })
+        })*/
         
     }
     
+    /*
     override func didMove(toParentViewController parent: UIViewController?) {
         super.didMove(toParentViewController: parent)
         myViewController = parent as! MainViewController
         
     }
-
+*/
 }

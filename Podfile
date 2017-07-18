@@ -8,5 +8,5 @@ pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift', :branch =>'feature/swift-3'
 pod 'RAMAnimatedTabBarController', '~> 2.0.13'
-pod 'FoldingCell', '~> 2.0.3' 
+pod 'FoldingCell', '~> 2.0.3'
 end

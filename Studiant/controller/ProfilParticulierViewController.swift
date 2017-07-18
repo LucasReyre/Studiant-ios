@@ -1,53 +1,27 @@
-//
-//  ProfilEtudiantViewController.swift
-//  Studiant
-//
-//  Created by Lucas REYRE on 16/07/2017.
-//  Copyright © 2017 Studiant. All rights reserved.
-//
 
 import UIKit
 import FBSDKLoginKit
 import FacebookCore
-import Haneke
 import TRON
 
-class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
-    @IBOutlet weak var profilePicture: UIImageView!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var prenomTextField: UITextField!
     @IBOutlet weak var nomTextField: UITextField!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var descriptionTextField: UITextView!
+    @IBOutlet weak var prenomTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     
-    @IBOutlet weak var diplomeTextField: UITextField!
-    @IBOutlet weak var permisSwitch: UISwitch!
     var id: String?
+    var categorieJob: String!
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.contentOffset.x = 0
-        /*let user = User(nomUtilisateur: "reyre", prenomUtilisateur: "lucas", mailUtilisateur: "lucas@gmail")
-        print(user.idUtilisateur)
-        user.getUser()*/
-        /*
-        let request: APIRequest<UsersResponse, ErrorResponse> = tron.request("Utilisateurs/")
-        print(request)
-        request.perform(withSuccess: { (usersResponse) in
-            print(usersResponse.users)
-        }) { (error) in
-            print(error)
-        }*/
-        
-
-        
+        print("catégorie choisie", categorieJob)
         initForm()
-        profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
-        profilePicture.clipsToBounds = true
-        // Do any additional setup after loading the view.
+        
     }
     
     func initForm() {
@@ -58,14 +32,14 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
                 return
             }
             
-            print(result)
+            
             let myResult = result as AnyObject
             let name = myResult.value(forKey: "name") as! String
             let nameArray = name.components(separatedBy: " ")
             
             self.id = myResult.value(forKey: "id") as! String
             let url = URL(string: "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200")
-            self.profilePicture.hnk_setImageFromURL(url!)
+            
             self.emailTextField.text = myResult.value(forKey: "email") as! String
             self.prenomTextField.text = nameArray[0]
             self.nomTextField.text = nameArray[1]
@@ -73,40 +47,6 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
             
             //print(myResult.value(forKey: "email"))
         }
-
-    }
-    
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0...2:
-            break
-        default:
-            print("default")
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        if textField.tag == 2 {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
-        }else {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-        }
-            
-        
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 130), animated: true)
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            descriptionTextField.resignFirstResponder()
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            return false
-        }
-        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -116,23 +56,18 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         } else if textField.tag == 1 {
             nomTextField.becomeFirstResponder()
         } else if textField.tag == 2 {
-            //scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
-            diplomeTextField.becomeFirstResponder()
-        }else if textField.tag == 3{
-            descriptionTextField.becomeFirstResponder()
+            nomTextField.resignFirstResponder()
         }
         return true
         
     }
-    
+
     @IBAction func validerAction(_ sender: Any) {
         let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!)
         user.idExterneUtilisateur = id
         user.photoUtilisateur = "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200"
-        user.typeUtilisateur = 1
+        user.typeUtilisateur = 0
         user.typeConnexionUtilisateur = 0
-        user.diplomeUtilisateur = diplomeTextField.text
-        user.permisUtilisateur = permisSwitch.isOn
         
         let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("Utilisateurs/")
         postRequest.method = .post
@@ -152,8 +87,6 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         }) { (error) in
             print(error)
         }
-        
-        
-    }
 
+    }
 }
