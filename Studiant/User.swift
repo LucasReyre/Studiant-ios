@@ -9,14 +9,14 @@
 import Foundation
 import TRON
 
-class User {
+public class User {
     
     var idUtilisateur: String?
-    var nomUtilisateur: String
-    var prenomUtilisateur: String
-    var mailUtilisateur: String
+    var nomUtilisateur: String?
+    var prenomUtilisateur: String?
+    var mailUtilisateur: String?
     var photoUtilisateur: String?
-    var typeUtilisateur: Int?
+    var typeUtilisateur: Int!
     var typeConnexionUtilisateur: Int?
     var descriptionUtilisateur: String?
     var diplomeUtilisateur: String?
@@ -27,7 +27,14 @@ class User {
     var userUrl = "https://loopbackstudiant.herokuapp.com/api/Utilisateurs/594e691306f7e60011421949"
     typealias JSONStandard = [String : AnyObject]
     
+    init(){
+        
+    }
     
+    init(idUtilisateur: String, typeUtilisateur: Int) {
+        self.idUtilisateur = idUtilisateur
+        self.typeUtilisateur = typeUtilisateur
+    }
     
     init(nomUtilisateur: String, prenomUtilisateur: String, mailUtilisateur: String) {
         self.nomUtilisateur = nomUtilisateur

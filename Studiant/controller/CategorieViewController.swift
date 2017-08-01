@@ -13,6 +13,9 @@ class CategorieViewController: UIViewController, UIGestureRecognizerDelegate, Ca
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
         tap.delegate = self
         chooseCategorieView.addGestureRecognizer(tap)
+        
+        chooseCategorieView.layer.cornerRadius = 8.0
+        chooseCategorieView.clipsToBounds = true
     }
     
     

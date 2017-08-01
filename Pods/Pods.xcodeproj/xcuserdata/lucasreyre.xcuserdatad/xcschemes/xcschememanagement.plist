@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DateTimePicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>HanekeSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -49,7 +59,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PopupDialog.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Protobuf.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>RAMAnimatedTabBarController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftSpinner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -67,7 +92,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3BE5AB243A6F69F56FF39D2B045150C5</key>
+		<key>0219C51ED7AE9DD6604D25A329512B43</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3AED01CCC51C1ECC6A70A826C66ACBE9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +107,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>53B977981756E66C7B30FDDEA8DFEF38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>593E9479C06FB200807D11AB29EB50BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>59556E456AD67B1B76EFA44400E24817</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5B5AC3C06B783F8674FDB4C0F900B56A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6D445638282DA6B8612FABEBB3F76A9D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +142,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ABF29924C317423624EA0AB9BD1AE3A7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD08EE32CC022ED51E8B4539A4291764</key>
+		<key>9FA73695D1E57996C128686ADB24DCC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +152,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B172E4A2D8151E3CC864A57F4CA06AE3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B626E472969D6F87698AF0041EAAFC38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5B80060FE8C664DF08841000F41D515</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +172,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EA36246F255219888210C4D489C29671</key>
+		<key>F7281D343EB6D66EAC2A5CFF34826D07</key>
 		<dict>
 			<key>primary</key>
 			<true/>

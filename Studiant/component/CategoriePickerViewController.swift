@@ -10,7 +10,21 @@ import UIKit
 
 class CategoriePickerViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
-    var categorie = ["Aide à la personne", "Aide scolaire", "Entretient", "Ménage", "Bricolage","Autres"]
+    var categorie = ["Cours particuliers",
+                     "Informatique",
+                     "Jardinage",
+                     "Baby-sitting",
+                     "Déménagement",
+                     "Bricolage",
+                     "Evènementiel",
+                     "Nettoyage/Repassage",
+                     "Animaux",
+                     "Mécanique/Réparation",
+                     "Transport/Livraison",
+                     "Beauté/Bien être",
+                     "Administration",
+                     "Autres"]
+    
     var delegate: CategoriePickerViewDelegate? = nil
     
     @IBOutlet weak var pickerView: UIPickerView!
@@ -39,6 +53,10 @@ class CategoriePickerViewController: UIViewController, UIPickerViewDelegate, UIP
     
  
     @IBAction func validate(_ sender: Any) {
+        if (updateSelectedValue == nil){
+            updateSelectedValue = categorie[0]
+        }
+        
         self.delegate?.validateCategorie(controller: self, categorie: updateSelectedValue!)
         //dismiss(animated: true, completion: nil)
     }

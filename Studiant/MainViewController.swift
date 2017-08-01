@@ -35,9 +35,6 @@ class MainViewController: UIViewController {
         print("touch")
     }
     
-    func onEtudiantTouch(){
-        connexionContainer.showConnexion()
-    }
     
     func onBackPressConnexionTouch() {
         //heightConnexionContraint.constant = 0

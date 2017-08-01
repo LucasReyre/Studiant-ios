@@ -23,40 +23,120 @@
 
 import UIKit
 import FoldingCell
+import TRON
+import SwiftSpinner
 
-class MainTableViewController: UITableViewController {
+class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
   
   let kCloseCellHeight: CGFloat = 179
   let kOpenCellHeight: CGFloat = 488
-  let kRowsCount = 10
   var cellHeights: [CGFloat] = []
-  
+  let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+  var isDataLoad = false
+  var jobs: [JobResponse] = []
+  var user : User!
+    var filter: [String: Any]?
+    
+    
   override func viewDidLoad() {
     super.viewDidLoad()
-    setup()
+
+    user = KeychainService.loadUser()
+    getData()
   }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if(self.isDataLoad == false){
+            SwiftSpinner.show("Récupération des jobs en cours")
+        }
+    }
+    
+    func getData() {
+        
+        let request: APIRequest<JobsResponse, ErrorResponse> = tron.request("Jobs")
+        request.parameters = ["filter[include][appartenir]":""]
+        
+        if self.filter != nil{
+            SwiftSpinner.show("Récupération des jobs en cours")
+            request.parameters = self.filter!
+        }
+        
+        
+        print(request)
+        request.perform(withSuccess: { (jobsResponse) in
+            self.isDataLoad = true
+            SwiftSpinner.hide()
+            self.jobs = jobsResponse.jobs
+            print(jobsResponse.jobs)
+            self.setup()
+            self.tableView.reloadData()
+        }) { (error) in
+            print(error)
+        }
+    }
   
   private func setup() {
-    cellHeights = Array(repeating: kCloseCellHeight, count: kRowsCount)
+    let refreshControl = UIRefreshControl()
+    refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    // this is the replacement of implementing: "collectionView.addSubview(refreshControl)"
+    tableView.refreshControl = refreshControl
+    refreshControl.attributedTitle = NSAttributedString(string: "Récupération des jobs")
+    
+    self.tableView.contentInset = UIEdgeInsets(top: 30,left: 0,bottom: 50,right: 0)
+    cellHeights = Array(repeating: kCloseCellHeight, count: jobs.count)
     tableView.estimatedRowHeight = kCloseCellHeight
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background-1"))
   }
-  
+    
+    func refresh(refreshControl: UIRefreshControl) {
+        getData()
+        refreshControl.endRefreshing()
+    }
+    
+    func onPostulerTouch(jobId : String) {
+        SwiftSpinner.show("Postulation en cours")
+        let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Postulants/")
+        postRequest.method = .post
+        
+        postRequest.parameters = ["timePostulant": String(NSDate().timeIntervalSince1970),
+                                  "statutPostulant": "0",
+                                  "jobId": jobId,
+                                  "utilisateurId" : self.user.idUtilisateur!]
+        
+        postRequest.perform(withSuccess: { (jobResponse) in
+            SwiftSpinner.show("Votre postulation à bien été prise en compte !", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+        
+            print(jobResponse)
+            //self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)
+        }) { (error) in
+            SwiftSpinner.show("Erreur vous avez déja postulé", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+            
+            print(error)
+        }
+
+        
+    }
 }
 
 // MARK: - TableView
 extension MainTableViewController {
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return jobs.count
   }
   
   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    guard case let cell as DemoCell = cell else {
+    guard case let cell as CellJobEtudiant = cell else {
       return
     }
     
+    
+    cell.setupUi(jobResponse: jobs[indexPath.row], delegate: self)
     cell.backgroundColor = .clear
     
     if cellHeights[indexPath.row] == kCloseCellHeight {
@@ -64,9 +144,11 @@ extension MainTableViewController {
     } else {
       cell.selectedAnimation(true, animated: false, completion: nil)
     }
+
     
     cell.number = indexPath.row
   }
+    
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! FoldingCell

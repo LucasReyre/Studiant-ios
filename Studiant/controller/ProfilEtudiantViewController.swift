@@ -11,6 +11,8 @@ import FBSDKLoginKit
 import FacebookCore
 import Haneke
 import TRON
+import SwiftSpinner
+import FirebaseMessaging
 
 class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
@@ -24,6 +26,8 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
     @IBOutlet weak var diplomeTextField: UITextField!
     @IBOutlet weak var permisSwitch: UISwitch!
     var id: String?
+    var fromFacebook: Bool?
+    var myUser : User!
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     
@@ -43,8 +47,11 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         }*/
         
 
+        if fromFacebook == true
+        {
+            initForm()
+        }
         
-        initForm()
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
         profilePicture.clipsToBounds = true
         // Do any additional setup after loading the view.
@@ -88,7 +95,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         if textField.tag == 2 {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
+            scrollView.setContentOffset(CGPoint(x: 0, y: 150), animated: true)
         }else {
             scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
@@ -97,7 +104,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 130), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0, y: 180), animated: true)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -126,27 +133,56 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
     }
     
     @IBAction func validerAction(_ sender: Any) {
+        SwiftSpinner.show("Inscription en cours")
+        
         let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!)
-        user.idExterneUtilisateur = id
-        user.photoUtilisateur = "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200"
         user.typeUtilisateur = 1
-        user.typeConnexionUtilisateur = 0
+        user.typeConnexionUtilisateur = 1
         user.diplomeUtilisateur = diplomeTextField.text
+        user.descriptionUtilisateur = descriptionTextField.text
         user.permisUtilisateur = permisSwitch.isOn
+        let token = Messaging.messaging().fcmToken
         
         let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("Utilisateurs/")
         postRequest.method = .post
-        postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur,
-                                  "prenomUtilisateur": user.prenomUtilisateur,
-                                  "photoUtilisateur": user.photoUtilisateur,
-                                  "mailUtilisateur" : user.mailUtilisateur,
-                                  "typeUtilisateur": user.typeUtilisateur,
-                                  "idExterneUtilisateur": user.idExterneUtilisateur,
-                                  "typeConnexionUtilisateur": user.typeConnexionUtilisateur,
-                                  "descriptionUtilisateur": user.descriptionUtilisateur,
-                                  "diplomeUtilisateur": user.diplomeUtilisateur,
-                                  "permisUtilisateur": user.permisUtilisateur]
+        
+        if fromFacebook == true{
+            user.idExterneUtilisateur = id
+            user.photoUtilisateur = "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200"
+            user.typeConnexionUtilisateur = 0
+            
+            postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
+                                      "prenomUtilisateur": user.prenomUtilisateur!,
+                                      "photoUtilisateur": user.photoUtilisateur!,
+                                      "mailUtilisateur" : user.mailUtilisateur!,
+                                      "typeUtilisateur": user.typeUtilisateur,
+                                      "idExterneUtilisateur": user.idExterneUtilisateur!,
+                                      "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
+                                      "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                      "diplomeUtilisateur": user.diplomeUtilisateur!,
+                                      "permisUtilisateur": user.permisUtilisateur!,
+                                      "firebaseToken": token!]
+        }else if fromFacebook == false{
+            
+            postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
+                                      "prenomUtilisateur": user.prenomUtilisateur!,
+                                      "mailUtilisateur" : user.mailUtilisateur!,
+                                      "typeUtilisateur": user.typeUtilisateur,
+                                      "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
+                                      "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                      "diplomeUtilisateur": user.diplomeUtilisateur!,
+                                      "permisUtilisateur": user.permisUtilisateur!,
+                                      "firebaseToken": token!]
+        }
+        
+        
+        
+        
+        
         postRequest.perform(withSuccess: { (usersResponse) in
+            self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 1)
+            KeychainService.saveUser(user: self.myUser)
+            SwiftSpinner.hide()
             print(usersResponse)
             self.performSegue(withIdentifier: "dashboardEtudiantSegue", sender: self)
         }) { (error) in

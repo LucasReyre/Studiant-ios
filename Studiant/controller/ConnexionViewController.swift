@@ -18,6 +18,7 @@ class ConnexionViewController: UIViewController, FBSDKLoginButtonDelegate {
     var myViewController: MainViewController!
     var statusUser: Int!
     var categorieJob: String!
+    var fromFacebook: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,39 +40,6 @@ class ConnexionViewController: UIViewController, FBSDKLoginButtonDelegate {
         // Do any additional setup after loading the view.
     }
     
-    func showConnexion() {
-        self.connexionView.alpha = 1.0
-        /*UIView.animate(withDuration: 0.5, animations: {
-            let xPosition = self.connexionView.frame.origin.x - self.connexionView.frame.width
-            let yPosition = self.connexionView.frame.origin.y
-            
-            let rect = CGRect(x: xPosition, y: yPosition, width: self.connexionView.frame.size.width, height: self.connexionView.frame.size.height)
-            self.connexionView.frame = rect
-            
-        })*/
-        
-        //let loginButton = LoginButton(readPermissions: [ .publicProfile, .email ])
-        //loginButton.center = view.center
-        
-
-
-    }
-    
-    
-    /*@IBAction func backPressAction(_ sender: Any) {
-        UIView.animate(withDuration: 0.5, animations: {
-            let xPosition = self.connexionView.frame.origin.x + self.connexionView.frame.width
-            let yPosition = self.connexionView.frame.origin.y
-            
-            let rect = CGRect(x: xPosition, y: yPosition, width: self.connexionView.frame.size.width, height: self.connexionView.frame.size.height)
-            self.connexionView.frame = rect
-            self.myViewController.onBackPressConnexionTouch()
-            
-        })
-        self.connexionView.alpha = 0.0
-        self.myViewController.onBackPressConnexionTouch()
-    }*/
-
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("logout")
@@ -83,19 +51,36 @@ class ConnexionViewController: UIViewController, FBSDKLoginButtonDelegate {
             print(error)
         }
         
+        self.fromFacebook = true
         if statusUser == 1{
-                performSegue(withIdentifier: "profilEtudiantSegue", sender: self)
+            self.performSegue(withIdentifier: "profilEtudiantSegue", sender: nil)
         } else if statusUser == 0{
-            performSegue(withIdentifier: "profilParticulierSegue", sender: self)
+            self.performSegue(withIdentifier: "profilParticulierSegue", sender: nil)
         }
         
     }
     
+    @IBAction func inscriptionAction(_ sender: Any) {
+        self.fromFacebook = false
+        if statusUser == 1{
+            self.performSegue(withIdentifier: "profilEtudiantSegue", sender: nil)
+        } else if statusUser == 0{
+            self.performSegue(withIdentifier: "profilParticulierSegue", sender: nil)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let backItem = UIBarButtonItem()
+        backItem.title = "Votre profil"
+        navigationItem.backBarButtonItem = backItem
+        
         if segue.identifier == "profilParticulierSegue" {
             let vc = segue.destination as! ProfilParticulierViewController
             vc.categorieJob = self.categorieJob
-            //vc.categorie = ["blal","bla"]
+            vc.fromFacebook = self.fromFacebook
+        }else if segue.identifier == "profilEtudiantSegue"{
+            let vc = segue.destination as! ProfilEtudiantViewController
+            vc.fromFacebook = self.fromFacebook
         }
     }
     

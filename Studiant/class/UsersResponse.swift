@@ -14,7 +14,7 @@ struct UsersResponse: JSONDecodable {
     
     let users: [UserResponse]
     
-    init(json: JSON) throws {
+    init(json: JSON){
         let usersArray = json.arrayValue
         users = usersArray.map({UserResponse(json: $0)})
     }
