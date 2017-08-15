@@ -53,8 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         user = KeychainService.loadUser()!
 
         if user.typeUtilisateur != nil{
-            print("idUtilisateur ",user.idUtilisateur)
-            print("typeUtilisateur ",user.typeUtilisateur)
+        
             self.window = UIWindow(frame: UIScreen.main.bounds)
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

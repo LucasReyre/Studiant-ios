@@ -30,6 +30,7 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     var geoplace: [String: Float]!
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    let tronMango = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,10 +56,10 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     
     
     @IBAction func insertJobAction(_ sender: Any) {
-        
-        SwiftSpinner.show("Ajout du job en cours")
-        
         user = KeychainService.loadUser()
+        getCard()
+        /*SwiftSpinner.show("Ajout du job en cours")
+        
         
         
         let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Jobs/")
@@ -77,19 +78,46 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         postRequest.perform(withSuccess: { (jobResponse) in
             SwiftSpinner.hide()
             print(jobResponse)
-            if self.fromDashboard==true{
+            if self.fromDashboard != nil{
+                
                 self.dismiss(animated: true, completion: nil)
-            }else{
-                self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
+            }else {
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "AddCBViewController")
+                self.present(controller, animated: true, completion: nil)
+                //self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
             }
             
-            //self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)
         }) { (error) in
             print(error)
         }
-
+*/
     }
     
+    func getCard(){
+        let postRequest: APIRequest<CardResponse, ErrorResponse> = tronMango.request("user_get_card.php")
+        postRequest.method = .post
+        postRequest.parameters = ["idMangoPayUtilisateur": self.user.idMangoPayUtilisateur!]
+        
+        postRequest.perform(withSuccess: { (cardResponse) in
+            SwiftSpinner.hide()
+            print("success")
+            if cardResponse.id == ""{
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "AddCBViewController")
+                self.present(controller, animated: true, completion: nil)
+            }
+            print(cardResponse)
+            /*
+             
+                //self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
+            */
+        }) { (error) in
+            print("error")
+            print(error)
+        }
+    }
     
     func setupGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))

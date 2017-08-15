@@ -18,7 +18,8 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
     
     var fromFacebook: Bool?
     
-    let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    //let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    let tron = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/users_create.php")
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -102,7 +103,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
             print("from facebook false")
             print("nom : ", user.nomUtilisateur!)
             print("prenom : ", user.prenomUtilisateur!)
-            print("nom : ", user.prenomUtilisateur!)
+            
             postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
                                       "prenomUtilisateur": user.prenomUtilisateur!,
                                       "mailUtilisateur" : user.mailUtilisateur!,
@@ -119,6 +120,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         postRequest.perform(withSuccess: { (usersResponse) in
             print(usersResponse)
             self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 0)
+            self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()
             self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)

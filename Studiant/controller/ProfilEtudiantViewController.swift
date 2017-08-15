@@ -29,7 +29,8 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
     var fromFacebook: Bool?
     var myUser : User!
     
-    let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    //let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    let tron = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/users_create.php")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,6 +182,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         
         postRequest.perform(withSuccess: { (usersResponse) in
             self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 1)
+            self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()
             print(usersResponse)

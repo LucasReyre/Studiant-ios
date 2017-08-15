@@ -16,4 +16,5 @@ pod 'Firebase', '4.0.3'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
 pod 'PopupDialog', '~> 0.5'
+pod 'mangopay'
 end

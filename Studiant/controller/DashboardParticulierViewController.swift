@@ -51,6 +51,10 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
             self.tableContainer.displayData(jobs: jobsResponse.jobs)
         }) { (error) in
             print(error)
+            SwiftSpinner.show("Erreur", animated:false).addTapHandler({
+                SwiftSpinner.hide()
+                
+            })
         }
     }
     

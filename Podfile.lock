@@ -51,6 +51,7 @@ PODS:
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - HanekeSwift (0.10.1)
+  - mangopay (1.0.2)
   - PopupDialog (0.5.4)
   - Protobuf (3.3.0)
   - RAMAnimatedTabBarController (2.0.13)
@@ -76,6 +77,7 @@ DEPENDENCIES:
   - FoldingCell (~> 2.0.3)
   - GooglePlaces
   - HanekeSwift (from `https://github.com/Haneke/HanekeSwift`, branch `feature/swift-3`)
+  - mangopay
   - PopupDialog (~> 0.5)
   - RAMAnimatedTabBarController (~> 2.0.13)
   - SwiftSpinner
@@ -109,6 +111,7 @@ SPEC CHECKSUMS:
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
+  mangopay: c8005077cfd2b6813b99d52a4cd78238eb1082e7
   PopupDialog: 75cf955693590b0cb2fdde00223fb65d99c57247
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   RAMAnimatedTabBarController: 2510f3b66954c3f77ea1042a35d34df8f5f3b604
@@ -116,6 +119,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TRON: 7b9adeb678fe0e25433d207f6a734aaf145fa9b5
 
-PODFILE CHECKSUM: b524287139979f9fdbe2a0de905484bf091e114e
+PODFILE CHECKSUM: 4baaac612703b80ffad814466459f1fe0fe0fd71
 
 COCOAPODS: 1.2.1

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '5270BEAC8C28E2B8A544B4019A7E8104'
-               BlueprintName = 'RAMAnimatedTabBarController'
+               BlueprintIdentifier = '63A5952E06DF002B8D9D2DDF8454AF3F'
+               BlueprintName = 'mangopay'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'RAMAnimatedTabBarController.framework'>
+               BuildableName = 'mangopay.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

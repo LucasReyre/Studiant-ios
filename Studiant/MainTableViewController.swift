@@ -86,7 +86,7 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
     cellHeights = Array(repeating: kCloseCellHeight, count: jobs.count)
     tableView.estimatedRowHeight = kCloseCellHeight
     tableView.rowHeight = UITableViewAutomaticDimension
-    tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background-1"))
+    //tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background-1"))
   }
     
     func refresh(refreshControl: UIRefreshControl) {

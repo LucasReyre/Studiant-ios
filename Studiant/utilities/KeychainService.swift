@@ -15,6 +15,7 @@ let passwordKey = "KeyForPassword"
 
 let idUserKey = "idUserKey"
 let typeUtilisateurKey = "typeUtilisateurKey"
+let idMangoPayUtilisateurKey = "idMangoPayUtilisateurKey"
 
 // Arguments for the keychain queries
 let kSecClassValue = NSString(format: kSecClass)
@@ -46,7 +47,10 @@ public class KeychainService: NSObject {
             let typeUtilisateur = String(describing: user.typeUtilisateur!)
             self.save(service: typeUtilisateurKey as NSString, data: typeUtilisateur as NSString)
         }
-        
+        if user.idMangoPayUtilisateur != nil {
+            let idMangoPayUtilisateur = String(describing: user.idMangoPayUtilisateur!)
+            self.save(service: idMangoPayUtilisateurKey as NSString, data: idMangoPayUtilisateur as NSString)
+        }
         
     }
     
@@ -58,7 +62,9 @@ public class KeychainService: NSObject {
         if let typeUtilisateur = self.load(service: typeUtilisateurKey as String as NSString){
                 user.typeUtilisateur = Int(typeUtilisateur as String)
         }
-        
+        if let idMangoPayUtilisateur = self.load(service: idMangoPayUtilisateurKey as String as NSString){
+            user.idMangoPayUtilisateur = idMangoPayUtilisateur as String
+        }
         return user
     }
     
