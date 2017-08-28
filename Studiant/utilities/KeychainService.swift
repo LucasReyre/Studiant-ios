@@ -16,6 +16,7 @@ let passwordKey = "KeyForPassword"
 let idUserKey = "idUserKey"
 let typeUtilisateurKey = "typeUtilisateurKey"
 let idMangoPayUtilisateurKey = "idMangoPayUtilisateurKey"
+let photoUtilisateurKey = "photoUtilisateurKey"
 
 // Arguments for the keychain queries
 let kSecClassValue = NSString(format: kSecClass)
@@ -51,10 +52,14 @@ public class KeychainService: NSObject {
             let idMangoPayUtilisateur = String(describing: user.idMangoPayUtilisateur!)
             self.save(service: idMangoPayUtilisateurKey as NSString, data: idMangoPayUtilisateur as NSString)
         }
-        
+        if user.photoUtilisateur != nil {
+            let photoUtilisateur = String(describing: user.photoUtilisateur!)
+            self.save(service: photoUtilisateurKey as NSString, data: photoUtilisateur as NSString)
+        }
     }
     
     public class func loadUser() -> User! {
+        print("load user ")
         let user = User()
         if let idUtilisateur = self.load(service: idUserKey as String as NSString){
                 user.idUtilisateur = idUtilisateur as String
@@ -65,12 +70,17 @@ public class KeychainService: NSObject {
         if let idMangoPayUtilisateur = self.load(service: idMangoPayUtilisateurKey as String as NSString){
             user.idMangoPayUtilisateur = idMangoPayUtilisateur as String
         }
+        
+        if let photoUtilisateur = self.load(service: photoUtilisateurKey as String as NSString){
+            user.photoUtilisateur = photoUtilisateur as String
+        }
         return user
     }
     
     public class func deleteAll(){
         self.delete(service: idUserKey as NSString)
         self.delete(service: typeUtilisateurKey as NSString)
+        self.delete(service: photoUtilisateurKey as NSString)
     }
     
     /**

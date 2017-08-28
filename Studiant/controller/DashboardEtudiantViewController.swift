@@ -66,8 +66,10 @@ class DashboardEtudiantViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare segue")
         if let vc = segue.destination as? MainTableViewController,
             segue.identifier == "listJobEtudiantEmbedSegue" {
+            print("listJobEtudiantEmbedSegue")
             self.tableContainer = vc
             //self.tableContainer.delegate = self
         }

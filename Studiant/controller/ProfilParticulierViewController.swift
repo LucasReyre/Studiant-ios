@@ -78,7 +78,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         let token = Messaging.messaging().fcmToken
         print("FCM token: \(token ?? "")")
         
-        let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("Utilisateurs/")
+        let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("")
         postRequest.method = .post
         
         if fromFacebook == true{

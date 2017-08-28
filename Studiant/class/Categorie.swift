@@ -37,28 +37,28 @@ public class Categorie {
         
         switch withString {
         case categorieStringArray[0]:
-            color = self.hexStringToUIColor(hex: "9d2c2e")
+            color = self.hexStringToUIColor(hex: "ce0000")
             picto = UIImage(named: "cours")!
         case categorieStringArray[1]:
-            color = self.hexStringToUIColor(hex: "a4e8ff")
+            color = self.hexStringToUIColor(hex: "0080ff")
             picto = UIImage(named: "informatique")!
         case categorieStringArray[2]:
-            color = self.hexStringToUIColor(hex: "6de164")
+            color = self.hexStringToUIColor(hex: "04b431")
             picto = UIImage(named: "jardinage")!
         case categorieStringArray[3]:
-            color = self.hexStringToUIColor(hex: "fecd40")
+            color = self.hexStringToUIColor(hex: "f3e520")
             picto = UIImage(named: "baby")!
         case categorieStringArray[4]:
             color = self.hexStringToUIColor(hex: "ff9400")
             picto = UIImage(named: "demenagement")!
         case categorieStringArray[5]:
-            color = self.hexStringToUIColor(hex: "929292")
+            color = self.hexStringToUIColor(hex: "585858")
             picto = UIImage(named: "bricomecarepa")!
         case categorieStringArray[6]:
             color = self.hexStringToUIColor(hex: "9438ff")
             picto = UIImage(named: "evenementiel")!
         case categorieStringArray[7]:
-            color = self.hexStringToUIColor(hex: "929292")
+            color = self.hexStringToUIColor(hex: "f6cef5")
             picto = UIImage(named: "nettoyage")!
         case categorieStringArray[8]:
             color = self.hexStringToUIColor(hex: "fea887")

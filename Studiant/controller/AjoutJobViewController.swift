@@ -5,7 +5,7 @@ import TRON
 import SwiftSpinner
 
 class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
-                              CategoriePickerViewDelegate {
+                              CategoriePickerViewDelegate, AddCBDelegate, PaymentDelegate {
 
     var categorieJob: String!
     
@@ -28,16 +28,17 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     var fromDashboard: Bool!
     var user : User!
     var geoplace: [String: Float]!
+    var city: String!
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     let tronMango = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUi()
         setupGesture()
-        // Do any additional setup after loading the view.
+        
     }
     
     func setupUi() {
@@ -57,11 +58,14 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     
     @IBAction func insertJobAction(_ sender: Any) {
         user = KeychainService.loadUser()
+        SwiftSpinner.show("Ajout du job en cours")
         getCard()
-        /*SwiftSpinner.show("Ajout du job en cours")
         
         
-        
+    }
+    
+    func insertJob() {
+        user = KeychainService.loadUser()
         let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Jobs/")
         postRequest.method = .post
         print("categorie",categorieJob)
@@ -73,6 +77,7 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
                                   "heureJob": heure,
                                   "categorieJob": categorieJob,
                                   "statutJob": "0",
+                                  "villeJob": city,
                                   "utilisateurId": self.user.idUtilisateur!]
         
         postRequest.perform(withSuccess: { (jobResponse) in
@@ -92,7 +97,6 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         }) { (error) in
             print(error)
         }
-*/
     }
     
     func getCard(){
@@ -105,16 +109,28 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
             print("success")
             if cardResponse.id == ""{
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "AddCBViewController")
+                let controller = storyboard.instantiateViewController(withIdentifier: "AddCBViewController") as! AddCBViewController
+                controller.delegate = self
+                self.present(controller, animated: true, completion: nil)
+            }else{
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "PaymentJobViewController") as! PaymentJob
+                controller.delegate = self
+                controller.price = self.prixTextField.text!
                 self.present(controller, animated: true, completion: nil)
             }
+
             print(cardResponse)
+            SwiftSpinner.hide()
             /*
              
                 //self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
             */
         }) { (error) in
             print("error")
+            SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
             print(error)
         }
     }
@@ -197,6 +213,27 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         self.categorieLabel.text = "Vous avez choisi "+categorie
     }
     
+    func onCbIsAdding(controller: AddCBViewController) {
+        controller.dismiss(animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "PaymentJobViewController") as! PaymentJob
+        controller.price = prixTextField.text!
+        controller.delegate = self
+        self.present(controller, animated: true, completion: nil)
+        //self.insertJob()
+    }
+    
+    func onJobIsPaying(controller: PaymentJob) {
+        controller.dismiss(animated: true, completion: nil)
+        self.insertJob()
+    }
+    
+    func onPayingError(controller: PaymentJob) {
+        controller.dismiss(animated: true, completion: nil)
+        SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+            SwiftSpinner.hide()
+        })
+    }
 
 }
 
@@ -224,9 +261,15 @@ extension AjoutJobViewController: UITextFieldDelegate, UITextViewDelegate{
 extension AjoutJobViewController: GMSAutocompleteViewControllerDelegate{
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
+        for component in place.addressComponents!{
+            if component.type == "locality"{
+                city = component.name
+            }
+        }
+        /*print("Place name: \(place.name)")
+        print("Place adress component: \(place.addressComponents)")
         print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
+        print("Place attributions: \(place.attributions)")*/
         geoplace=["lat" : Float(place.coordinate.latitude), "lng" : Float(place.coordinate.longitude)]
     
         

@@ -26,10 +26,11 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
         myUser = KeychainService.loadUser()
         print("mon id : ",myUser.idUtilisateur!)
         
-        getData()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        getData()
         if (isDataLoad == false) {
             SwiftSpinner.show("Récupération des jobs en cours")
         }

@@ -14,7 +14,8 @@ import TRON
 import SwiftSpinner
 import FirebaseMessaging
 
-class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
+                                    UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
@@ -28,25 +29,19 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
     var id: String?
     var fromFacebook: Bool?
     var myUser : User!
+    var strBase64 : String!
     
     //let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     let tron = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/users_create.php")
+    let tronImport = TRON(baseURL: "https://www.studiant.fr/studiantApi/")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.contentOffset.x = 0
-        /*let user = User(nomUtilisateur: "reyre", prenomUtilisateur: "lucas", mailUtilisateur: "lucas@gmail")
-        print(user.idUtilisateur)
-        user.getUser()*/
-        /*
-        let request: APIRequest<UsersResponse, ErrorResponse> = tron.request("Utilisateurs/")
-        print(request)
-        request.perform(withSuccess: { (usersResponse) in
-            print(usersResponse.users)
-        }) { (error) in
-            print(error)
-        }*/
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        profilePicture.isUserInteractionEnabled = true
+        profilePicture.addGestureRecognizer(tapGestureRecognizer)
 
         if fromFacebook == true
         {
@@ -56,6 +51,43 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
         profilePicture.clipsToBounds = true
         // Do any additional setup after loading the view.
+    }
+    
+    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            var imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        var image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        image = self.resizeImage(image: image, newWidth: 250)!
+        profilePicture.image = image
+        
+        let imageData: NSData = UIImagePNGRepresentation(image) as! NSData
+        strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        dismiss(animated:true, completion: nil)
+        
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+        
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
     
     func initForm() {
@@ -149,40 +181,84 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         
         if fromFacebook == true{
             user.idExterneUtilisateur = id
-            user.photoUtilisateur = "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200"
+            //user.photoUtilisateur = "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200"
             user.typeConnexionUtilisateur = 0
             
-            postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
-                                      "prenomUtilisateur": user.prenomUtilisateur!,
-                                      "photoUtilisateur": user.photoUtilisateur!,
-                                      "mailUtilisateur" : user.mailUtilisateur!,
-                                      "typeUtilisateur": user.typeUtilisateur,
-                                      "idExterneUtilisateur": user.idExterneUtilisateur!,
-                                      "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                      "descriptionUtilisateur": user.descriptionUtilisateur!,
-                                      "diplomeUtilisateur": user.diplomeUtilisateur!,
-                                      "permisUtilisateur": user.permisUtilisateur!,
-                                      "firebaseToken": token!]
-        }else if fromFacebook == false{
+            if let a = strBase64 {
+                let postRequestImport: APIRequest<UserResponse, ErrorResponse> = tronImport.request("import.php")
+                postRequestImport.method = .post
+                postRequestImport.parameters = ["picture": strBase64!,
+                                                "secret": "cQEWS7UoI39I7Uk1FxC0YcuG8ge3kXEWArhu2DM1"]
+                print(" : ", postRequestImport.path)
+                postRequestImport.perform(withSuccess: { (usersImportResponse) in
+                    user.photoUtilisateur = usersImportResponse.photoUtilisateur
+                    postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
+                                              "prenomUtilisateur": user.prenomUtilisateur!,
+                                              "photoUtilisateur": user.photoUtilisateur!,
+                                              "mailUtilisateur" : user.mailUtilisateur!,
+                                              "typeUtilisateur": user.typeUtilisateur,
+                                              "idExterneUtilisateur": user.idExterneUtilisateur!,
+                                              "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
+                                              "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                              "diplomeUtilisateur": user.diplomeUtilisateur!,
+                                              "permisUtilisateur": user.permisUtilisateur!,
+                                              "firebaseToken": token!]
+                    
+                    
+                }) { (error) in
+                    print(error)
+                    SwiftSpinner.hide()
+                    print("Error")
+                }
+            }else{
+                postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
+                                          "prenomUtilisateur": user.prenomUtilisateur!,
+                                          "photoUtilisateur": user.photoUtilisateur!,
+                                          "mailUtilisateur" : user.mailUtilisateur!,
+                                          "typeUtilisateur": user.typeUtilisateur,
+                                          "idExterneUtilisateur": user.idExterneUtilisateur!,
+                                          "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
+                                          "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                          "diplomeUtilisateur": user.diplomeUtilisateur!,
+                                          "permisUtilisateur": user.permisUtilisateur!,
+                                          "firebaseToken": token!]
+   
+            }
             
-            postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
-                                      "prenomUtilisateur": user.prenomUtilisateur!,
-                                      "mailUtilisateur" : user.mailUtilisateur!,
-                                      "typeUtilisateur": user.typeUtilisateur,
-                                      "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                      "descriptionUtilisateur": user.descriptionUtilisateur!,
-                                      "diplomeUtilisateur": user.diplomeUtilisateur!,
-                                      "permisUtilisateur": user.permisUtilisateur!,
-                                      "firebaseToken": token!]
+        }else if fromFacebook == false{
+            let postRequestImport: APIRequest<UserResponse, ErrorResponse> = tronImport.request("import.php")
+            postRequestImport.method = .post
+            postRequestImport.parameters = ["picture": strBase64!,
+                                            "secret": "cQEWS7UoI39I7Uk1FxC0YcuG8ge3kXEWArhu2DM1"]
+            print(" : ", postRequestImport.path)
+            postRequestImport.perform(withSuccess: { (usersImportResponse) in
+                user.photoUtilisateur = usersImportResponse.photoUtilisateur
+                print("perform with success import ", user.photoUtilisateur!)
+                postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
+                                          "prenomUtilisateur": user.prenomUtilisateur!,
+                                          "photoUtilisateur": user.photoUtilisateur!,
+                                          "mailUtilisateur" : user.mailUtilisateur!,
+                                          "typeUtilisateur": user.typeUtilisateur,
+                                          "idExterneUtilisateur": user.idExterneUtilisateur!,
+                                          "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
+                                          "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                          "diplomeUtilisateur": user.diplomeUtilisateur!,
+                                          "permisUtilisateur": user.permisUtilisateur!,
+                                          "firebaseToken": token!]
+                
+                
+            }) { (error) in
+                print(error)
+                SwiftSpinner.hide()
+                print("Error")
+            }
         }
-        
-        
-        
         
         
         postRequest.perform(withSuccess: { (usersResponse) in
             self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 1)
             self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
+            self.myUser.photoUtilisateur = usersResponse.photoUtilisateur
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()
             print(usersResponse)

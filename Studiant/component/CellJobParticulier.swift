@@ -14,6 +14,7 @@ class CellJobParticulier: FoldingCell {
     
     @IBOutlet weak var leftView: UIView!
     @IBOutlet weak var pictoCategorieImageView: UIImageView!
+    @IBOutlet weak var pictoCategorieContentImageView: UIImageView!
     @IBOutlet weak var heureContentLabel: UILabel!
     @IBOutlet weak var dateLabelContent: UILabel!
     @IBOutlet weak var adresseLabelContent: UILabel!
@@ -47,7 +48,8 @@ class CellJobParticulier: FoldingCell {
         tarifContentLabel.text = jobResponse.prixJob + "€"
         horaireLabel.text = jobResponse.heureJob
         dateLabel.text = jobResponse.dateJob
-        nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
+        //nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
+        nomPrenomLabel.text = jobResponse.categorieJob
         adresseLabelContent.text = jobResponse.adresseJob
         dateLabelContent.text = jobResponse.dateJob
         heureContentLabel.text = jobResponse.heureJob
@@ -55,6 +57,7 @@ class CellJobParticulier: FoldingCell {
         categorie = Categorie(withString: jobResponse.categorieJob)
         leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
+        pictoCategorieContentImageView.image = categorie?.picto
         
     }
     override func awakeFromNib() {

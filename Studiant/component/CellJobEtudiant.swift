@@ -44,7 +44,7 @@ class CellJobEtudiant: FoldingCell {
         self.delegate = delegate
         job = jobResponse
         categorieLabel.text = jobResponse.categorieJob
-        adresseLabel.text = jobResponse.adresseJob
+        adresseLabel.text = jobResponse.villeJob
         tarifHeaderLabel.text = jobResponse.prixJob + "€"
         tarifContentLabel.text = jobResponse.prixJob + "€"
         horaireLabel.text = jobResponse.heureJob

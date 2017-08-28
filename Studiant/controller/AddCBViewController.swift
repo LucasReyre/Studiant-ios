@@ -19,6 +19,8 @@ class AddCBViewController: UIViewController {
     
     @IBOutlet weak var yyCBTextField: UITextField!
     
+    var delegate: AddCBDelegate? = nil
+    
     let tron = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
     var mangopayClient = MPAPIClient()
     
@@ -28,6 +30,7 @@ class AddCBViewController: UIViewController {
     }
 
     @IBAction func validerAction(_ sender: Any) {
+        
         let user : User
         user = KeychainService.loadUser()!
         
@@ -56,8 +59,9 @@ class AddCBViewController: UIViewController {
                 if let error = error{
                     print("Error : \(error)")
                 }else{
-                    self.dismiss(animated: true, completion: nil)
+                    
                     print("Validated \(String(describing: response))")
+                    self.delegate?.onCbIsAdding(controller: self)
                 }
                 
             })
@@ -65,4 +69,8 @@ class AddCBViewController: UIViewController {
             print(error)
         }
     }
+}
+
+protocol AddCBDelegate {
+    func onCbIsAdding(controller: AddCBViewController)
 }

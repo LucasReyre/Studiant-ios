@@ -12,6 +12,7 @@ struct JobResponse: JSONDecodable{
     var heureJob: String
     var statusJob: String
     var categorieJob: String
+    var villeJob: String
     var idUtilisateur: String
     var geoplace : GeoplaceResponse
     var appartenir: UserResponse
@@ -27,6 +28,7 @@ struct JobResponse: JSONDecodable{
         dateJob = json["dateJob"].stringValue
         heureJob = json["heureJob"].stringValue
         statusJob = json["statusJob"].stringValue
+        villeJob = json["villeJob"].stringValue
         categorieJob = json["categorieJob"].stringValue
         idUtilisateur = json["utilisateurId"].stringValue
         
