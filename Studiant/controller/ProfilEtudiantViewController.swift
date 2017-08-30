@@ -204,6 +204,8 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
                                               "permisUtilisateur": user.permisUtilisateur!,
                                               "firebaseToken": token!]
                     
+                    self.addUser(postRequest: postRequest)
+                    
                     
                 }) { (error) in
                     print(error)
@@ -222,6 +224,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,
                                           "firebaseToken": token!]
+                self.addUser(postRequest: postRequest)
    
             }
             
@@ -234,17 +237,19 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
             postRequestImport.perform(withSuccess: { (usersImportResponse) in
                 user.photoUtilisateur = usersImportResponse.photoUtilisateur
                 print("perform with success import ", user.photoUtilisateur!)
+                
                 postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
                                           "prenomUtilisateur": user.prenomUtilisateur!,
                                           "photoUtilisateur": user.photoUtilisateur!,
                                           "mailUtilisateur" : user.mailUtilisateur!,
                                           "typeUtilisateur": user.typeUtilisateur,
-                                          "idExterneUtilisateur": user.idExterneUtilisateur!,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
                                           "descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,
                                           "firebaseToken": token!]
+                
+                self.addUser(postRequest: postRequest)
                 
                 
             }) { (error) in
@@ -254,7 +259,10 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
             }
         }
         
-        
+    }
+    
+    
+    func addUser(postRequest : APIRequest<UserResponse, ErrorResponse>) {
         postRequest.perform(withSuccess: { (usersResponse) in
             self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 1)
             self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
@@ -266,8 +274,6 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         }) { (error) in
             print(error)
         }
-        
-        
     }
 
 }

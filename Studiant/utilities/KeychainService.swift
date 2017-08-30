@@ -59,7 +59,6 @@ public class KeychainService: NSObject {
     }
     
     public class func loadUser() -> User! {
-        print("load user ")
         let user = User()
         if let idUtilisateur = self.load(service: idUserKey as String as NSString){
                 user.idUtilisateur = idUtilisateur as String
@@ -74,6 +73,8 @@ public class KeychainService: NSObject {
         if let photoUtilisateur = self.load(service: photoUtilisateurKey as String as NSString){
             user.photoUtilisateur = photoUtilisateur as String
         }
+        
+        
         return user
     }
     

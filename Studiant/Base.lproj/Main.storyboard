@@ -338,7 +338,7 @@
             </objects>
             <point key="canvasLocation" x="1670" y="1399"/>
         </scene>
-        <!--Profil-->
+        <!--Mon compte-->
         <scene sceneID="BUf-ho-Qsw">
             <objects>
                 <viewController id="FeV-Kf-rdd" sceneMemberID="viewController">
@@ -349,9 +349,41 @@
                     <view key="view" contentMode="scaleToFill" id="d67-Fj-Wp1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Solde de votre compte :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQG-J9-rPQ">
+                                <rect key="frame" x="16" y="84" width="182.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiG-NH-z1x">
+                                <rect key="frame" x="215" y="84" width="11" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="seu-OT-h6t">
+                                <rect key="frame" x="111" y="154" width="98" height="30"/>
+                                <state key="normal" title="Ajouter un RIB"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fd-b3-FbW">
+                                <rect key="frame" x="100.5" y="224" width="119" height="30"/>
+                                <state key="normal" title="Mes informations"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fiG-NH-z1x" firstAttribute="leading" secondItem="wQG-J9-rPQ" secondAttribute="trailing" constant="16.5" id="HkA-VF-EMP"/>
+                            <constraint firstItem="9Fd-b3-FbW" firstAttribute="top" secondItem="seu-OT-h6t" secondAttribute="bottom" constant="40" id="JCb-F9-laG"/>
+                            <constraint firstItem="wQG-J9-rPQ" firstAttribute="leading" secondItem="d67-Fj-Wp1" secondAttribute="leadingMargin" id="YoI-ci-WN7"/>
+                            <constraint firstItem="9Fd-b3-FbW" firstAttribute="centerX" secondItem="d67-Fj-Wp1" secondAttribute="centerX" id="omE-p0-F8O"/>
+                            <constraint firstItem="seu-OT-h6t" firstAttribute="top" secondItem="wQG-J9-rPQ" secondAttribute="bottom" constant="49" id="sP6-Zq-YIJ"/>
+                            <constraint firstItem="wQG-J9-rPQ" firstAttribute="top" secondItem="XbO-aF-EXj" secondAttribute="bottom" constant="20" id="sUm-EB-zGc"/>
+                            <constraint firstItem="seu-OT-h6t" firstAttribute="centerX" secondItem="d67-Fj-Wp1" secondAttribute="centerX" id="vaX-LC-2mO"/>
+                            <constraint firstItem="fiG-NH-z1x" firstAttribute="top" secondItem="XbO-aF-EXj" secondAttribute="bottom" constant="20" id="xmB-Zh-2Ma"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profil" image="profileIcon" id="lYQ-lS-MmY" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                    <tabBarItem key="tabBarItem" title="Mon compte" image="profileIcon" id="lYQ-lS-MmY" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
                                 <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
