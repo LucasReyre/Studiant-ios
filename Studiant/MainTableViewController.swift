@@ -66,10 +66,13 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
         request.perform(withSuccess: { (jobsResponse) in
             self.isDataLoad = true
             SwiftSpinner.hide()
+            
             self.jobs = jobsResponse.jobs
             print(jobsResponse.jobs)
             self.setup()
             self.tableView.reloadData()
+            self.tableView.contentOffset.y = 15
+
         }) { (error) in
             print(error)
         }
@@ -152,6 +155,10 @@ extension MainTableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! FoldingCell
+    
+    cell.layer.borderWidth = 1
+    cell.layer.borderColor = UIColor.init(red:222/255.0, green:225/255.0, blue:227/255.0, alpha: 1.0).cgColor
+    
     let durations: [TimeInterval] = [0.26, 0.2, 0.2]
     //cell.durationsForExpandedState = durations
     //cell.durationsForCollapsedState = durations

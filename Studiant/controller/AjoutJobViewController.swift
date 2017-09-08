@@ -3,6 +3,7 @@ import GooglePlaces
 import DateTimePicker
 import TRON
 import SwiftSpinner
+import PopupDialog
 
 class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
                               CategoriePickerViewDelegate, AddCBDelegate, PaymentDelegate {
@@ -59,9 +60,38 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     @IBAction func insertJobAction(_ sender: Any) {
         user = KeychainService.loadUser()
         SwiftSpinner.show("Ajout du job en cours")
-        getCard()
+        
+        presentChoicePayment()
+        //
         
         
+    }
+    
+    func presentChoicePayment(){
+        // Prepare the popup assets
+        let title = "Mode de paiement"
+        let message = "Choisissez le mode de paiement par lequel l'étudiant sera rémunéré"
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
+        
+        // Create buttons
+        let buttonOne = DefaultButton(title: "Carte Bleue") {
+            self.getCard()
+        }
+        
+        let buttonTwo = DefaultButton(title: "Chèque emploi service") {
+            self.insertJob()
+        }
+        
+        let buttonThree = DefaultButton(title: "Espèces") {
+            self.insertJob()
+        }
+        
+        popup.addButtons([buttonOne, buttonTwo, buttonThree])
+        
+        // Present dialog
+        self.present(popup, animated: true, completion: nil)
     }
     
     func insertJob() {
@@ -239,9 +269,19 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
 
 extension AjoutJobViewController: UITextFieldDelegate, UITextViewDelegate{
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 0:
+            scrollView.setContentOffset(CGPoint(x: 0, y: 160), animated: true)
+            break
+        default:
+            print("default")
+        }
+    }
+
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 130), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0, y: 160), animated: true)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -296,5 +336,6 @@ extension AjoutJobViewController: GMSAutocompleteViewControllerDelegate{
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
+    
 
 }

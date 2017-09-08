@@ -49,14 +49,18 @@ class CellJobEtudiant: FoldingCell {
         tarifContentLabel.text = jobResponse.prixJob + "€"
         horaireLabel.text = jobResponse.heureJob
         dateLabel.text = jobResponse.dateJob
-        nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
-        adresseLabelContent.text = jobResponse.adresseJob
+        //nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
+        nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur
+        //adresseLabelContent.text = jobResponse.adresseJob
+        adresseLabelContent.text = jobResponse.villeJob
         dateLabelContent.text = jobResponse.dateJob
         heureContentLabel.text = jobResponse.heureJob
         
         categorie = Categorie(withString: jobResponse.categorieJob)
-        leftView.backgroundColor = categorie?.color
+        //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
+        leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
+        
 
     }
     

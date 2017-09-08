@@ -17,6 +17,10 @@ let idUserKey = "idUserKey"
 let typeUtilisateurKey = "typeUtilisateurKey"
 let idMangoPayUtilisateurKey = "idMangoPayUtilisateurKey"
 let photoUtilisateurKey = "photoUtilisateurKey"
+let nomUtilisateurKey = "nomUtilisateurKey"
+let prenomUtilisateurKey = "prenomUtilisateurKey"
+let diplomeUtilisateurKey = "diplomeUtilisateurKey"
+let mailUtilisateurKey = "mailUtilisateurKey"
 
 // Arguments for the keychain queries
 let kSecClassValue = NSString(format: kSecClass)
@@ -44,6 +48,18 @@ public class KeychainService: NSObject {
     
     public class func saveUser(user: User){
         self.save(service: idUserKey as NSString, data: user.idUtilisateur! as NSString)
+        if user.nomUtilisateur != nil {
+            let nomUtilisateur = String(describing: user.nomUtilisateur!)
+            self.save(service: nomUtilisateurKey as NSString, data: nomUtilisateur as NSString)
+        }
+        if user.prenomUtilisateur != nil {
+            let prenomUtilisateur = String(describing: user.prenomUtilisateur!)
+            self.save(service: prenomUtilisateurKey as NSString, data: prenomUtilisateur as NSString)
+        }
+        if user.diplomeUtilisateur != nil {
+            let diplomeUtilisateur = String(describing: user.diplomeUtilisateur!)
+            self.save(service: diplomeUtilisateurKey as NSString, data: diplomeUtilisateur as NSString)
+        }
         if user.typeUtilisateur != nil {
             let typeUtilisateur = String(describing: user.typeUtilisateur!)
             self.save(service: typeUtilisateurKey as NSString, data: typeUtilisateur as NSString)
@@ -55,6 +71,11 @@ public class KeychainService: NSObject {
         if user.photoUtilisateur != nil {
             let photoUtilisateur = String(describing: user.photoUtilisateur!)
             self.save(service: photoUtilisateurKey as NSString, data: photoUtilisateur as NSString)
+        }
+        
+        if user.mailUtilisateur != nil {
+            let mailUtilisateur = String(describing: user.mailUtilisateur!)
+            self.save(service: mailUtilisateurKey as NSString, data: mailUtilisateur as NSString)
         }
     }
     
@@ -73,8 +94,18 @@ public class KeychainService: NSObject {
         if let photoUtilisateur = self.load(service: photoUtilisateurKey as String as NSString){
             user.photoUtilisateur = photoUtilisateur as String
         }
-        
-        
+        if let nomUtilisateur = self.load(service: nomUtilisateurKey as String as NSString){
+            user.nomUtilisateur = nomUtilisateur as String
+        }
+        if let prenomUtilisateur = self.load(service: prenomUtilisateurKey as String as NSString){
+            user.prenomUtilisateur = prenomUtilisateur as String
+        }
+        if let diplomeUtilisateur = self.load(service: diplomeUtilisateurKey as String as NSString){
+            user.diplomeUtilisateur = diplomeUtilisateur as String
+        }
+        if let mailUtilisateur = self.load(service: mailUtilisateurKey as String as NSString){
+            user.mailUtilisateur = mailUtilisateur as String
+        }
         return user
     }
     

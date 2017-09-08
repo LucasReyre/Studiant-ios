@@ -36,6 +36,8 @@
 		D259AB2A1F16D248008799FE /* StudiantUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259AB291F16D248008799FE /* StudiantUITests.swift */; };
 		D276E4861F235FDB0056A3AB /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D276E4851F235FDB0056A3AB /* AdSupport.framework */; };
 		D276E4881F23603F0056A3AB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D276E4871F23603F0056A3AB /* iAd.framework */; };
+		D2850E3F1F587FD5009E2229 /* CompteEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2850E3E1F587FD5009E2229 /* CompteEtudiantViewController.swift */; };
+		D2850E411F5ADE5D009E2229 /* IbanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2850E401F5ADE5D009E2229 /* IbanViewController.swift */; };
 		D295250D1F27E252008F1838 /* ReglagesEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D295250C1F27E252008F1838 /* ReglagesEtudiantViewController.swift */; };
 		D295250F1F29357C008F1838 /* CellPostulants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D295250E1F29357C008F1838 /* CellPostulants.swift */; };
 		D29525131F2A5B86008F1838 /* Categorie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29525121F2A5B86008F1838 /* Categorie.swift */; };
@@ -115,6 +117,8 @@
 		D259AB2B1F16D248008799FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D276E4851F235FDB0056A3AB /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		D276E4871F23603F0056A3AB /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		D2850E3E1F587FD5009E2229 /* CompteEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompteEtudiantViewController.swift; path = controller/CompteEtudiantViewController.swift; sourceTree = "<group>"; };
+		D2850E401F5ADE5D009E2229 /* IbanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IbanViewController.swift; path = controller/IbanViewController.swift; sourceTree = "<group>"; };
 		D295250C1F27E252008F1838 /* ReglagesEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReglagesEtudiantViewController.swift; path = controller/ReglagesEtudiantViewController.swift; sourceTree = "<group>"; };
 		D295250E1F29357C008F1838 /* CellPostulants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellPostulants.swift; path = component/CellPostulants.swift; sourceTree = "<group>"; };
 		D29525121F2A5B86008F1838 /* Categorie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Categorie.swift; path = class/Categorie.swift; sourceTree = "<group>"; };
@@ -295,6 +299,8 @@
 				D22F768E1F1D39500038EE78 /* DashboardEtudiantViewController.swift */,
 				D2A420AD1F1EB2E900E4A50C /* MainTableViewController.swift */,
 				D295250C1F27E252008F1838 /* ReglagesEtudiantViewController.swift */,
+				D2850E3E1F587FD5009E2229 /* CompteEtudiantViewController.swift */,
+				D2850E401F5ADE5D009E2229 /* IbanViewController.swift */,
 			);
 			name = Etudiant;
 			sourceTree = "<group>";
@@ -594,6 +600,7 @@
 				D255913A1F3A591500EE5662 /* AddCBViewController.swift in Sources */,
 				D24190761F48A9070033D26F /* PaymentJob.swift in Sources */,
 				D2E8E1541F2514120069A359 /* ParticulierTableViewContainer.swift in Sources */,
+				D2850E411F5ADE5D009E2229 /* IbanViewController.swift in Sources */,
 				D22F768F1F1D39500038EE78 /* DashboardEtudiantViewController.swift in Sources */,
 				D2FC53431F1BB15F00FA8D8F /* ProfilEtudiantViewController.swift in Sources */,
 				D295250F1F29357C008F1838 /* CellPostulants.swift in Sources */,
@@ -620,6 +627,7 @@
 				D25591271F2BE00500EE5662 /* FilterViewController.swift in Sources */,
 				D2E8E1611F27DC870069A359 /* ReglagesParticulierViewController.swift in Sources */,
 				D22551251F1FD906006EA709 /* Job.swift in Sources */,
+				D2850E3F1F587FD5009E2229 /* CompteEtudiantViewController.swift in Sources */,
 				D29525131F2A5B86008F1838 /* Categorie.swift in Sources */,
 				D2A420A71F1E83F800E4A50C /* CategorieViewController.swift in Sources */,
 				D22F768B1F1D1F700038EE78 /* ErrorResponse.swift in Sources */,

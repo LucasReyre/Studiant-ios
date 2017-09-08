@@ -267,6 +267,10 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
             self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 1)
             self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
             self.myUser.photoUtilisateur = usersResponse.photoUtilisateur
+            self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
+            self.myUser.prenomUtilisateur = usersResponse.prenomUtilisateur
+            self.myUser.diplomeUtilisateur = usersResponse.diplomeUtilisateur
+            
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()
             print(usersResponse)
