@@ -24,18 +24,20 @@
 import UIKit
 import FoldingCell
 import TRON
+import Haneke
 import SwiftSpinner
 
-class PostulantsTableViewContainer: UITableViewController, CellPostulantDelegate {
+class PostulantsTableViewController: UITableViewController, CellPostulantDelegate {
     
     let kCloseCellHeight: CGFloat = 179
-    let kOpenCellHeight: CGFloat = 488
+    let kOpenCellHeight: CGFloat = 350
     let kRowsCount = 10
     var cellHeights: [CGFloat] = []
     
     var delegate : CellJobParticulierDelegate?
     
     var postulants: UsersResponse?
+    var job : JobResponse?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +53,7 @@ class PostulantsTableViewContainer: UITableViewController, CellPostulantDelegate
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor.clear
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background-1"))
+        //tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background-1"))
     }
     
     func onButtonChoosePostulant() {
@@ -61,7 +63,7 @@ class PostulantsTableViewContainer: UITableViewController, CellPostulantDelegate
 }
 
 // MARK: - TableView
-extension PostulantsTableViewContainer {
+extension PostulantsTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (postulants?.users.count)!
@@ -72,8 +74,9 @@ extension PostulantsTableViewContainer {
             return
         }
         
+    
+        cell.setupUi(postulant: (postulants?.users[indexPath.row])!, job: self.job!, delegate: self)
 
-        cell.setupUi(postulant: (postulants?.users[indexPath.row])!, delegate: self)
         cell.backgroundColor = .clear
         
         if cellHeights[indexPath.row] == kCloseCellHeight {

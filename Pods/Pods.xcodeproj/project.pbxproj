@@ -835,7 +835,6 @@
 		3F570679794C8D5159B2B846622518CE /* FBSDKBridgeAPIRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKBridgeAPIRequest.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/FBSDKBridgeAPIRequest.h; sourceTree = "<group>"; };
 		40921288E8C4C248C3B5A375D74B5CF3 /* FBSDKDynamicFrameworkLoader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKDynamicFrameworkLoader.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKDynamicFrameworkLoader.h; sourceTree = "<group>"; };
 		4114EA7A59BF63485D8950F94C65BE2D /* RAMAnimatedTabBarController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RAMAnimatedTabBarController-dummy.m"; sourceTree = "<group>"; };
-		417C1A774BEC2B8697358E9AD0D43DD7 /* GooglePlaces.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
 		41E1A7CDE89606FBCEBF3C47FF8374EF /* FBSDKButton+Subclass.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBSDKButton+Subclass.h"; path = "FBSDKCoreKit/FBSDKCoreKit/Internal/UI/FBSDKButton+Subclass.h"; sourceTree = "<group>"; };
 		422A2ACBE1D5DF1B06EB79DF5A02F69D /* BFURL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFURL.m; path = Bolts/iOS/BFURL.m; sourceTree = "<group>"; };
 		42B4CA9C7D2C2F676351C18C6C1599F4 /* RAMAnimatedTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RAMAnimatedTabBarController.framework; path = RAMAnimatedTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1162,6 +1161,7 @@
 		CDDAD9CE3E16C752848E9AB7A0BD3CC2 /* SwiftSpinner.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftSpinner.xcconfig; sourceTree = "<group>"; };
 		CEC222D3F3EAC0F41F91954EA9A61C11 /* APIError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = Source/Core/APIError.swift; sourceTree = "<group>"; };
 		CFCF63C7588DAEBED11EDC438FCBA810 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0B4887E71175BFF3D091AAF88920F8D /* GooglePlaces.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
 		D0C7CC49425EEF3DDAA7C6C0D761E7BE /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = Frameworks/FirebaseNanoPB.framework; sourceTree = "<group>"; };
 		D1C7908C17CCBDD10696088620C6BCE8 /* BFExecutor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFExecutor.m; path = Bolts/Common/BFExecutor.m; sourceTree = "<group>"; };
 		D1DFB11ACACFFE4E7198115F5452AF80 /* FBSDKAccessTokenCacheV3_17.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKAccessTokenCacheV3_17.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/TokenCaching/FBSDKAccessTokenCacheV3_17.m; sourceTree = "<group>"; };
@@ -1588,6 +1588,14 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/FacebookLogin";
+			sourceTree = "<group>";
+		};
+		2CFB3AEA3A79A9BBAD7D41F32182732B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D0B4887E71175BFF3D091AAF88920F8D /* GooglePlaces.bundle */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		2D8D28753C48A7FFCC12CD79B0430EBC /* Support Files */ = {
@@ -2414,14 +2422,6 @@
 			name = SwiftyJSON;
 			sourceTree = "<group>";
 		};
-		DB1CBB3AD82DEED4E2CBC4D554587F43 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				417C1A774BEC2B8697358E9AD0D43DD7 /* GooglePlaces.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		DC64D6E58E5F7DCBB48D15CE422ED495 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2533,7 +2533,7 @@
 			isa = PBXGroup;
 			children = (
 				100D33B02F8BB37C2F347D91AF88F949 /* Frameworks */,
-				DB1CBB3AD82DEED4E2CBC4D554587F43 /* Resources */,
+				2CFB3AEA3A79A9BBAD7D41F32182732B /* Resources */,
 			);
 			name = GooglePlaces;
 			path = GooglePlaces;

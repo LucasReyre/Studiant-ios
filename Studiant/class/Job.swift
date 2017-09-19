@@ -19,6 +19,7 @@ class Job {
     var statusJob: String?
     var categorieJob: String?
     var idUtilisateur: String?
+    var idPostulant: String?
     
     
     init() {

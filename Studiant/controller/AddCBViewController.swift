@@ -10,7 +10,7 @@ import UIKit
 import TRON
 import mangopay
 
-class AddCBViewController: UIViewController {
+class AddCBViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var numberCBTextField: UITextField!
     
     @IBOutlet weak var mmCBTextField: UITextField!
@@ -19,6 +19,7 @@ class AddCBViewController: UIViewController {
     
     @IBOutlet weak var yyCBTextField: UITextField!
     
+    @IBOutlet weak var scrollview: UIScrollView!
     var delegate: AddCBDelegate? = nil
     
     let tron = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
@@ -29,6 +30,19 @@ class AddCBViewController: UIViewController {
         
     }
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 1...3:
+            scrollview.setContentOffset(CGPoint(x: 0, y: 180), animated: true)
+            break
+        default:
+            print("default")
+        }
+    }
+    
+    @IBAction func cancelAction(_ sender: Any) {
+        self.delegate?.onCbIsCancel(controller: self)
+    }
     @IBAction func validerAction(_ sender: Any) {
         
         let user : User
@@ -73,4 +87,5 @@ class AddCBViewController: UIViewController {
 
 protocol AddCBDelegate {
     func onCbIsAdding(controller: AddCBViewController)
+    func onCbIsCancel(controller: AddCBViewController)
 }

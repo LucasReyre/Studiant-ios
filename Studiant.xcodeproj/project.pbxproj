@@ -60,6 +60,10 @@
 		D2FC531E1F1A4F9100FA8D8F /* ConnexionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FC531D1F1A4F9100FA8D8F /* ConnexionViewController.swift */; };
 		D2FC533E1F1ABE2000FA8D8F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D2FC533D1F1ABE2000FA8D8F /* Podfile */; };
 		D2FC53431F1BB15F00FA8D8F /* ProfilEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FC53421F1BB15F00FA8D8F /* ProfilEtudiantViewController.swift */; };
+		E52C8BCE1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BCD1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift */; };
+		E52C8BD21F66C4250069E76A /* PostulantsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */; };
+		E52C8BD41F6708350069E76A /* CellHistoriqueJobEtudiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BD31F6708350069E76A /* CellHistoriqueJobEtudiant.swift */; };
+		E56C70A91F69CE8300360C0A /* PaymentJobEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +147,10 @@
 		D2FC533D1F1ABE2000FA8D8F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D2FC533F1F1B87CE00FA8D8F /* Studiant.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Studiant.entitlements; sourceTree = "<group>"; };
 		D2FC53421F1BB15F00FA8D8F /* ProfilEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfilEtudiantViewController.swift; path = controller/ProfilEtudiantViewController.swift; sourceTree = "<group>"; };
+		E52C8BCD1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HistoriqueJobEtudiantViewController.swift; path = controller/HistoriqueJobEtudiantViewController.swift; sourceTree = "<group>"; };
+		E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostulantsContainerViewController.swift; path = controller/PostulantsContainerViewController.swift; sourceTree = "<group>"; };
+		E52C8BD31F6708350069E76A /* CellHistoriqueJobEtudiant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellHistoriqueJobEtudiant.swift; path = component/CellHistoriqueJobEtudiant.swift; sourceTree = "<group>"; };
+		E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentJobEtudiantViewController.swift; path = controller/PaymentJobEtudiantViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +309,8 @@
 				D295250C1F27E252008F1838 /* ReglagesEtudiantViewController.swift */,
 				D2850E3E1F587FD5009E2229 /* CompteEtudiantViewController.swift */,
 				D2850E401F5ADE5D009E2229 /* IbanViewController.swift */,
+				E52C8BCD1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift */,
+				E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */,
 			);
 			name = Etudiant;
 			sourceTree = "<group>";
@@ -316,6 +326,7 @@
 				D2E8E15B1F266F450069A359 /* PostulantsTableViewController.swift */,
 				D2E8E1601F27DC870069A359 /* ReglagesParticulierViewController.swift */,
 				D24190751F48A9070033D26F /* PaymentJob.swift */,
+				E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */,
 			);
 			name = Particulier;
 			sourceTree = "<group>";
@@ -354,6 +365,7 @@
 				D22F76911F1D4B7C0038EE78 /* CellJobEtudiant.swift */,
 				D25591251F2BE00500EE5662 /* FilterViewController.swift */,
 				D25591261F2BE00500EE5662 /* FilterViewController.xib */,
+				E52C8BD31F6708350069E76A /* CellHistoriqueJobEtudiant.swift */,
 			);
 			name = Etudiant;
 			sourceTree = "<group>";
@@ -461,7 +473,7 @@
 					D259AB051F16D247008799FE = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 7Q74E28DLV;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -488,7 +500,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D259AB011F16D247008799FE /* Build configuration list for PBXProject "studiant" */;
+			buildConfigurationList = D259AB011F16D247008799FE /* Build configuration list for PBXProject "Studiant" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -599,9 +611,12 @@
 				D2E8E1521F250B2F0069A359 /* DashboardParticulierViewController.swift in Sources */,
 				D255913A1F3A591500EE5662 /* AddCBViewController.swift in Sources */,
 				D24190761F48A9070033D26F /* PaymentJob.swift in Sources */,
+				E52C8BCE1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift in Sources */,
 				D2E8E1541F2514120069A359 /* ParticulierTableViewContainer.swift in Sources */,
 				D2850E411F5ADE5D009E2229 /* IbanViewController.swift in Sources */,
+				E52C8BD41F6708350069E76A /* CellHistoriqueJobEtudiant.swift in Sources */,
 				D22F768F1F1D39500038EE78 /* DashboardEtudiantViewController.swift in Sources */,
+				E52C8BD21F66C4250069E76A /* PostulantsContainerViewController.swift in Sources */,
 				D2FC53431F1BB15F00FA8D8F /* ProfilEtudiantViewController.swift in Sources */,
 				D295250F1F29357C008F1838 /* CellPostulants.swift in Sources */,
 				D22F76861F1BFFB50038EE78 /* User.swift in Sources */,
@@ -619,6 +634,7 @@
 				D2FC531C1F18FCE000FA8D8F /* StatusViewController.swift in Sources */,
 				D259AB0A1F16D247008799FE /* AppDelegate.swift in Sources */,
 				D24190781F49E9250033D26F /* PayinResponse.swift in Sources */,
+				E56C70A91F69CE8300360C0A /* PaymentJobEtudiantViewController.swift in Sources */,
 				D295250D1F27E252008F1838 /* ReglagesEtudiantViewController.swift in Sources */,
 				D22F76921F1D4B7C0038EE78 /* CellJobEtudiant.swift in Sources */,
 				D22551271F1FD9F7006EA709 /* JobResponse.swift in Sources */,
@@ -794,8 +810,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.studiant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7b4164bb-6175-4cf3-ba97-faf8f81b5083";
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Profile Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -806,7 +822,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Studiant/Studiant.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7Q74E28DLV;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -817,8 +833,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.studiant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f83230a-3ed2-4a10-baf5-a8a3856d99b7";
-				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Profile Distribution";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -884,7 +900,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D259AB011F16D247008799FE /* Build configuration list for PBXProject "studiant" */ = {
+		D259AB011F16D247008799FE /* Build configuration list for PBXProject "Studiant" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D259AB2C1F16D248008799FE /* Debug */,

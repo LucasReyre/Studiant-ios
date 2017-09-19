@@ -30,6 +30,7 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     var user : User!
     var geoplace: [String: Float]!
     var city: String!
+    var typePaiement: String!
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     let tronMango = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
@@ -57,6 +58,14 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     }
     
     
+    @IBAction func cancelJobAction(_ sender: Any) {
+        if self.fromDashboard != nil{
+            self.dismiss(animated: true, completion: nil)
+        }else {
+            self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
+        }
+    }
+    
     @IBAction func insertJobAction(_ sender: Any) {
         user = KeychainService.loadUser()
         SwiftSpinner.show("Ajout du job en cours")
@@ -77,14 +86,17 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         
         // Create buttons
         let buttonOne = DefaultButton(title: "Carte Bleue") {
+            self.typePaiement = "CB"
             self.getCard()
         }
         
         let buttonTwo = DefaultButton(title: "Chèque emploi service") {
+            self.typePaiement = "CESU"
             self.insertJob()
         }
         
         let buttonThree = DefaultButton(title: "Espèces") {
+            self.typePaiement = "ESPECES"
             self.insertJob()
         }
         
@@ -98,7 +110,7 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         user = KeychainService.loadUser()
         let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Jobs/")
         postRequest.method = .post
-        print("categorie",categorieJob)
+        print("typePaiement : ",typePaiement)
         postRequest.parameters = ["descriptionJob": descriptionTextView.text,
                                   "prixJob": prixTextField.text!,
                                   "adresseJob": adresse,
@@ -108,6 +120,7 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
                                   "categorieJob": categorieJob,
                                   "statutJob": "0",
                                   "villeJob": city,
+                                  "typePaiementJob": typePaiement,
                                   "utilisateurId": self.user.idUtilisateur!]
         
         postRequest.perform(withSuccess: { (jobResponse) in
@@ -118,10 +131,10 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
                 self.dismiss(animated: true, completion: nil)
             }else {
                 
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let controller = storyboard.instantiateViewController(withIdentifier: "AddCBViewController")
-                self.present(controller, animated: true, completion: nil)
-                //self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
+                self.present(controller, animated: true, completion: nil)*/
+                self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
             }
             
         }) { (error) in
@@ -152,10 +165,7 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
 
             print(cardResponse)
             SwiftSpinner.hide()
-            /*
-             
-                //self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
-            */
+
         }) { (error) in
             print("error")
             SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
@@ -251,6 +261,10 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         controller.delegate = self
         self.present(controller, animated: true, completion: nil)
         //self.insertJob()
+    }
+    
+    func onCbIsCancel(controller: AddCBViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     func onJobIsPaying(controller: PaymentJob) {

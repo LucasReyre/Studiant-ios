@@ -35,14 +35,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ssr-tm-tSQ">
+                                <rect key="frame" x="177" y="493" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.93725490196078431" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cwd-kD-dOv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Av8-8l-QeZ"/>
                             <constraint firstItem="C7L-aS-33y" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="10" id="Y1Q-gI-lN4"/>
+                            <constraint firstItem="ssr-tm-tSQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bzv-6S-e8k"/>
                             <constraint firstItem="cwd-kD-dOv" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="170" id="cQ8-1r-yyp"/>
                             <constraint firstItem="C7L-aS-33y" firstAttribute="top" secondItem="cwd-kD-dOv" secondAttribute="bottom" constant="42" id="ddy-pu-R95"/>
                             <constraint firstAttribute="trailingMargin" secondItem="C7L-aS-33y" secondAttribute="trailing" constant="10" id="mcc-w1-chr"/>
+                            <constraint firstItem="ssr-tm-tSQ" firstAttribute="top" secondItem="C7L-aS-33y" secondAttribute="bottom" constant="50" id="zIl-tb-kcJ"/>
                         </constraints>
                     </view>
                 </viewController>

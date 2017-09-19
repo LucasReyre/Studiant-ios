@@ -13,8 +13,9 @@ import Haneke
 import TRON
 import SwiftSpinner
 import FirebaseMessaging
+import PopupDialog
 
-class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
+class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,
                                     UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var profilePicture: UIImageView!
@@ -140,14 +141,6 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         scrollView.setContentOffset(CGPoint(x: 0, y: 180), animated: true)
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            descriptionTextField.resignFirstResponder()
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            return false
-        }
-        return true
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print(textField.tag)
@@ -159,7 +152,8 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
             //scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
             diplomeTextField.becomeFirstResponder()
         }else if textField.tag == 3{
-            descriptionTextField.becomeFirstResponder()
+            textField.resignFirstResponder()
+            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
         return true
         
@@ -172,7 +166,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
         user.typeUtilisateur = 1
         user.typeConnexionUtilisateur = 1
         user.diplomeUtilisateur = diplomeTextField.text
-        user.descriptionUtilisateur = descriptionTextField.text
+        //user.descriptionUtilisateur = descriptionTextField.text
         user.permisUtilisateur = permisSwitch.isOn
         let token = Messaging.messaging().fcmToken
         
@@ -199,11 +193,11 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
                                               "typeUtilisateur": user.typeUtilisateur,
                                               "idExterneUtilisateur": user.idExterneUtilisateur!,
                                               "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                              "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                             // "descriptionUtilisateur": user.descriptionUtilisateur!,
                                               "diplomeUtilisateur": user.diplomeUtilisateur!,
                                               "permisUtilisateur": user.permisUtilisateur!,
                                               "firebaseToken": token!]
-                    
+                
                     self.addUser(postRequest: postRequest)
                     
                     
@@ -220,7 +214,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
                                           "typeUtilisateur": user.typeUtilisateur,
                                           "idExterneUtilisateur": user.idExterneUtilisateur!,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                          "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                          //"descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,
                                           "firebaseToken": token!]
@@ -244,7 +238,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
                                           "mailUtilisateur" : user.mailUtilisateur!,
                                           "typeUtilisateur": user.typeUtilisateur,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                          "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                         // "descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,
                                           "firebaseToken": token!]
@@ -270,11 +264,29 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate, UITex
             self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
             self.myUser.prenomUtilisateur = usersResponse.prenomUtilisateur
             self.myUser.diplomeUtilisateur = usersResponse.diplomeUtilisateur
+            self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
             
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()
             print(usersResponse)
-            self.performSegue(withIdentifier: "dashboardEtudiantSegue", sender: self)
+            
+            let title = "Attention"
+            let message = "Votre carte étudiante vous sera demandé, pour chaque job effectué."
+            
+            // Create the dialog
+            let popup = PopupDialog(title: title, message: message)
+            
+            // Create buttons
+            let buttonOne = DefaultButton(title: "VALIDEZ") {
+                self.performSegue(withIdentifier: "dashboardEtudiantSegue", sender: self)
+            }
+            
+            popup.addButtons([buttonOne])
+            
+            // Present dialog
+            self.present(popup, animated: true, completion: nil)
+            
+            
         }) { (error) in
             print(error)
         }

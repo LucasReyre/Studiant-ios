@@ -12,6 +12,7 @@ import TRON
 import SwiftSpinner
 
 class CellJobEtudiant: FoldingCell {
+    @IBOutlet weak var tarifImageView: UIImageView!
     
     @IBOutlet weak var heureContentLabel: UILabel!
     @IBOutlet weak var dateLabelContent: UILabel!
@@ -26,6 +27,7 @@ class CellJobEtudiant: FoldingCell {
     @IBOutlet weak var nomPrenomLabel: UILabel!
     @IBOutlet weak var pictoCategorieImageView: UIImageView!
     //let tron = TRON(baseURL: "https://fcm.googleapis.com/")
+    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var leftView: UIView!
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var job : JobResponse?
@@ -55,11 +57,23 @@ class CellJobEtudiant: FoldingCell {
         adresseLabelContent.text = jobResponse.villeJob
         dateLabelContent.text = jobResponse.dateJob
         heureContentLabel.text = jobResponse.heureJob
+        descriptionTextView.text = jobResponse.descriptionJob
         
         categorie = Categorie(withString: jobResponse.categorieJob)
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
         leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
+        
+        switch jobResponse.typePaiementJob {
+        case "CB":
+            tarifImageView.image = UIImage(named: "credit-card")!
+        case "CESU":
+            tarifImageView.image = UIImage(named: "check")!
+        case "ESPECES":
+            tarifImageView.image = UIImage(named: "change")!
+        default:
+            tarifImageView.image = UIImage(named: "change")!
+        }
         
 
     }

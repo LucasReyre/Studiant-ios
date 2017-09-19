@@ -22,13 +22,14 @@ class CompteEtudiantViewController: UIViewController {
         print(user.photoUtilisateur!)
         let url = URL(string: user.photoUtilisateur!)
         
+        
         let nomprenom = user.prenomUtilisateur! + " " + user.nomUtilisateur!
         nomPrenomLabel.text = nomprenom
         diplomeLabel.text = user.diplomeUtilisateur
         emailLabel.text = user.mailUtilisateur
         
         
-        self.profileImageView.hnk_setImageFromURL(url!)
+        //self.profileImageView.hnk_setImageFromURL(url!)
     }
 
 

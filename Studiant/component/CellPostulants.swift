@@ -30,9 +30,11 @@ class CellPostulants: FoldingCell {
     
     @IBOutlet weak var descriptionLabelContent: UILabel!
     
+    var job : JobResponse!
+    
     var delegate : CellPostulantDelegate?
     
-    let tron = TRON(baseURL: "https://fcm.googleapis.com/")
+    let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var postulant : UserResponse!
     
     var number: Int = 0 {
@@ -41,8 +43,9 @@ class CellPostulants: FoldingCell {
         }
     }
     
-    func setupUi(postulant: UserResponse,delegate: CellPostulantDelegate) {
+    func setupUi(postulant: UserResponse,job: JobResponse,delegate: CellPostulantDelegate) {
         self.postulant = postulant
+        self.job = job
         nomLabelHeader.text = postulant.nomUtilisateur
         prenomLabelHeader.text = postulant.prenomUtilisateur
         diplomeLabelHeader.text = postulant.diplomeUtilisateur
@@ -50,6 +53,10 @@ class CellPostulants: FoldingCell {
         nomLabelContent.text = postulant.nomUtilisateur
         etudesLabelContent.text = postulant.diplomeUtilisateur
         descriptionLabelContent.text = postulant.descriptionUtilisateur
+        
+        let url = URL(string: postulant.photoUtilisateur)
+        self.profileImage.hnk_setImageFromURL(url!)
+        
         self.delegate = delegate
     }
     override func awakeFromNib() {
@@ -64,11 +71,44 @@ class CellPostulants: FoldingCell {
     }
     
     @IBAction func choosePostulantAction(_ sender: Any) {
-        SwiftSpinner.show("Coming soon", animated: false).addTapHandler({
-            SwiftSpinner.hide()
-            self.delegate?.onButtonChoosePostulant()
-
-        })
+        
+        let url = "Jobs/" + job.idJob + "/replace"
+        let post : APIRequest<JobResponse, ErrorResponse> = tron.request(url)
+        post.method = .post
+        
+        var geoplace=["lat" : job.geoplace.latitude, "lng" : job.geoplace.longitude]
+        
+        post.parameters = ["descriptionJob": job.descriptionJob,
+                                  "prixJob": job.prixJob,
+                                  "adresseJob": job.adresseJob,
+                                  "latlongJob" : geoplace,
+                                  "dateJob" : job.dateJob,
+                                  "heureJob": job.heureJob,
+                                  "categorieJob": job.categorieJob,
+                                  "statutJob": "1",
+                                  "villeJob": job.villeJob,
+                                  "utilisateurId": job.idUtilisateur,
+                                  "typePaiementJob": job.typePaiementJob,
+                                  "postulantId": postulant.idUtilisateur]
+        
+        SwiftSpinner.show("Sélection de l'étudiant en cours")
+        
+        post.perform(withSuccess: { (jobResponse) in
+            print(jobResponse)
+            SwiftSpinner.show("Etudiant validé", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+                self.delegate?.onButtonChoosePostulant()
+                
+            })
+            
+        }) { (error) in
+            SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+                self.delegate?.onButtonChoosePostulant()
+                
+            })
+            print(error)
+        }
     }
 }
 

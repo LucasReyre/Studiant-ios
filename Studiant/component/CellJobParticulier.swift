@@ -9,6 +9,7 @@
 import UIKit
 import FoldingCell
 import TRON
+import PopupDialog
 
 class CellJobParticulier: FoldingCell {
     
@@ -70,6 +71,7 @@ class CellJobParticulier: FoldingCell {
         let durations = [0.26, 0.2, 0.2]
         return durations[itemIndex]
     }
+ 
     
 }
 
@@ -77,12 +79,38 @@ class CellJobParticulier: FoldingCell {
 extension CellJobParticulier {
     
     @IBAction func buttonHandler(_ sender: AnyObject) {
-        self.delegate?.onButtonVoirPostulantTouch(postulants: (job?.postulants)!)
+        self.delegate?.onButtonVoirPostulantTouch(postulants: (job?.postulants)!, job: job!)
+    }
+    
+    @IBAction func studiantCodeAction(_ sender: Any) {
+        
+        let message : String
+        let title : String
+        
+        if job?.typePaiementJob == "CB"{
+            title = "Voici le code à transmettre à l'étudiant"
+            message = (job?.idJob)!
+        }else{
+            title = "Le mode de paiement ne vous permet pas de transmettre de code"
+            message = ""
+        }
+        
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
+        
+        // Create buttons
+        let buttonOne = DefaultButton(title: "VALIDEZ") {
+        }
+        
+        popup.addButtons([buttonOne])
+        
+        UIApplication.shared.keyWindow?.rootViewController?.present(popup, animated: true, completion: nil)
         
     }
     
 }
 
 protocol CellJobParticulierDelegate {
-    func onButtonVoirPostulantTouch(postulants: UsersResponse)
+    func onButtonVoirPostulantTouch(postulants: UsersResponse, job: JobResponse)
 }

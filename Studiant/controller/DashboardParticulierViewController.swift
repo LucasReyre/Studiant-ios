@@ -6,11 +6,12 @@ import SwiftSpinner
 class DashboardParticulierViewController: UIViewController, CellJobParticulierDelegate {
 
     var tableContainer: ParticulierTableViewContainer!
-    var postulantTableContainer: PostulantsTableViewContainer!
+    var postulantTableContainer: PostulantsContainerViewController!
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var isDataLoad = false
     var jobs: [JobResponse] = []
     var postulants: UsersResponse?
+    var selectedJob: JobResponse?
     var myUser : User!
     var user : User!
     
@@ -25,16 +26,14 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
         
         myUser = KeychainService.loadUser()
         print("mon id : ",myUser.idUtilisateur!)
-        
-        
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
         getData()
         if (isDataLoad == false) {
-            SwiftSpinner.show("Récupération des jobs en cours")
+            SwiftSpinner.show("Récupération de vos jobs en cours")
         }
-        
     }
     
     func getData() {
@@ -64,11 +63,13 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
             segue.identifier == "particulierTableViewContainer" {
             self.tableContainer = vc
             self.tableContainer.delegate = self
-        }else if let vc = segue.destination as? PostulantsTableViewContainer,
+        }else if let vc = segue.destination as? PostulantsContainerViewController,
         segue.identifier == "listePostulantsSegue" {
             self.postulantTableContainer = vc
             //self.tableContainer.delegate = self
+            print("prepare segue listPostulantSegue : ",self.selectedJob?.idJob)
             self.postulantTableContainer.postulants = self.postulants
+            self.postulantTableContainer.job = self.selectedJob
         }else if let vc = segue.destination as? AjoutJobViewController,
             segue.identifier == "addJobFromDashboardSegue"{
             vc.fromDashboard = true
@@ -77,8 +78,10 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
     
     @IBAction func floatingButtonAction(_ sender: Any) {
     }
-    func onButtonVoirPostulantTouch(postulants: UsersResponse) {
+    
+    func onButtonVoirPostulantTouch(postulants: UsersResponse, job: JobResponse) {
         self.postulants = postulants
+        self.selectedJob = job
         self.performSegue(withIdentifier: "listePostulantsSegue", sender: nil)
     }
     

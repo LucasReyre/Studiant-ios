@@ -29,7 +29,7 @@ import SwiftSpinner
 class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
   
   let kCloseCellHeight: CGFloat = 179
-  let kOpenCellHeight: CGFloat = 488
+  let kOpenCellHeight: CGFloat = 541
   var cellHeights: [CGFloat] = []
   let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
   var isDataLoad = false
@@ -98,7 +98,7 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
     }
     
     func onPostulerTouch(jobId : String) {
-        SwiftSpinner.show("Postulation en cours")
+        SwiftSpinner.show("Candidature en cours")
         let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Postulants/")
         postRequest.method = .post
         
@@ -108,7 +108,7 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
                                   "utilisateurId" : self.user.idUtilisateur!]
         
         postRequest.perform(withSuccess: { (jobResponse) in
-            SwiftSpinner.show("Votre postulation à bien été prise en compte !", animated: false).addTapHandler({
+            SwiftSpinner.show("Votre Candidature à bien été prise en compte !", animated: false).addTapHandler({
                 SwiftSpinner.hide()
             })
         
