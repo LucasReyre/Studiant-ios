@@ -52,7 +52,7 @@ class CellPostulants: FoldingCell {
         prenomLabelContent.text = postulant.prenomUtilisateur
         nomLabelContent.text = postulant.nomUtilisateur
         etudesLabelContent.text = postulant.diplomeUtilisateur
-        descriptionLabelContent.text = postulant.descriptionUtilisateur
+        //descriptionLabelContent.text = postulant.descriptionUtilisateur
         
         let url = URL(string: postulant.photoUtilisateur)
         self.profileImage.hnk_setImageFromURL(url!)

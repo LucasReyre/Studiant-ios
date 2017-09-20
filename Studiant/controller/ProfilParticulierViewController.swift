@@ -75,6 +75,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         SwiftSpinner.show("Inscription en cours")
         let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!)
         user.typeUtilisateur = 0
+        
         let token = Messaging.messaging().fcmToken
         print("FCM token: \(token ?? "")")
         

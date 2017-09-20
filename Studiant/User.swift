@@ -17,6 +17,7 @@ public class User {
     var mailUtilisateur: String?
     var photoUtilisateur: String?
     var typeUtilisateur: Int!
+    var telephoneUtilisateur: String?
     var typeConnexionUtilisateur: Int?
     var idMangoPayUtilisateur: String?
     var descriptionUtilisateur: String?

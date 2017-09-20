@@ -56,12 +56,50 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,
     
     func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        
+        // Prepare the popup assets
+        let title = "Sélectionnez votre photo depuis "
+        let message = ""
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
+        
+        // Create buttons
+        let buttonOne = DefaultButton(title: "La librairie") {
+            self.libraryPicker(tappedImage: tapGestureRecognizer.view as! UIImageView)
+        }
+        
+        let buttonTwo = DefaultButton(title: "La caméra") {
+            self.cameraPicker(tappedImage: tapGestureRecognizer.view as! UIImageView)
+        }
+        
+        
+        popup.addButtons([buttonOne, buttonTwo])
+        
+        // Present dialog
+        self.present(popup, animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    func cameraPicker(tappedImage : UIImageView){
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             var imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func libraryPicker(tappedImage : UIImageView){
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            var imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary;
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
