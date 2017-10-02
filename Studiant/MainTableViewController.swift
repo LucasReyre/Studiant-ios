@@ -32,6 +32,8 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
   let kOpenCellHeight: CGFloat = 541
   var cellHeights: [CGFloat] = []
   let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+  let tronStudiant = TRON(baseURL: "https://www.studiant.fr/notification/")
+    
   var isDataLoad = false
   var jobs: [JobResponse] = []
   var user : User!
@@ -97,20 +99,35 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
         refreshControl.endRefreshing()
     }
     
-    func onPostulerTouch(jobId : String) {
+    func onPostulerTouch(job : JobResponse) {
         SwiftSpinner.show("Candidature en cours")
         let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Postulants/")
         postRequest.method = .post
         
         postRequest.parameters = ["timePostulant": String(NSDate().timeIntervalSince1970),
                                   "statutPostulant": "0",
-                                  "jobId": jobId,
+                                  "jobId": job.idJob,
                                   "utilisateurId" : self.user.idUtilisateur!]
         
         postRequest.perform(withSuccess: { (jobResponse) in
             SwiftSpinner.show("Votre Candidature à bien été prise en compte !", animated: false).addTapHandler({
                 SwiftSpinner.hide()
             })
+            
+            let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
+            postRequest.method = .get
+            
+            postRequest.parameters = ["token": job.appartenir.firebaseToken]
+            
+            postRequest.perform(withSuccess: { (notificationResponse) in
+                print("success")
+                print(notificationResponse)
+                
+            }) { (error) in
+                print("error")
+                print(error)
+            }
+            
         
             print(jobResponse)
             //self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)

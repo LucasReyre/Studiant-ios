@@ -97,12 +97,12 @@ extension CellJobEtudiant {
     
     @IBAction func buttonHandler(_ sender: AnyObject) {
         print("tap")
-        self.delegate?.onPostulerTouch(jobId: (self.job?.idJob)!)
+        self.delegate?.onPostulerTouch(job: self.job!)
         
     }
 }
 
 protocol CellJobEtudiantDelegate {
-    func onPostulerTouch(jobId: String)
+    func onPostulerTouch(job: JobResponse)
 }
 
