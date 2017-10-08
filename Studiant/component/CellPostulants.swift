@@ -91,6 +91,7 @@ class CellPostulants: FoldingCell {
                                   "typePaiementJob": job.typePaiementJob,
                                   "postulantId": postulant.idUtilisateur]
         
+
         SwiftSpinner.show("Sélection de l'étudiant en cours")
         
         post.perform(withSuccess: { (jobResponse) in
@@ -99,9 +100,10 @@ class CellPostulants: FoldingCell {
             let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
             postRequest.method = .get
             
-            let body : String = "Vous avez été sélectionné pour un job !"
-            postRequest.parameters = ["token": self.postulant.firebaseToken]
-            postRequest.parameters = ["body": body]
+            
+            let body : String = "Vous avez été sélectionné par "+self.job.appartenir.prenomUtilisateur + " pour un job à "+self.job.villeJob
+            postRequest.parameters = ["token": self.postulant.firebaseToken,
+                                      "body": body]
             
             postRequest.perform(withSuccess: { (notificationResponse) in
                 print("success")

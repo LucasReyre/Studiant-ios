@@ -40,16 +40,19 @@ class DashboardEtudiantViewController: UIViewController {
                 self.tableContainer.filter = ["filter[where][latlongJob][near]": latlongString,
                                               "filter[where][latlongJob][maxDistance]": filterVc.distance,
                                               "filter[where][latlongJob][unit]": "kilometers",
-                                              "filter[where][categorieJob]": filterVc.categorie!]
+                                              "filter[where][categorieJob]": filterVc.categorie!,
+                                              "filter[where][statutJob]": "0"]
             } else if filterVc.distance != nil && filterVc.lat != nil{
                 let latlongString = filterVc.lat + "," + filterVc.long
                 self.tableContainer.filter = ["filter[where][latlongJob][near]": latlongString,
                                               "filter[where][latlongJob][maxDistance]": filterVc.distance,
-                                              "filter[where][latlongJob][unit]": "kilometers"]
+                                              "filter[where][latlongJob][unit]": "kilometers",
+                                              "filter[where][statutJob]": "0"]
                 
                 print("have filter distance "+filterVc.distance+" - "+latlongString)
             } else if filterVc.categorie != nil{
-                self.tableContainer.filter = ["filter[where][categorieJob]": filterVc.categorie!]
+                self.tableContainer.filter = ["filter[where][categorieJob]": filterVc.categorie!,
+                                              "filter[where][statutJob]": "0"]
                 print("have filter categorie")
             }
             

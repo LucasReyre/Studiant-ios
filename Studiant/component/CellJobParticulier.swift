@@ -56,7 +56,9 @@ class CellJobParticulier: FoldingCell {
         heureContentLabel.text = jobResponse.heureJob
         
         categorie = Categorie(withString: jobResponse.categorieJob)
-        leftView.backgroundColor = categorie?.color
+        
+        leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
+        //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
         pictoCategorieContentImageView.image = categorie?.picto
         

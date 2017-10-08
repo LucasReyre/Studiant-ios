@@ -8,6 +8,7 @@ import FirebaseMessaging
 
 class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
+    @IBOutlet weak var telephoneTextField: UITextField!
     @IBOutlet weak var nomTextField: UITextField!
     @IBOutlet weak var prenomTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -65,10 +66,16 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         } else if textField.tag == 1 {
             nomTextField.becomeFirstResponder()
         } else if textField.tag == 2 {
-            nomTextField.resignFirstResponder()
+            telephoneTextField.becomeFirstResponder()
+            scrollView.setContentOffset(CGPoint(x: 0, y: 250), animated: true)
         }
         return true
-        
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 3 {
+            scrollView.setContentOffset(CGPoint(x: 0, y: 250), animated: true)
+        }
     }
 
     @IBAction func validerAction(_ sender: Any) {
@@ -133,6 +140,9 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         }
     }
     
+    @IBAction func abandonnerAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AjoutJobSegue" {
             let vc = segue.destination as! AjoutJobViewController

@@ -171,8 +171,6 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,
         }else {
             scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
-            
-        
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

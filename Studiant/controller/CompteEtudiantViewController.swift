@@ -27,9 +27,7 @@ class CompteEtudiantViewController: UIViewController {
         nomPrenomLabel.text = nomprenom
         diplomeLabel.text = user.diplomeUtilisateur
         emailLabel.text = user.mailUtilisateur
-        
-        
-        //self.profileImageView.hnk_setImageFromURL(url!)
+        self.profileImageView.hnk_setImageFromURL(url!)
     }
 
 

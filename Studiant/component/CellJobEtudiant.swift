@@ -27,6 +27,7 @@ class CellJobEtudiant: FoldingCell {
     @IBOutlet weak var nomPrenomLabel: UILabel!
     @IBOutlet weak var pictoCategorieImageView: UIImageView!
     //let tron = TRON(baseURL: "https://fcm.googleapis.com/")
+    @IBOutlet weak var pictureImageView: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var leftView: UIView!
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
@@ -63,6 +64,7 @@ class CellJobEtudiant: FoldingCell {
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
         leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
+        pictureImageView.image = categorie?.picto
         
         switch jobResponse.typePaiementJob {
         case "CB":

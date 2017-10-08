@@ -94,7 +94,7 @@ class HistoriqueJobEtudiantViewController: UITableViewController, CellHistoriqeJ
         case "ESPECE":
             presentPopup(message: "Le paiement de ce job s'effectue en espèce", title: "Attention")
         default:
-            print("erreur pas de type spécifié")
+            presentPopup(message: "Le paiement de ce job s'effectue en espèce", title: "Attention")
         }
         
     }

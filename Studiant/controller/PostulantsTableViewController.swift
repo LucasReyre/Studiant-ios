@@ -66,7 +66,13 @@ class PostulantsTableViewController: UITableViewController, CellPostulantDelegat
 extension PostulantsTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (postulants?.users.count)!
+        
+        if self.job?.idPostulant != nil{
+            return 1
+        }else {
+            return (postulants?.users.count)!
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -75,6 +81,10 @@ extension PostulantsTableViewController {
         }
         
     
+        /*if self.job?.idPostulant != nil {
+            for
+        }*/
+        
         cell.setupUi(postulant: (postulants?.users[indexPath.row])!, job: self.job!, delegate: self)
 
         cell.backgroundColor = .clear
