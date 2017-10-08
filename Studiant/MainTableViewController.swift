@@ -117,7 +117,9 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
             let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
             postRequest.method = .get
             
+            let body : String = self.user.prenomUtilisateur!+" à postulé à votre job "
             postRequest.parameters = ["token": job.appartenir.firebaseToken]
+            postRequest.parameters = ["body": body]
             
             postRequest.perform(withSuccess: { (notificationResponse) in
                 print("success")

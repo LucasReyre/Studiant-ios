@@ -64,6 +64,8 @@
 		E52C8BD21F66C4250069E76A /* PostulantsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */; };
 		E52C8BD41F6708350069E76A /* CellHistoriqueJobEtudiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BD31F6708350069E76A /* CellHistoriqueJobEtudiant.swift */; };
 		E56C70A91F69CE8300360C0A /* PaymentJobEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */; };
+		E5843E191F8A1CC30060B127 /* CompteParticulierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5843E181F8A1CC30060B127 /* CompteParticulierViewController.swift */; };
+		E5B303CA1F82C284001E1F67 /* NotificationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B303C91F82C284001E1F67 /* NotificationResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +153,8 @@
 		E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostulantsContainerViewController.swift; path = controller/PostulantsContainerViewController.swift; sourceTree = "<group>"; };
 		E52C8BD31F6708350069E76A /* CellHistoriqueJobEtudiant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellHistoriqueJobEtudiant.swift; path = component/CellHistoriqueJobEtudiant.swift; sourceTree = "<group>"; };
 		E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentJobEtudiantViewController.swift; path = controller/PaymentJobEtudiantViewController.swift; sourceTree = "<group>"; };
+		E5843E181F8A1CC30060B127 /* CompteParticulierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompteParticulierViewController.swift; path = controller/CompteParticulierViewController.swift; sourceTree = "<group>"; };
+		E5B303C91F82C284001E1F67 /* NotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationResponse.swift; path = class/NotificationResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +215,7 @@
 				D22551261F1FD9F7006EA709 /* JobResponse.swift */,
 				D22551281F2001D4006EA709 /* JobsResponse.swift */,
 				D255912D1F2DF1DD00EE5662 /* GeoplaceResponse.swift */,
+				E5B303C91F82C284001E1F67 /* NotificationResponse.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 				D2E8E1601F27DC870069A359 /* ReglagesParticulierViewController.swift */,
 				D24190751F48A9070033D26F /* PaymentJob.swift */,
 				E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */,
+				E5843E181F8A1CC30060B127 /* CompteParticulierViewController.swift */,
 			);
 			name = Particulier;
 			sourceTree = "<group>";
@@ -608,6 +614,7 @@
 				D2FC531E1F1A4F9100FA8D8F /* ConnexionViewController.swift in Sources */,
 				D25591331F324BC900EE5662 /* MangoTestViewController.swift in Sources */,
 				D2E8E15C1F266F450069A359 /* PostulantsTableViewController.swift in Sources */,
+				E5843E191F8A1CC30060B127 /* CompteParticulierViewController.swift in Sources */,
 				D2E8E1521F250B2F0069A359 /* DashboardParticulierViewController.swift in Sources */,
 				D255913A1F3A591500EE5662 /* AddCBViewController.swift in Sources */,
 				D24190761F48A9070033D26F /* PaymentJob.swift in Sources */,
@@ -619,6 +626,7 @@
 				E52C8BD21F66C4250069E76A /* PostulantsContainerViewController.swift in Sources */,
 				D2FC53431F1BB15F00FA8D8F /* ProfilEtudiantViewController.swift in Sources */,
 				D295250F1F29357C008F1838 /* CellPostulants.swift in Sources */,
+				E5B303CA1F82C284001E1F67 /* NotificationResponse.swift in Sources */,
 				D22F76861F1BFFB50038EE78 /* User.swift in Sources */,
 				D25591381F33ACD700EE5662 /* MangoServices.swift in Sources */,
 				D2A420AF1F1EB2E900E4A50C /* MainTableViewController.swift in Sources */,

@@ -12,8 +12,6 @@ import TRON
 import SwiftSpinner
 
 class CellPostulants: FoldingCell {
-    
-
  
     @IBOutlet weak var etudesLabelContent: UILabel!
     @IBOutlet weak var nomLabelHeader: UILabel!
@@ -35,6 +33,8 @@ class CellPostulants: FoldingCell {
     var delegate : CellPostulantDelegate?
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    let tronStudiant = TRON(baseURL: "https://www.studiant.fr/notification/")
+    
     var postulant : UserResponse!
     
     var number: Int = 0 {
@@ -95,6 +95,23 @@ class CellPostulants: FoldingCell {
         
         post.perform(withSuccess: { (jobResponse) in
             print(jobResponse)
+            
+            let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
+            postRequest.method = .get
+            
+            let body : String = "Vous avez été sélectionné pour un job !"
+            postRequest.parameters = ["token": self.postulant.firebaseToken]
+            postRequest.parameters = ["body": body]
+            
+            postRequest.perform(withSuccess: { (notificationResponse) in
+                print("success")
+                print(notificationResponse)
+                
+            }) { (error) in
+                print("error")
+                print(error)
+            }
+            
             SwiftSpinner.show("Etudiant validé", animated: false).addTapHandler({
                 SwiftSpinner.hide()
                 self.delegate?.onButtonChoosePostulant()
