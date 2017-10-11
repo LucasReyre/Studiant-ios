@@ -30,7 +30,7 @@ import SwiftSpinner
 class PostulantsTableViewController: UITableViewController, CellPostulantDelegate {
     
     let kCloseCellHeight: CGFloat = 179
-    let kOpenCellHeight: CGFloat = 350
+    let kOpenCellHeight: CGFloat = 420
     let kRowsCount = 10
     var cellHeights: [CGFloat] = []
     
@@ -41,8 +41,10 @@ class PostulantsTableViewController: UITableViewController, CellPostulantDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
-        self.tableView.reloadData()
+
+            setup()
+            self.tableView.reloadData()
+        
     }
     
     
@@ -69,7 +71,7 @@ extension PostulantsTableViewController {
         
         if self.job?.idPostulant != nil{
             return 1
-        }else {
+        }else{
             return (postulants?.users.count)!
         }
         

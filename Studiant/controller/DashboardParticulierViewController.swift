@@ -82,7 +82,14 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
     func onButtonVoirPostulantTouch(postulants: UsersResponse, job: JobResponse) {
         self.postulants = postulants
         self.selectedJob = job
-        self.performSegue(withIdentifier: "listePostulantsSegue", sender: nil)
+        if(postulants.users.count == 0){
+            SwiftSpinner.show("Aucun étudiant n'a postulé", animated:false).addTapHandler({
+                SwiftSpinner.hide()
+                
+            })
+        }else{
+            self.performSegue(withIdentifier: "listePostulantsSegue", sender: nil)
+        }
     }
     
 }

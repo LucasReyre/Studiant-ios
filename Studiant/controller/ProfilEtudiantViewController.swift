@@ -15,7 +15,7 @@ import SwiftSpinner
 import FirebaseMessaging
 import PopupDialog
 
-class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,
+class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate,
                                     UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var profilePicture: UIImageView!
@@ -195,6 +195,14 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,
         
     }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
         
@@ -202,7 +210,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,
         user.typeUtilisateur = 1
         user.typeConnexionUtilisateur = 1
         user.diplomeUtilisateur = diplomeTextField.text
-        //user.descriptionUtilisateur = descriptionTextField.text
+        user.descriptionUtilisateur = descriptionTextField.text
         user.permisUtilisateur = permisSwitch.isOn
         let token = Messaging.messaging().fcmToken
         
@@ -229,7 +237,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,
                                               "typeUtilisateur": user.typeUtilisateur,
                                               "idExterneUtilisateur": user.idExterneUtilisateur!,
                                               "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                             // "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                              "descriptionUtilisateur": user.descriptionUtilisateur!,
                                               "diplomeUtilisateur": user.diplomeUtilisateur!,
                                               "permisUtilisateur": user.permisUtilisateur!,
                                               "firebaseToken": token!]

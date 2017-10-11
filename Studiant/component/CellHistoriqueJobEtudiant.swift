@@ -54,7 +54,7 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         //nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
         nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur
         //adresseLabelContent.text = jobResponse.adresseJob
-        adresseLabelContent.text = jobResponse.villeJob
+        adresseLabelContent.text = jobResponse.adresseJob
         dateLabelContent.text = jobResponse.dateJob
         heureContentLabel.text = jobResponse.heureJob
         
