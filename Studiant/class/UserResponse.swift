@@ -24,6 +24,7 @@ struct UserResponse: JSONDecodable{
     let idExterneUtilisateur: String
     let firebaseToken: String
     let diplomeUtilisateur: String
+    let telephoneUtilisateur: String
     let idMangoPayUtilisateur: String
     
     
@@ -41,6 +42,7 @@ struct UserResponse: JSONDecodable{
         idExterneUtilisateur = json["idExterneUtilisateur"].stringValue
         firebaseToken = json["firebaseToken"].stringValue
         diplomeUtilisateur = json["diplomeUtilisateur"].stringValue
+        telephoneUtilisateur = json["telephoneUtilisateur"].stringValue
         idMangoPayUtilisateur = json["idMangoPayUtilisateur"].stringValue
     }
     

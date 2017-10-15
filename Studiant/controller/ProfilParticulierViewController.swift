@@ -81,8 +81,9 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
         let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!)
+        user.telephoneUtilisateur = telephoneTextField.text!
         user.typeUtilisateur = 0
-        
+        print("telphone : ", user.telephoneUtilisateur)
         let token = Messaging.messaging().fcmToken
         print("FCM token: \(token ?? "")")
         
@@ -98,6 +99,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
                                       "prenomUtilisateur": user.prenomUtilisateur!,
                                       "photoUtilisateur": user.photoUtilisateur!,
                                       "mailUtilisateur" : user.mailUtilisateur!,
+                                      "telephoneUtilisateur": user.telephoneUtilisateur!,
                                       "typeUtilisateur": user.typeUtilisateur,
                                       "idExterneUtilisateur": user.idExterneUtilisateur!,
                                       "typeConnexionUtilisateur": user.typeConnexionUtilisateur,
@@ -115,6 +117,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
             postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
                                       "prenomUtilisateur": user.prenomUtilisateur!,
                                       "mailUtilisateur" : user.mailUtilisateur!,
+                                      "telephoneUtilisateur": user.telephoneUtilisateur!,
                                       "typeUtilisateur": user.typeUtilisateur,
                                       "typeConnexionUtilisateur": user.typeConnexionUtilisateur,
                                       "descriptionUtilisateur": user.descriptionUtilisateur,
@@ -129,6 +132,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
             print(usersResponse)
             self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 0)
             self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
+            self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()
             self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)

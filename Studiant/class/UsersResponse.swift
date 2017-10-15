@@ -12,7 +12,7 @@ import SwiftyJSON
 
 struct UsersResponse: JSONDecodable {
     
-    let users: [UserResponse]
+    var users: [UserResponse]
     
     init(json: JSON){
         let usersArray = json.arrayValue

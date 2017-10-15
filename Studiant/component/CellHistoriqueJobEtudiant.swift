@@ -27,6 +27,7 @@ class CellHistoriqeJobEtudiant: FoldingCell {
     @IBOutlet weak var nomPrenomLabel: UILabel!
     @IBOutlet weak var pictoCategorieImageView: UIImageView!
     //let tron = TRON(baseURL: "https://fcm.googleapis.com/")
+    @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var tarifImageView: UIImageView!
     @IBOutlet weak var leftView: UIView!
     
@@ -53,6 +54,7 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         dateLabel.text = jobResponse.dateJob
         //nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
         nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur
+        telephoneLabel.text = jobResponse.appartenir.telephoneUtilisateur
         //adresseLabelContent.text = jobResponse.adresseJob
         adresseLabelContent.text = jobResponse.adresseJob
         dateLabelContent.text = jobResponse.dateJob

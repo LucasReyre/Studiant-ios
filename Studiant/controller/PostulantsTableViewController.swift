@@ -69,11 +69,7 @@ extension PostulantsTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if self.job?.idPostulant != nil{
-            return 1
-        }else{
             return (postulants?.users.count)!
-        }
         
     }
     

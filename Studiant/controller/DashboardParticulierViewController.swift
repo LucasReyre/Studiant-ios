@@ -68,8 +68,22 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
             self.postulantTableContainer = vc
             //self.tableContainer.delegate = self
             print("prepare segue listPostulantSegue : ",self.selectedJob?.idJob)
+            
+            if (self.selectedJob?.idPostulant != nil){
+                for postulant in (self.postulants?.users)!{
+                    if (postulant.idUtilisateur == self.selectedJob?.idPostulant){
+                        print("find user : ", postulant.nomUtilisateur)
+                        
+                        self.postulants?.users.removeAll()
+                        self.postulants?.users.append(postulant)
+                        
+                    }
+                }
+            }
+            
             self.postulantTableContainer.postulants = self.postulants
             self.postulantTableContainer.job = self.selectedJob
+            
         }else if let vc = segue.destination as? AjoutJobViewController,
             segue.identifier == "addJobFromDashboardSegue"{
             vc.fromDashboard = true
@@ -85,7 +99,6 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
         if(postulants.users.count == 0){
             SwiftSpinner.show("Aucun étudiant n'a postulé", animated:false).addTapHandler({
                 SwiftSpinner.hide()
-                
             })
         }else{
             self.performSegue(withIdentifier: "listePostulantsSegue", sender: nil)

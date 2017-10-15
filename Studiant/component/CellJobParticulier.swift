@@ -13,6 +13,7 @@ import PopupDialog
 
 class CellJobParticulier: FoldingCell {
     
+    @IBOutlet weak var paiementImageView: UIImageView!
     @IBOutlet weak var leftView: UIView!
     @IBOutlet weak var pictoCategorieImageView: UIImageView!
     @IBOutlet weak var pictoCategorieContentImageView: UIImageView!
@@ -31,6 +32,7 @@ class CellJobParticulier: FoldingCell {
     var job : JobResponse?
     var categorie: Categorie?
     
+    @IBOutlet weak var studiantCodeButton: UIButton!
     var delegate : CellJobParticulierDelegate?
     
     
@@ -61,6 +63,19 @@ class CellJobParticulier: FoldingCell {
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
         pictoCategorieContentImageView.image = categorie?.picto
+        
+        switch jobResponse.typePaiementJob {
+        case "CB":
+            paiementImageView.image = UIImage(named: "credit-card")!
+        case "CESU":
+            paiementImageView.image = UIImage(named: "check")!
+            studiantCodeButton.isHidden = true
+        case "ESPECES":
+            paiementImageView.image = UIImage(named: "change")!
+            studiantCodeButton.isHidden = true
+        default:
+            paiementImageView.image = UIImage(named: "change")!
+        }
         
     }
     override func awakeFromNib() {
