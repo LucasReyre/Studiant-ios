@@ -25,6 +25,8 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var descriptionTextField: UITextView!
     
+    @IBOutlet weak var engagementSwitch: UISwitch!
+    @IBOutlet weak var cguSwitch: UISwitch!
     @IBOutlet weak var diplomeTextField: UITextField!
     @IBOutlet weak var permisSwitch: UISwitch!
     var id: String?
@@ -219,8 +221,17 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
         
         if fromFacebook == true{
             user.idExterneUtilisateur = id
-            //user.photoUtilisateur = "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200"
             user.typeConnexionUtilisateur = 0
+            
+            if (user.nomUtilisateur == nil || user.prenomUtilisateur == nil ||
+                user.mailUtilisateur == nil || user.diplomeUtilisateur == nil || !cguSwitch.isOn
+                || !engagementSwitch.isOn){
+                SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                    
+                })
+                return
+            }
             
             if let a = strBase64 {
                 let postRequestImport: APIRequest<UserResponse, ErrorResponse> = tronImport.request("import.php")
@@ -251,6 +262,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                     print("Error")
                 }
             }else{
+                user.photoUtilisateur = "https://graph.facebook.com/" + self.id! + "/picture?height=200&width=200"
                 postRequest.parameters = ["nomUtilisateur": user.nomUtilisateur!,
                                           "prenomUtilisateur": user.prenomUtilisateur!,
                                           "photoUtilisateur": user.photoUtilisateur!,
@@ -258,7 +270,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                           "typeUtilisateur": user.typeUtilisateur,
                                           "idExterneUtilisateur": user.idExterneUtilisateur!,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                          //"descriptionUtilisateur": user.descriptionUtilisateur!,
+                                          "descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,
                                           "firebaseToken": token!]
@@ -267,6 +279,17 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             }
             
         }else if fromFacebook == false{
+            if (strBase64 == nil || user.nomUtilisateur == nil || user.prenomUtilisateur == nil ||
+                user.mailUtilisateur == nil || user.diplomeUtilisateur == nil || !cguSwitch.isOn
+                || !engagementSwitch.isOn){
+                SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                    
+                })
+                return
+            }
+            
+            
             let postRequestImport: APIRequest<UserResponse, ErrorResponse> = tronImport.request("import.php")
             postRequestImport.method = .post
             postRequestImport.parameters = ["picture": strBase64!,
@@ -282,7 +305,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                           "mailUtilisateur" : user.mailUtilisateur!,
                                           "typeUtilisateur": user.typeUtilisateur,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
-                                         // "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                          "descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,
                                           "firebaseToken": token!]

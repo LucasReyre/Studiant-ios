@@ -276,11 +276,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5gZ-wh-ORF">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5gZ-wh-ORF">
                                         <rect key="frame" x="321" y="581" width="51" height="31"/>
                                         <color key="onTintColor" red="0.40000000000000002" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </switch>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PBN-xN-mmy">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PBN-xN-mmy">
                                         <rect key="frame" x="321" y="520" width="51" height="31"/>
                                         <color key="onTintColor" red="0.40000000000000002" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </switch>
@@ -358,9 +358,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cguSwitch" destination="PBN-xN-mmy" id="H1n-xN-aW1"/>
                         <outlet property="descriptionTextField" destination="vha-Ek-Qch" id="Bd3-Dd-WG5"/>
                         <outlet property="diplomeTextField" destination="b0m-iw-CEl" id="07h-El-p0c"/>
                         <outlet property="emailTextField" destination="1kk-n7-Q1d" id="XeV-L0-jOI"/>
+                        <outlet property="engagementSwitch" destination="5gZ-wh-ORF" id="CXN-1d-D0F"/>
                         <outlet property="nomTextField" destination="232-CW-xc9" id="yvA-kT-PN2"/>
                         <outlet property="permisSwitch" destination="LB5-Ua-hfl" id="zF2-7D-ZCQ"/>
                         <outlet property="prenomTextField" destination="7rv-hp-yQy" id="Wc7-ej-rW7"/>
