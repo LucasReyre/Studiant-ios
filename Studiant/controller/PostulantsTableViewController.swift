@@ -48,7 +48,7 @@ class PostulantsTableViewController: UITableViewController, CellPostulantDelegat
     }
     
     
-    private func setup() {
+    private func setup() {        
         self.tableView.contentInset = UIEdgeInsets(top: 30,left: 0,bottom: 50,right: 0)
         cellHeights = Array(repeating: kCloseCellHeight, count: (postulants?.users.count)!)
         tableView.estimatedRowHeight = kCloseCellHeight
@@ -56,6 +56,11 @@ class PostulantsTableViewController: UITableViewController, CellPostulantDelegat
         tableView.backgroundColor = UIColor.clear
         tableView.separatorStyle = .none
         //tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background-1"))
+    }
+    
+    func refresh(refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     func onButtonChoosePostulant() {

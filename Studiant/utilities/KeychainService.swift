@@ -22,6 +22,7 @@ let prenomUtilisateurKey = "prenomUtilisateurKey"
 let diplomeUtilisateurKey = "diplomeUtilisateurKey"
 let mailUtilisateurKey = "mailUtilisateurKey"
 let telephoneUtilisateurKey = "telephoneUtilisateurKey"
+let descriptionUtilisateurKey = "descriptionUtilisateurKey"
 
 // Arguments for the keychain queries
 let kSecClassValue = NSString(format: kSecClass)
@@ -83,6 +84,11 @@ public class KeychainService: NSObject {
             let telephoneUtilisateur = String(describing: user.telephoneUtilisateur!)
             self.save(service: telephoneUtilisateurKey as NSString, data: telephoneUtilisateur as NSString)
         }
+        
+        if user.descriptionUtilisateur != nil {
+            let descriptionUtilisateur = String(describing: user.descriptionUtilisateur!)
+            self.save(service: descriptionUtilisateurKey as NSString, data: descriptionUtilisateur as NSString)
+        }
     }
     
     public class func loadUser() -> User! {
@@ -114,6 +120,9 @@ public class KeychainService: NSObject {
         }
         if let telephoneUtilisateur = self.load(service: telephoneUtilisateurKey as String as NSString){
             user.telephoneUtilisateur = telephoneUtilisateur as String
+        }
+        if let descriptionUtilisateur = self.load(service: descriptionUtilisateurKey as String as NSString){
+            user.descriptionUtilisateur = descriptionUtilisateur as String
         }
         return user
     }

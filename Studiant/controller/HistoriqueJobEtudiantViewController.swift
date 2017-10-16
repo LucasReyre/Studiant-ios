@@ -83,30 +83,49 @@ class HistoriqueJobEtudiantViewController: UITableViewController, CellHistoriqeJ
         print("status : ", job.statusJob)
         switch job.typePaiementJob {
         case "CESU":
-            presentPopup(message: "Le paiement de ce job s'effectue en Chèque CESU", title: "Attention")
+            presentPopup(message: "Le paiement de ce job s'effectue en Chèque CESU", title: "Attention", job: job)
         case "CB":
             if job.statusJob == "1" {
                 self.performSegue(withIdentifier: "paiementJobEtudiantSegue", sender: nil)
             }else {
-                presentPopup(message: "L'argent de ce Job à déja été transféré", title: "Erreur")
+                presentPopup(message: "L'argent de ce Job à déja été transféré", title: "Erreur", job: job)
             }
             print("CB")
         case "ESPECE":
-            presentPopup(message: "Le paiement de ce job s'effectue en espèce", title: "Attention")
+            presentPopup(message: "Le paiement de ce job s'effectue en espèce", title: "Attention", job: job)
         default:
-            presentPopup(message: "Le paiement de ce job s'effectue en espèce", title: "Attention")
+            presentPopup(message: "Le paiement de ce job s'effectue en espèce", title: "Attention", job: job)
         }
         
     }
     
-    func presentPopup(message: String, title: String){
+    func presentPopup(message: String, title: String, job: JobResponse){
         
         // Create the dialog
         let popup = PopupDialog(title: title, message: message)
         // Create buttons
         
         let buttonOne = DefaultButton(title: "VALIDEZ") {
+            SwiftSpinner.show("Validation du job")
+            let postRequest: APIRequest<JobResponse, ErrorResponse> = self.tron.request("Jobs/")
+            postRequest.method = .patch
+            postRequest.parameters = ["statutJob": "2",
+                                      "id": job.idJob]
             
+            postRequest.perform(withSuccess: { (jobResponse) in
+                
+                SwiftSpinner.show("Job Validé", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                    self.getData()
+                })
+                
+            }) { (error) in
+                print(error)
+                SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                })
+                print("Error")
+            }
         }
         
         popup.addButtons([buttonOne])

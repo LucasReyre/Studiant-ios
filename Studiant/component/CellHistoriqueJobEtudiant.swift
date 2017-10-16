@@ -13,6 +13,7 @@ import SwiftSpinner
 
 class CellHistoriqeJobEtudiant: FoldingCell {
     
+    @IBOutlet weak var jobDoneButton: UIButton!
     @IBOutlet weak var validateButton: RotatedView!
     @IBOutlet weak var heureContentLabel: UILabel!
     @IBOutlet weak var dateLabelContent: UILabel!
@@ -64,6 +65,12 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
         leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
+        
+        
+        if (jobResponse.statusJob == "2") {
+            jobDoneButton.isHidden = true
+            leftView.backgroundColor = UIColor.gray
+        }
         
         switch jobResponse.typePaiementJob {
         case "CB":

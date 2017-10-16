@@ -49,6 +49,7 @@ class ParticulierTableViewContainer: UITableViewController {
     }
     
     private func setup() {
+        
         self.tableView.contentInset = UIEdgeInsets(top: 30,left: 0,bottom: 50,right: 0)
         cellHeights = Array(repeating: kCloseCellHeight, count: jobs.count)
         tableView.estimatedRowHeight = kCloseCellHeight
@@ -57,6 +58,8 @@ class ParticulierTableViewContainer: UITableViewController {
         tableView.separatorStyle = .none
         //tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background-1"))
     }
+    
+
     
 }
 

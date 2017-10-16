@@ -58,11 +58,23 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
         }
     }
     
+    func refresh(refreshControl: UIRefreshControl) {
+        getData()
+        refreshControl.endRefreshing()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ParticulierTableViewContainer,
             segue.identifier == "particulierTableViewContainer" {
             self.tableContainer = vc
             self.tableContainer.delegate = self
+            
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+            // this is the replacement of implementing: "collectionView.addSubview(refreshControl)"
+            vc.tableView.refreshControl = refreshControl
+            refreshControl.attributedTitle = NSAttributedString(string: "Récupération des jobs")
+            
         }else if let vc = segue.destination as? PostulantsContainerViewController,
         segue.identifier == "listePostulantsSegue" {
             self.postulantTableContainer = vc
