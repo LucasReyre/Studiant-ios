@@ -13,6 +13,7 @@ import PopupDialog
 
 class CellJobParticulier: FoldingCell {
     
+    @IBOutlet weak var seeStudiantButton: UIButton!
     @IBOutlet weak var paiementImageView: UIImageView!
     @IBOutlet weak var leftView: UIView!
     @IBOutlet weak var pictoCategorieImageView: UIImageView!
@@ -60,6 +61,11 @@ class CellJobParticulier: FoldingCell {
         categorie = Categorie(withString: jobResponse.categorieJob)
         
         leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
+        
+        if (jobResponse.statusJob == "2") {
+            seeStudiantButton.isHidden = true
+            leftView.backgroundColor = UIColor.gray
+        }
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
         pictoCategorieContentImageView.image = categorie?.picto

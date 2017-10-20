@@ -45,6 +45,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         profilePicture.isUserInteractionEnabled = true
         profilePicture.addGestureRecognizer(tapGestureRecognizer)
+        descriptionTextField.textColor = UIColor.lightGray
 
         if fromFacebook == true
         {
@@ -176,6 +177,10 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
         scrollView.setContentOffset(CGPoint(x: 0, y: 180), animated: true)
     }
     

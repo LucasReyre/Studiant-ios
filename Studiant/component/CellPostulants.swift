@@ -26,8 +26,7 @@ class CellPostulants: FoldingCell {
 
     @IBOutlet weak var nomLabelContent: UILabel!
     
-    @IBOutlet weak var descriptionLabelContent: UILabel!
- 
+    @IBOutlet weak var descriptionLabelContent: UITextView!
     var job : JobResponse!
     
     var delegate : CellPostulantDelegate?

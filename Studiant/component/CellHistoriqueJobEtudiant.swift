@@ -28,6 +28,7 @@ class CellHistoriqeJobEtudiant: FoldingCell {
     @IBOutlet weak var nomPrenomLabel: UILabel!
     @IBOutlet weak var pictoCategorieImageView: UIImageView!
     //let tron = TRON(baseURL: "https://fcm.googleapis.com/")
+    @IBOutlet weak var pictoCategorieImageView2: UIImageView!
     @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var tarifImageView: UIImageView!
     @IBOutlet weak var leftView: UIView!
@@ -64,6 +65,8 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         categorie = Categorie(withString: jobResponse.categorieJob)
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
+        
+        pictoCategorieImageView2.image = categorie?.picto
         leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
         
         
