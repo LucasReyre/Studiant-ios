@@ -25,6 +25,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var descriptionTextField: UITextView!
     
+    @IBOutlet weak var telephoneTextField: UITextField!
     @IBOutlet weak var engagementSwitch: UISwitch!
     @IBOutlet weak var cguSwitch: UISwitch!
     @IBOutlet weak var diplomeTextField: UITextField!
@@ -190,13 +191,17 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
         if textField.tag == 0{
             prenomTextField.becomeFirstResponder()
         } else if textField.tag == 1 {
-            nomTextField.becomeFirstResponder()
+            emailTextField.becomeFirstResponder()
         } else if textField.tag == 2 {
-            //scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
-            diplomeTextField.becomeFirstResponder()
+            scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
+            telephoneTextField.becomeFirstResponder()
         }else if textField.tag == 3{
-            textField.resignFirstResponder()
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            //textField.resignFirstResponder()
+            //scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }else if textField.tag == 4{
+            //textField.resignFirstResponder()
+            descriptionTextField.becomeFirstResponder()
+            //scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
         return true
         
@@ -210,6 +215,17 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
         return true
     }
     
+    @IBAction func cguAction(_ sender: Any) {
+        guard let url = URL(string: "http://www.studiant.fr/?page_id=961") else {
+            return //be safe
+        }
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
         
@@ -218,6 +234,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
         user.typeConnexionUtilisateur = 1
         user.diplomeUtilisateur = diplomeTextField.text
         user.descriptionUtilisateur = descriptionTextField.text
+        user.telephoneUtilisateur = telephoneTextField.text
         user.permisUtilisateur = permisSwitch.isOn
         let token = Messaging.messaging().fcmToken
         
@@ -230,7 +247,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             
             if (user.nomUtilisateur == nil || user.prenomUtilisateur == nil ||
                 user.mailUtilisateur == nil || user.diplomeUtilisateur == nil || !cguSwitch.isOn
-                || !engagementSwitch.isOn){
+                || !engagementSwitch.isOn || user.telephoneUtilisateur == nil || user.telephoneUtilisateur?.count != 10){
                 SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
                     SwiftSpinner.hide()
                     
@@ -250,6 +267,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                               "prenomUtilisateur": user.prenomUtilisateur!,
                                               "photoUtilisateur": user.photoUtilisateur!,
                                               "mailUtilisateur" : user.mailUtilisateur!,
+                                              "telephoneUtilisateur" : user.telephoneUtilisateur!,
                                               "typeUtilisateur": user.typeUtilisateur,
                                               "idExterneUtilisateur": user.idExterneUtilisateur!,
                                               "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
@@ -273,6 +291,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                           "photoUtilisateur": user.photoUtilisateur!,
                                           "mailUtilisateur" : user.mailUtilisateur!,
                                           "typeUtilisateur": user.typeUtilisateur,
+                                          "telephoneUtilisateur" : user.telephoneUtilisateur!,
                                           "idExterneUtilisateur": user.idExterneUtilisateur!,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
                                           "descriptionUtilisateur": user.descriptionUtilisateur!,
@@ -309,6 +328,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                           "photoUtilisateur": user.photoUtilisateur!,
                                           "mailUtilisateur" : user.mailUtilisateur!,
                                           "typeUtilisateur": user.typeUtilisateur,
+                                          "telephoneUtilisateur" : user.telephoneUtilisateur!,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
                                           "descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
@@ -339,6 +359,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
             self.myUser.prenomUtilisateur = usersResponse.prenomUtilisateur
             self.myUser.diplomeUtilisateur = usersResponse.diplomeUtilisateur
+            self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
             self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
             self.myUser.descriptionUtilisateur = usersResponse.descriptionUtilisateur
             

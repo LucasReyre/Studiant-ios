@@ -18,6 +18,7 @@ class CellPostulants: FoldingCell {
     @IBOutlet weak var prenomLabelHeader: UILabel!
     @IBOutlet weak var openNumberLabel: UILabel!
 
+    @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
 
     @IBOutlet weak var diplomeLabelHeader: UILabel!
@@ -47,6 +48,8 @@ class CellPostulants: FoldingCell {
         self.postulant = postulant
         self.job = job
         nomLabelHeader.text = postulant.nomUtilisateur
+       
+       telephoneLabel.text = postulant.telephoneUtilisateur
         prenomLabelHeader.text = postulant.prenomUtilisateur
         diplomeLabelHeader.text = postulant.diplomeUtilisateur
         prenomLabelContent.text = postulant.prenomUtilisateur

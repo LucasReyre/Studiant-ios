@@ -8,6 +8,7 @@ import FirebaseMessaging
 
 class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
+    @IBOutlet weak var cguSwitch: UISwitch!
     @IBOutlet weak var telephoneTextField: UITextField!
     @IBOutlet weak var nomTextField: UITextField!
     @IBOutlet weak var prenomTextField: UITextField!
@@ -87,6 +88,15 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         let token = Messaging.messaging().fcmToken
         print("FCM token: \(token ?? "")")
         
+        if (user.telephoneUtilisateur == nil || user.prenomUtilisateur == nil ||
+            user.mailUtilisateur == nil || user.nomUtilisateur == nil || !cguSwitch.isOn || user.telephoneUtilisateur?.count != 10){
+            SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+                
+            })
+            return
+        }
+        
         let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("")
         postRequest.method = .post
         
@@ -141,6 +151,19 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
                 SwiftSpinner.hide()
             })
             print(error)
+        }
+    }
+    
+    
+    @IBAction func cguAction(_ sender: Any) {
+        guard let url = URL(string: "http://www.studiant.fr/?page_id=961") else {
+            return //be safe
+        }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
         }
     }
     
