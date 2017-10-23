@@ -128,7 +128,15 @@ public class KeychainService: NSObject {
     }
     
     public class func deleteAll(){
+        
         self.delete(service: idUserKey as NSString)
+        self.delete(service: nomUtilisateurKey as NSString)
+        self.delete(service: prenomUtilisateurKey as NSString)
+        self.delete(service: diplomeUtilisateurKey as NSString)
+        self.delete(service: idMangoPayUtilisateurKey as NSString)
+        self.delete(service: mailUtilisateurKey as NSString)
+        self.delete(service: telephoneUtilisateurKey as NSString)
+        self.delete(service: descriptionUtilisateurKey as NSString)
         self.delete(service: typeUtilisateurKey as NSString)
         self.delete(service: photoUtilisateurKey as NSString)
     }

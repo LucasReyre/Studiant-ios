@@ -7,7 +7,9 @@ import SwiftSpinner
 class CompteEtudiantViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var diplomeLabel: UILabel!
+    
+    @IBOutlet weak var diplomeTextField: UITextField!
+    
     @IBOutlet weak var nomPrenomLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -30,7 +32,7 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate {
         
         let nomprenom = user.prenomUtilisateur! + " " + user.nomUtilisateur!
         nomPrenomLabel.text = nomprenom
-        diplomeLabel.text = user.diplomeUtilisateur
+        diplomeTextField.text = user.diplomeUtilisateur
         emailLabel.text = user.mailUtilisateur
         descriptionTextView.text = user.descriptionUtilisateur
         self.profileImageView.hnk_setImageFromURL(url!)
@@ -55,10 +57,13 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate {
         postRequest.method = .patch
         
         postRequest.parameters = ["descriptionUtilisateur": descriptionTextView.text,
+                                  "diplomeUtilisateur": diplomeTextField.text!,
                                   "id": user.idUtilisateur!]
         
         postRequest.perform(withSuccess: { (userResponse) in
             self.user.descriptionUtilisateur = userResponse.descriptionUtilisateur
+            self.user.diplomeUtilisateur = userResponse.diplomeUtilisateur
+            
             KeychainService.saveUser(user: self.user)
             SwiftSpinner.show("Modification enregistrée", animated: false).addTapHandler({
                 SwiftSpinner.hide()

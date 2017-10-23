@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class ReglagesParticulierViewController: UIViewController {
     
@@ -17,8 +18,22 @@ class ReglagesParticulierViewController: UIViewController {
     
 
     @IBAction func onDeconnexionTouch(_ sender: Any) {
-        KeychainService.deleteAll()
-        self.performSegue(withIdentifier: "deconnexionSegue", sender: self)
+        
+        let popup = PopupDialog(title: "Attention", message: "En vous déconnectant vos données seront perdues")
+        
+        // Create buttons
+        let buttonOne = DefaultButton(title: "VALIDEZ") {
+            KeychainService.deleteAll()
+            self.performSegue(withIdentifier: "deconnexionSegue", sender: self)
+        }
+        
+        let buttonTwo = DefaultButton(title: "ANNULEZ") {
+        }
+        
+        popup.addButtons([buttonOne, buttonTwo])
+        self.present(popup, animated: true, completion: nil)
+        
+        
     }
     
 }

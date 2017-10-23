@@ -6,7 +6,7 @@ import SwiftSpinner
 class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
   
   let kCloseCellHeight: CGFloat = 179
-  let kOpenCellHeight: CGFloat = 541
+  let kOpenCellHeight: CGFloat = 450
   var cellHeights: [CGFloat] = []
   let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
   let tronStudiant = TRON(baseURL: "https://www.studiant.fr/notification/")
@@ -95,7 +95,7 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
             let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
             postRequest.method = .get
             
-            let body : String = self.user.prenomUtilisateur!+" à postulé à votre job "
+            let body : String = self.user.prenomUtilisateur!+" à postulé à votre job "+job.categorieJob
             postRequest.parameters = ["token": job.appartenir.firebaseToken,
                                       "body": body]
             

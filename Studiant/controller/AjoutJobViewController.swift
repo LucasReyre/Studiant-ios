@@ -51,6 +51,8 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         chooseCategorieView.layer.cornerRadius = 8.0
         chooseCategorieView.clipsToBounds = true
         
+        descriptionTextView.textColor = UIColor.lightGray
+        
         if categorieJob != nil{
             self.categorieLabel.text = "Vous avez choisi "+categorieJob
         }
@@ -295,6 +297,11 @@ extension AjoutJobViewController: UITextFieldDelegate, UITextViewDelegate{
 
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+        
         scrollView.setContentOffset(CGPoint(x: 0, y: 160), animated: true)
     }
     

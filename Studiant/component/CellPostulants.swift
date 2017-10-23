@@ -26,6 +26,7 @@ class CellPostulants: FoldingCell {
 
     @IBOutlet weak var nomLabelContent: UILabel!
     
+    @IBOutlet weak var profileImage2: UIImageView!
     @IBOutlet weak var descriptionLabelContent: UITextView!
     var job : JobResponse!
     
@@ -56,7 +57,7 @@ class CellPostulants: FoldingCell {
         
         let url = URL(string: postulant.photoUtilisateur)
         self.profileImage.hnk_setImageFromURL(url!)
-        
+        self.profileImage2.hnk_setImageFromURL(url!)
         self.delegate = delegate
     }
     override func awakeFromNib() {

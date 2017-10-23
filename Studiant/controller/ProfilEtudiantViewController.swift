@@ -327,6 +327,9 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
         
     }
     
+    @IBAction func abandonnerAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func addUser(postRequest : APIRequest<UserResponse, ErrorResponse>) {
         postRequest.perform(withSuccess: { (usersResponse) in

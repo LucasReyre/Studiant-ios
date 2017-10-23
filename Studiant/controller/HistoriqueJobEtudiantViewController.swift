@@ -7,7 +7,7 @@ import PopupDialog
 class HistoriqueJobEtudiantViewController: UITableViewController, CellHistoriqeJobEtudiantDelegate {
     
     let kCloseCellHeight: CGFloat = 179
-    let kOpenCellHeight: CGFloat = 488
+    let kOpenCellHeight: CGFloat = 364
     var cellHeights: [CGFloat] = []
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var isDataLoad = false
