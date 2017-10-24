@@ -70,11 +70,17 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     
     @IBAction func insertJobAction(_ sender: Any) {
         user = KeychainService.loadUser()
-        SwiftSpinner.show("Ajout du job en cours")
+        
+        
+        if (categorieJob == nil || date == nil || adresse == nil || prixTextField.text == nil || descriptionTextView.text.count == 0){
+            SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+                
+            })
+            return
+        }
         
         presentChoicePayment()
-        //
-        
         
     }
     
@@ -109,6 +115,7 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     }
     
     func insertJob() {
+        SwiftSpinner.show("Ajout du job en cours")
         user = KeychainService.loadUser()
         let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Jobs/")
         postRequest.method = .post

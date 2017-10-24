@@ -4,8 +4,9 @@ import TRON
 import Haneke
 import SwiftSpinner
 
-class CompteEtudiantViewController: UIViewController, UITextViewDelegate {
+class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
+    @IBOutlet weak var telephoneTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var diplomeTextField: UITextField!
@@ -35,6 +36,8 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate {
         diplomeTextField.text = user.diplomeUtilisateur
         emailLabel.text = user.mailUtilisateur
         descriptionTextView.text = user.descriptionUtilisateur
+       
+        telephoneTextField.text = user.telephoneUtilisateur
         self.profileImageView.hnk_setImageFromURL(url!)
     }
     
@@ -49,6 +52,26 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         scrollview.setContentOffset(CGPoint(x: 0, y: 300), animated: true)
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 0{
+            scrollview.setContentOffset(CGPoint(x: 0, y: 270), animated: true)
+        } else if textField.tag == 1 {
+            scrollview.setContentOffset(CGPoint(x: 0, y: 290), animated: true)
+        }
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(textField.tag)
+        if textField.tag == 0{
+            textField.resignFirstResponder()
+        } else if textField.tag == 1 {
+            textField.resignFirstResponder()
+        } 
+        return true
+        
+    }
 
     @IBAction func saveUserAction(_ sender: Any) {
         SwiftSpinner.show("Modification en cours")
@@ -56,7 +79,8 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate {
         let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("Utilisateurs/")
         postRequest.method = .patch
         
-        postRequest.parameters = ["descriptionUtilisateur": descriptionTextView.text,
+        postRequest.parameters = ["descriptionUtilisateur": descriptionTextView.text!,
+                                  "telephoneUtilisateur": telephoneTextField.text!,
                                   "diplomeUtilisateur": diplomeTextField.text!,
                                   "id": user.idUtilisateur!]
         

@@ -21,6 +21,7 @@ class CellPostulants: FoldingCell {
     @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
 
+    @IBOutlet weak var chooseButton: UIButton!
     @IBOutlet weak var diplomeLabelHeader: UILabel!
  
     @IBOutlet weak var prenomLabelContent: UILabel!
@@ -49,7 +50,16 @@ class CellPostulants: FoldingCell {
         self.job = job
         nomLabelHeader.text = postulant.nomUtilisateur
        
-       telephoneLabel.text = postulant.telephoneUtilisateur
+        print("statut job : ", job.statusJob)
+        if(job.statusJob == "0"){
+            telephoneLabel.text = ""
+        }else{
+            telephoneLabel.text = postulant.telephoneUtilisateur
+            
+            chooseButton.isHidden = true
+        }
+            
+       
         prenomLabelHeader.text = postulant.prenomUtilisateur
         diplomeLabelHeader.text = postulant.diplomeUtilisateur
         prenomLabelContent.text = postulant.prenomUtilisateur

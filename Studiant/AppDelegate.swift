@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             application.registerUserNotificationSettings(settings)
         }
         
+        print("token ")
+        print(InstanceID.instanceID().token())
         application.registerForRemoteNotifications()
         
         // [END register_for_notifications]
@@ -154,5 +156,10 @@ extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         print("Received data message: \(remoteMessage.appData)")
     }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.prod)
+    }
+    
     // [END ios_10_data_message]
 }

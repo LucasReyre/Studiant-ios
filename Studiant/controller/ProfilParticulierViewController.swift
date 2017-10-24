@@ -65,7 +65,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         if textField.tag == 0{
             prenomTextField.becomeFirstResponder()
         } else if textField.tag == 1 {
-            nomTextField.becomeFirstResponder()
+            emailTextField.becomeFirstResponder()
         } else if textField.tag == 2 {
             telephoneTextField.becomeFirstResponder()
             scrollView.setContentOffset(CGPoint(x: 0, y: 250), animated: true)
@@ -141,6 +141,9 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         postRequest.perform(withSuccess: { (usersResponse) in
             print(usersResponse)
             self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 0)
+            self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
+            self.myUser.prenomUtilisateur = usersResponse.prenomUtilisateur
+            self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
             self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
             self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
             KeychainService.saveUser(user: self.myUser)
