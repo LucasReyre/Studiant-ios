@@ -31,6 +31,7 @@ class CellPostulants: FoldingCell {
     @IBOutlet weak var profileImage2: UIImageView!
     @IBOutlet weak var descriptionLabelContent: UITextView!
     var job : JobResponse!
+    var user : User!
     
     var delegate : CellPostulantDelegate?
     
@@ -85,7 +86,6 @@ class CellPostulants: FoldingCell {
     }
     
     @IBAction func choosePostulantAction(_ sender: Any) {
-        
         let url = "Jobs/" + job.idJob + "/replace"
         let post : APIRequest<JobResponse, ErrorResponse> = tron.request(url)
         post.method = .post
@@ -110,10 +110,13 @@ class CellPostulants: FoldingCell {
         
         post.perform(withSuccess: { (jobResponse) in
             print(jobResponse)
+            self.user = KeychainService.loadUser()
+        
             
             let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
             postRequest.method = .get
             
+            print("Vous avez été sélectionné par "+self.user.prenomUtilisateur! + " pour un job à "+self.job.villeJob)
             
             let body : String = "Vous avez été sélectionné par "+self.job.appartenir.prenomUtilisateur + " pour un job à "+self.job.villeJob
             postRequest.parameters = ["token": self.postulant.firebaseToken,

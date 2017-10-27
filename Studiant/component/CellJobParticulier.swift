@@ -63,7 +63,7 @@ class CellJobParticulier: FoldingCell {
         leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
         
         if (jobResponse.statusJob == "2") {
-            //seeStudiantButton.isHidden = true
+            seeStudiantButton.isHidden = true
             leftView.backgroundColor = UIColor.gray
         }
         //leftView.backgroundColor = categorie?.color
