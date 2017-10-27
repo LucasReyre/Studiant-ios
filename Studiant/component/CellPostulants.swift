@@ -111,14 +111,13 @@ class CellPostulants: FoldingCell {
         post.perform(withSuccess: { (jobResponse) in
             print(jobResponse)
             self.user = KeychainService.loadUser()
-        
             
             let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
             postRequest.method = .get
             
             print("Vous avez été sélectionné par "+self.user.prenomUtilisateur! + " pour un job à "+self.job.villeJob)
             
-            let body : String = "Vous avez été sélectionné par "+self.job.appartenir.prenomUtilisateur + " pour un job à "+self.job.villeJob
+            let body : String = "Vous avez été sélectionné par "+self.user.prenomUtilisateur! + " pour un job à "+self.job.villeJob
             postRequest.parameters = ["token": self.postulant.firebaseToken,
                                       "body": body]
             
