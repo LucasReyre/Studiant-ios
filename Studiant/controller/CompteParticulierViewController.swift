@@ -19,18 +19,45 @@ class CompteParticulierViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.addDoneButtonOnKeyboard()
+        
         user = KeychainService.loadUser()
         
         let nomprenom = user.prenomUtilisateur! + " " + user.nomUtilisateur!
         nomPrenomLabel.text = nomprenom
         emailTextField.text = user.mailUtilisateur
-        telephoneTextField.text = user.telephoneUtilisateur
+        telephoneTextField.text = user.telephoneUtilisateur!
+    }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        var doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x:0, y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.default
+        
+        var flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        var done: UIBarButtonItem = UIBarButtonItem(title: "Validez", style: UIBarButtonItemStyle.done, target: self, action: Selector("doneButtonAction"))
+        
+        var items = NSMutableArray()
+        items.add(flexSpace)
+        items.add(done)
+        
+        doneToolbar.items = items as! [UIBarButtonItem]
+        doneToolbar.sizeToFit()
+        
+        self.telephoneTextField.inputAccessoryView = doneToolbar
+        self.telephoneTextField.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.telephoneTextField.resignFirstResponder()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        /*if textField.tag == 0{
+        if textField.tag == 1{
             scrollView.setContentOffset(CGPoint(x: 0, y: 150), animated: true)
-        } else if textField.tag == 1 {
+        }/* else if textField.tag == 1 {
             scrollView.setContentOffset(CGPoint(x: 0, y: 180), animated: true)
         }*/
         
@@ -52,7 +79,7 @@ class CompteParticulierViewController: UIViewController,UITextFieldDelegate {
         postRequest.method = .patch
         
         postRequest.parameters = ["mailUtilisateur": self.emailTextField.text!,
-                                  "telephoneUtilisateur": self.telephoneTextField.text,
+                                  "telephoneUtilisateur": self.telephoneTextField.text!,
                                   "id": user.idUtilisateur!]
         
         postRequest.perform(withSuccess: { (userResponse) in

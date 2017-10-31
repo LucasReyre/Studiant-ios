@@ -29,6 +29,7 @@ class CellJobParticulier: FoldingCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tarifHeaderLabel: UILabel!
     @IBOutlet weak var nomPrenomLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     let tron = TRON(baseURL: "https://fcm.googleapis.com/")
     var job : JobResponse?
     var categorie: Categorie?
@@ -57,6 +58,7 @@ class CellJobParticulier: FoldingCell {
         adresseLabelContent.text = jobResponse.adresseJob
         dateLabelContent.text = jobResponse.dateJob
         heureContentLabel.text = jobResponse.heureJob
+        descriptionTextView.text = jobResponse.descriptionJob
         
         categorie = Categorie(withString: jobResponse.categorieJob)
         
@@ -65,6 +67,8 @@ class CellJobParticulier: FoldingCell {
         if (jobResponse.statusJob == "2") {
             seeStudiantButton.isHidden = true
             leftView.backgroundColor = UIColor.gray
+        }else{
+            seeStudiantButton.isHidden = false
         }
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
