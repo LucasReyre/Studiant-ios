@@ -32,6 +32,7 @@ class CellHistoriqeJobEtudiant: FoldingCell {
     @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var tarifImageView: UIImageView!
     @IBOutlet weak var leftView: UIView!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     var job : JobResponse?
     var categorie: Categorie?
@@ -54,6 +55,7 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         tarifContentLabel.text = jobResponse.prixJob + "€"
         horaireLabel.text = jobResponse.heureJob
         dateLabel.text = jobResponse.dateJob
+        descriptionTextView.text = jobResponse.descriptionJob
         //nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
         nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur
         telephoneLabel.text = jobResponse.appartenir.telephoneUtilisateur

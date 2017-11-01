@@ -21,6 +21,7 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addDoneButtonOnKeyboard()
 
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds = true
@@ -72,6 +73,31 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         return true
         
     }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        var doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x:0, y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.default
+        
+        var flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        var done: UIBarButtonItem = UIBarButtonItem(title: "Validez", style: UIBarButtonItemStyle.done, target: self, action: Selector("doneButtonAction"))
+        
+        var items = NSMutableArray()
+        items.add(flexSpace)
+        items.add(done)
+        
+        doneToolbar.items = items as! [UIBarButtonItem]
+        doneToolbar.sizeToFit()
+        
+        self.telephoneTextField.inputAccessoryView = doneToolbar
+        self.telephoneTextField.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.telephoneTextField.resignFirstResponder()
+    }
 
     @IBAction func saveUserAction(_ sender: Any) {
         SwiftSpinner.show("Modification en cours")
@@ -86,6 +112,7 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         
         postRequest.perform(withSuccess: { (userResponse) in
             self.user.descriptionUtilisateur = userResponse.descriptionUtilisateur
+            self.user.telephoneUtilisateur = userResponse.telephoneUtilisateur
             self.user.diplomeUtilisateur = userResponse.diplomeUtilisateur
             
             KeychainService.saveUser(user: self.user)
