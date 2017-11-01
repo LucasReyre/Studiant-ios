@@ -79,17 +79,22 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         }
     }
 
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
         let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!)
         user.telephoneUtilisateur = telephoneTextField.text!
         user.typeUtilisateur = 0
-        print("telphone : ", user.telephoneUtilisateur)
         let token = Messaging.messaging().fcmToken
-        print("FCM token: \(token ?? "")")
         
         if (user.telephoneUtilisateur == nil || user.prenomUtilisateur == nil ||
-            user.mailUtilisateur == nil || user.nomUtilisateur == nil || !cguSwitch.isOn || user.telephoneUtilisateur?.count != 10){
+            user.mailUtilisateur == nil || user.nomUtilisateur == nil || !cguSwitch.isOn || user.telephoneUtilisateur?.count != 10 || self.isValidEmail(testStr: user.mailUtilisateur!) == false ){
             SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
                 SwiftSpinner.hide()
                 

@@ -9,6 +9,7 @@
 import UIKit
 import TRON
 import mangopay
+import SwiftSpinner
 
 class AddCBViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var numberCBTextField: UITextField!
@@ -44,9 +45,17 @@ class AddCBViewController: UIViewController, UITextFieldDelegate {
         self.delegate?.onCbIsCancel(controller: self)
     }
     @IBAction func validerAction(_ sender: Any) {
-        
+        SwiftSpinner.show("Validation en cours")
         let user : User
         user = KeychainService.loadUser()!
+        
+        if(self.numberCBTextField.text?.count != 16 || self.mmCBTextField.text?.count != 2
+            || self.yyCBTextField.text?.count != 2 || self.ccvCBTextField.text?.count != 3){
+            SwiftSpinner.show("Merci de vérifier les informations entrées", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+            return
+        }
         
         print("idUser : ", user.idMangoPayUtilisateur!)
         let request: APIRequest<CardReg, ErrorResponse> = tron.request("card_reg.php")
@@ -72,14 +81,20 @@ class AddCBViewController: UIViewController, UITextFieldDelegate {
             self.mangopayClient.registerCard({ (response, error) in
                 if let error = error{
                     print("Error : \(error)")
+                    SwiftSpinner.show("Merci de vérifier les informations entrées", animated: false).addTapHandler({
+                        SwiftSpinner.hide()
+                    })
                 }else{
-                    
+                    SwiftSpinner.hide()
                     print("Validated \(String(describing: response))")
                     self.delegate?.onCbIsAdding(controller: self)
                 }
                 
             })
         }) { (error) in
+            SwiftSpinner.show("Merci de vérifier les informations entrées", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
             print(error)
         }
     }

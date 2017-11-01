@@ -10,8 +10,9 @@ import UIKit
 import FoldingCell
 import TRON
 import PopupDialog
+import SwiftSpinner
 
-class CellJobParticulier: FoldingCell {
+class CellJobParticulier: FoldingCell, UITextViewDelegate {
     
     @IBOutlet weak var seeStudiantButton: UIButton!
     @IBOutlet weak var paiementImageView: UIImageView!
@@ -30,7 +31,7 @@ class CellJobParticulier: FoldingCell {
     @IBOutlet weak var tarifHeaderLabel: UILabel!
     @IBOutlet weak var nomPrenomLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
-    let tron = TRON(baseURL: "https://fcm.googleapis.com/")
+    let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var job : JobResponse?
     var categorie: Categorie?
     
@@ -59,6 +60,8 @@ class CellJobParticulier: FoldingCell {
         dateLabelContent.text = jobResponse.dateJob
         heureContentLabel.text = jobResponse.heureJob
         descriptionTextView.text = jobResponse.descriptionJob
+        
+        descriptionTextView.delegate = self
         
         categorie = Categorie(withString: jobResponse.categorieJob)
         
@@ -99,6 +102,38 @@ class CellJobParticulier: FoldingCell {
         return durations[itemIndex]
     }
  
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            descriptionTextView.resignFirstResponder()
+            updateJob()
+            return false
+        }
+        return true
+    }
+    
+    func updateJob(){
+        SwiftSpinner.show("Modification en cours")
+        
+        let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Jobs/")
+        postRequest.method = .patch
+        
+        postRequest.parameters = ["descriptionJob": self.descriptionTextView.text!,
+                                  "id": (job?.idJob)!]
+        
+        postRequest.perform(withSuccess: { (userResponse) in
+            
+            SwiftSpinner.show("Modification enregistrée", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+            
+        }) { (error) in
+            print(error)
+            SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+            print("Error")
+        }
+    }
     
 }
 

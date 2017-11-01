@@ -263,13 +263,16 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     }
     
     func onCbIsAdding(controller: AddCBViewController) {
-        controller.dismiss(animated: true, completion: nil)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "PaymentJobViewController") as! PaymentJob
-        controller.price = prixTextField.text!
-        controller.delegate = self
-        self.present(controller, animated: true, completion: nil)
-        //self.insertJob()
+        DispatchQueue.main.async {
+            controller.dismiss(animated: true, completion: {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "PaymentJobViewController") as! PaymentJob
+                controller.price = self.prixTextField.text!
+                controller.delegate = self
+                self.present(controller, animated: true, completion: nil)
+                //self.insertJob()
+            })
+        }
     }
     
     func onCbIsCancel(controller: AddCBViewController) {
@@ -277,15 +280,19 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     }
     
     func onJobIsPaying(controller: PaymentJob) {
-        controller.dismiss(animated: true, completion: nil)
-        self.insertJob()
+        controller.dismiss(animated: true, completion: {
+            self.insertJob()
+        })
+        
     }
     
     func onPayingError(controller: PaymentJob) {
-        controller.dismiss(animated: true, completion: nil)
-        SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
-            SwiftSpinner.hide()
+        controller.dismiss(animated: true, completion: {
+            SwiftSpinner.show("Une erreure est survenue lors du paiement", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
         })
+       
     }
 
 }
