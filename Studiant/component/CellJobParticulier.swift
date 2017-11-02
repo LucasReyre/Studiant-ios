@@ -70,7 +70,9 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
         if (jobResponse.statusJob == "2") {
             seeStudiantButton.isHidden = true
             leftView.backgroundColor = UIColor.gray
+            descriptionTextView.isEditable = false
         }else{
+            descriptionTextView.isEditable = true
             seeStudiantButton.isHidden = false
         }
         //leftView.backgroundColor = categorie?.color

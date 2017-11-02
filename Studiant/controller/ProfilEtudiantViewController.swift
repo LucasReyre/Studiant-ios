@@ -226,6 +226,14 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             UIApplication.shared.openURL(url)
         }
     }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
         
@@ -247,7 +255,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             
             if (user.nomUtilisateur == nil || user.prenomUtilisateur == nil ||
                 user.mailUtilisateur == nil || user.diplomeUtilisateur == nil || !cguSwitch.isOn
-                || !engagementSwitch.isOn || user.telephoneUtilisateur == nil || user.telephoneUtilisateur?.count != 10){
+                || !engagementSwitch.isOn || user.telephoneUtilisateur == nil || user.telephoneUtilisateur?.count != 10 || self.isValidEmail(testStr: user.mailUtilisateur!) == false){
                 SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
                     SwiftSpinner.hide()
                     
