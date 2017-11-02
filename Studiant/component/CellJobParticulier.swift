@@ -82,6 +82,7 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
         switch jobResponse.typePaiementJob {
         case "CB":
             paiementImageView.image = UIImage(named: "credit-card")!
+            studiantCodeButton.isHidden = false
         case "CESU":
             paiementImageView.image = UIImage(named: "check")!
             studiantCodeButton.isHidden = true
