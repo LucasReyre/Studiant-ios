@@ -20,6 +20,10 @@ class DashboardEtudiantViewController: UIViewController {
         filterFloatingButton.layer.cornerRadius = 0.5 * filterFloatingButton.bounds.size.width
         filterFloatingButton.clipsToBounds = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
 
     @IBAction func filterAction(_ sender: Any) {
         

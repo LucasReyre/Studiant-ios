@@ -170,7 +170,8 @@ extension CellJobParticulier {
         
         popup.addButtons([buttonOne])
         
-        UIApplication.shared.keyWindow?.rootViewController?.present(popup, animated: true, completion: nil)
+        self.delegate?.presentStudiantCode(popup: popup)
+        //UIApplication.shared.keyWindow?.rootViewController?.present(popup, animated: true, completion: nil)
         
     }
     
@@ -178,4 +179,5 @@ extension CellJobParticulier {
 
 protocol CellJobParticulierDelegate {
     func onButtonVoirPostulantTouch(postulants: UsersResponse, job: JobResponse)
+    func presentStudiantCode(popup: PopupDialog)
 }

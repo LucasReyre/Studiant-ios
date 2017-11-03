@@ -1,7 +1,7 @@
 import UIKit
 import TRON
 import SwiftSpinner
-
+import PopupDialog
 
 class DashboardParticulierViewController: UIViewController, CellJobParticulierDelegate {
 
@@ -30,6 +30,7 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         getData()
         if (isDataLoad == false) {
             SwiftSpinner.show("Récupération de vos jobs en cours")
@@ -115,6 +116,10 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
         }else{
             self.performSegue(withIdentifier: "listePostulantsSegue", sender: nil)
         }
+    }
+    
+    func presentStudiantCode(popup: PopupDialog){
+        present(popup, animated: true, completion: nil)
     }
     
 }

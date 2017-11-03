@@ -23,6 +23,8 @@ let diplomeUtilisateurKey = "diplomeUtilisateurKey"
 let mailUtilisateurKey = "mailUtilisateurKey"
 let telephoneUtilisateurKey = "telephoneUtilisateurKey"
 let descriptionUtilisateurKey = "descriptionUtilisateurKey"
+let idIbanUtilisateurKey = "idIbanUtilisateurKey"
+let idWalletUtilisateurKey = "idWalletUtilisateurKey"
 
 // Arguments for the keychain queries
 let kSecClassValue = NSString(format: kSecClass)
@@ -46,6 +48,10 @@ public class KeychainService: NSObject {
     
     public class func loadPassword() -> NSString? {
         return self.load(service: passwordKey as NSString)
+    }
+    
+    public class func saveIdIban(id: String){
+        self.save(service: idIbanUtilisateurKey as NSString, data: id as NSString)
     }
     
     public class func saveUser(user: User){
@@ -89,7 +95,13 @@ public class KeychainService: NSObject {
             let descriptionUtilisateur = String(describing: user.descriptionUtilisateur!)
             self.save(service: descriptionUtilisateurKey as NSString, data: descriptionUtilisateur as NSString)
         }
+        
+        if user.idWalletUtilisateur != nil {
+            let idWalletUtilisateur = String(describing: user.idWalletUtilisateur!)
+            self.save(service: idWalletUtilisateurKey as NSString, data: idWalletUtilisateur as NSString)
+        }
     }
+    
     
     public class func loadUser() -> User! {
         let user = User()
@@ -124,6 +136,13 @@ public class KeychainService: NSObject {
         if let descriptionUtilisateur = self.load(service: descriptionUtilisateurKey as String as NSString){
             user.descriptionUtilisateur = descriptionUtilisateur as String
         }
+        if let idIbanUtilisateur = self.load(service: idIbanUtilisateurKey as String as NSString){
+            user.idIbanUtilisateur = idIbanUtilisateur as String
+        }
+        if let idWalletUtilisateur = self.load(service: idWalletUtilisateurKey as String as NSString){
+            user.idWalletUtilisateur = idWalletUtilisateur as String
+        }
+        
         return user
     }
     
@@ -139,6 +158,8 @@ public class KeychainService: NSObject {
         self.delete(service: descriptionUtilisateurKey as NSString)
         self.delete(service: typeUtilisateurKey as NSString)
         self.delete(service: photoUtilisateurKey as NSString)
+        self.delete(service: idIbanUtilisateurKey as NSString)
+        self.delete(service: idWalletUtilisateurKey as NSString)
     }
     
     /**

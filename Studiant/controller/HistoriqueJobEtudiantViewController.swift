@@ -21,11 +21,11 @@ class HistoriqueJobEtudiantViewController: UITableViewController, CellHistoriqeJ
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        user = KeychainService.loadUser()
-        getData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        user = KeychainService.loadUser()
+        getData()
         if(self.isDataLoad == false){
             SwiftSpinner.show("Récupération des jobs en cours")
         }

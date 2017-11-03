@@ -2,7 +2,7 @@ import UIKit
 import TRON
 import SwiftSpinner
 
-class PaymentJobEtudiantViewController: UIViewController {
+class PaymentJobEtudiantViewController: UIViewController, UITextFieldDelegate {
     
     let tron = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
     
@@ -18,6 +18,11 @@ class PaymentJobEtudiantViewController: UIViewController {
 
     @IBAction func cancelAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     @IBAction func validezAction(_ sender: Any) {
         SwiftSpinner.show("Paiement en cours")

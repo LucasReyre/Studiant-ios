@@ -370,6 +370,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
             self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
             self.myUser.descriptionUtilisateur = usersResponse.descriptionUtilisateur
+            self.myUser.idWalletUtilisateur = usersResponse.idWalletMangoPayUtilisateur
             
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()

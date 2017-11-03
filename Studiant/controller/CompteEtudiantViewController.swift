@@ -18,6 +18,7 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
     
     @IBOutlet weak var scrollview: UIScrollView!
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    let tronMango = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +29,10 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         
         user = KeychainService.loadUser()
         
-        print(user.photoUtilisateur!)
         let url = URL(string: user.photoUtilisateur!)
         
+        print("idWallet")
+        print(user.idWalletUtilisateur!)
         
         let nomprenom = user.prenomUtilisateur! + " " + user.nomUtilisateur!
         nomPrenomLabel.text = nomprenom
@@ -127,5 +129,39 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
             })
             print("Error")
         }
+    }
+    @IBAction func getMoneyAction(_ sender: Any) {
+        
+        SwiftSpinner.show("Paiement en cours")
+        
+        let postRequest: APIRequest<PayoutResponse, ErrorResponse> = tron.request("payout.php/")
+        postRequest.method = .post
+        user = KeychainService.loadUser()
+        
+        postRequest.parameters = ["idWalletUtilisateur": user.idWalletUtilisateur!,
+                                  "idMangoPayUtilisateur": user.idMangoPayUtilisateur!,
+                                  "idIbanUtilisateur": user.idIbanUtilisateur!]
+        
+        postRequest.perform(withSuccess: { (payoutResponse) in
+            print(payoutResponse)
+            SwiftSpinner.hide()
+            if(payoutResponse.idPayout == ""){
+                SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                })
+            }else{
+                SwiftSpinner.show("Votre paiement à été pris en compte", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                })
+            }
+            
+            
+        }) { (error) in
+            print(error)
+            SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+        }
+        
     }
 }

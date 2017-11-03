@@ -26,6 +26,7 @@ struct UserResponse: JSONDecodable{
     let diplomeUtilisateur: String
     let telephoneUtilisateur: String
     let idMangoPayUtilisateur: String
+    let idWalletMangoPayUtilisateur: String
     
     
     init(json: JSON) {
@@ -44,6 +45,7 @@ struct UserResponse: JSONDecodable{
         diplomeUtilisateur = json["diplomeUtilisateur"].stringValue
         telephoneUtilisateur = json["telephoneUtilisateur"].stringValue
         idMangoPayUtilisateur = json["idMangoPayUtilisateur"].stringValue
+        idWalletMangoPayUtilisateur = json["idWalletUtilisateur"].stringValue
     }
     
 }

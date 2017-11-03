@@ -151,6 +151,8 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
             self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
             self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
             self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
+            self.myUser.idWalletUtilisateur = usersResponse.idWalletMangoPayUtilisateur
+            
             KeychainService.saveUser(user: self.myUser)
             SwiftSpinner.hide()
             self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)

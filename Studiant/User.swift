@@ -18,12 +18,14 @@ public class User {
     var photoUtilisateur: String?
     var typeUtilisateur: Int!
     var telephoneUtilisateur: String?
+    var idIbanUtilisateur: String?
     var typeConnexionUtilisateur: Int?
     var idMangoPayUtilisateur: String?
     var descriptionUtilisateur: String?
     var diplomeUtilisateur: String?
     var permisUtilisateur: Bool?
     var idExterneUtilisateur: String?
+    var idWalletUtilisateur: String?
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var userUrl = "https://loopbackstudiant.herokuapp.com/api/Utilisateurs/594e691306f7e60011421949"

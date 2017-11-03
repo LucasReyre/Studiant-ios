@@ -25,7 +25,7 @@ class IbanViewController: UIViewController, UITextFieldDelegate{
     @IBAction func validerIbanAction(_ sender: Any) {
         SwiftSpinner.show("Ajout du RIB")
         
-        let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("user_create_iban.php/")
+        let postRequest: APIRequest<IbanResponse, ErrorResponse> = tron.request("user_create_iban.php/")
         postRequest.method = .post
         user = KeychainService.loadUser()
         
@@ -37,9 +37,19 @@ class IbanViewController: UIViewController, UITextFieldDelegate{
                                   "city": cityTextField.text!,
                                   "codePostal": cpTextField.text!]
         
-        postRequest.perform(withSuccess: { (usersResponse) in
+        postRequest.perform(withSuccess: { (ibanResponse) in
+            print(ibanResponse)
             SwiftSpinner.hide()
-            print(usersResponse)
+            if(ibanResponse.id == ""){
+                SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                })
+            }else{
+                KeychainService.saveIdIban(id: ibanResponse.id)
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            
         }) { (error) in
             print(error)
         }
