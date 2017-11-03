@@ -107,11 +107,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>L'accès à l'appareil photo est nécessaire pour prendre une photo de profil</string>
+	<string>L&apos;accès à l&apos;appareil photo est nécessaire pour prendre une photo de profil</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>La localisation est nécessaire pour effectuer une recherche géographique</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>L'accès à la gallerie photo est nécessaire pour prendre une photo de profil</string>
+	<string>L&apos;accès à la gallerie photo est nécessaire pour prendre une photo de profil</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

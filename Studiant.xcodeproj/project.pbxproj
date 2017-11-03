@@ -66,6 +66,8 @@
 		E56C70A91F69CE8300360C0A /* PaymentJobEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */; };
 		E5843E191F8A1CC30060B127 /* CompteParticulierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5843E181F8A1CC30060B127 /* CompteParticulierViewController.swift */; };
 		E5B303CA1F82C284001E1F67 /* NotificationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B303C91F82C284001E1F67 /* NotificationResponse.swift */; };
+		E5B543B51FAD134C00E9A9F5 /* IbanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B543B41FAD134C00E9A9F5 /* IbanResponse.swift */; };
+		E5B543B71FAD2EB800E9A9F5 /* Payout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B543B61FAD2EB800E9A9F5 /* Payout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +157,8 @@
 		E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentJobEtudiantViewController.swift; path = controller/PaymentJobEtudiantViewController.swift; sourceTree = "<group>"; };
 		E5843E181F8A1CC30060B127 /* CompteParticulierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompteParticulierViewController.swift; path = controller/CompteParticulierViewController.swift; sourceTree = "<group>"; };
 		E5B303C91F82C284001E1F67 /* NotificationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationResponse.swift; path = class/NotificationResponse.swift; sourceTree = "<group>"; };
+		E5B543B41FAD134C00E9A9F5 /* IbanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IbanResponse.swift; path = class/IbanResponse.swift; sourceTree = "<group>"; };
+		E5B543B61FAD2EB800E9A9F5 /* Payout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Payout.swift; path = controller/Payout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +242,8 @@
 				D25591371F33ACD700EE5662 /* MangoServices.swift */,
 				D2F1DB191F3CD8C200708570 /* CardResponse.swift */,
 				D24190771F49E9250033D26F /* PayinResponse.swift */,
+				E5B543B41FAD134C00E9A9F5 /* IbanResponse.swift */,
+				E5B543B61FAD2EB800E9A9F5 /* Payout.swift */,
 			);
 			name = Mango;
 			sourceTree = "<group>";
@@ -506,7 +512,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D259AB011F16D247008799FE /* Build configuration list for PBXProject "studiant" */;
+			buildConfigurationList = D259AB011F16D247008799FE /* Build configuration list for PBXProject "Studiant" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -641,6 +647,8 @@
 				D2A420B41F1FBE9E00E4A50C /* AjoutJobViewController.swift in Sources */,
 				D2FC531C1F18FCE000FA8D8F /* StatusViewController.swift in Sources */,
 				D259AB0A1F16D247008799FE /* AppDelegate.swift in Sources */,
+				E5B543B51FAD134C00E9A9F5 /* IbanResponse.swift in Sources */,
+				E5B543B71FAD2EB800E9A9F5 /* Payout.swift in Sources */,
 				D24190781F49E9250033D26F /* PayinResponse.swift in Sources */,
 				E56C70A91F69CE8300360C0A /* PaymentJobEtudiantViewController.swift in Sources */,
 				D295250D1F27E252008F1838 /* ReglagesEtudiantViewController.swift in Sources */,
@@ -819,7 +827,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.studiant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "422d4193-484b-4e85-bd9f-a0365d5d93ed";
+				PROVISIONING_PROFILE = "f70ccd91-0a7f-45dd-b9bb-4e92f56e1d41";
 				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Profile Development";
 				SWIFT_VERSION = 3.0;
 			};
@@ -910,7 +918,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D259AB011F16D247008799FE /* Build configuration list for PBXProject "studiant" */ = {
+		D259AB011F16D247008799FE /* Build configuration list for PBXProject "Studiant" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D259AB2C1F16D248008799FE /* Debug */,
