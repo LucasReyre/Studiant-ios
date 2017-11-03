@@ -479,7 +479,7 @@
 					D259AB051F16D247008799FE = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 7Q74E28DLV;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -506,7 +506,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D259AB011F16D247008799FE /* Build configuration list for PBXProject "Studiant" */;
+			buildConfigurationList = D259AB011F16D247008799FE /* Build configuration list for PBXProject "studiant" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -811,6 +811,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Studiant/Studiant.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7Q74E28DLV;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -818,8 +819,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.studiant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "422d4193-484b-4e85-bd9f-a0365d5d93ed";
+				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Profile Development";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -830,7 +831,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Studiant/Studiant.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7Q74E28DLV;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -841,8 +843,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.studiant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "564fd2eb-c9a0-4854-9ac2-51c2f5bad0d7";
+				PROVISIONING_PROFILE_SPECIFIER = "Provisioning Profile Distribution";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -908,7 +910,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D259AB011F16D247008799FE /* Build configuration list for PBXProject "Studiant" */ = {
+		D259AB011F16D247008799FE /* Build configuration list for PBXProject "studiant" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D259AB2C1F16D248008799FE /* Debug */,
