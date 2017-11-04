@@ -14,23 +14,32 @@ class FilterViewController: UIViewController, UIGestureRecognizerDelegate, Categ
     @IBOutlet weak var chooseCategorieLabel: UILabel!
     @IBOutlet weak var categorieView: UIView!
     @IBOutlet weak var maxDistanceLabel: UILabel!
+    @IBOutlet weak var minPrice: UITextField!
+    
     
     var categorie: String!
     var distance: String!
     var lat: String!
     var long: String!
+    var price: String!
     
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.addDoneButtonOnKeyboard()
         askPosition()
 
+        minPrice.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
         tap.delegate = self
         categorieView.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
+    }
+    
+    func textFieldDidChange(_ textField: UITextField){
+        price = textField.text        
     }
     
     func askPosition() {
@@ -46,6 +55,32 @@ class FilterViewController: UIViewController, UIGestureRecognizerDelegate, Categ
             locationManager.startUpdatingLocation()
         }
     }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        var doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x:0, y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.default
+        
+        var flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        var done: UIBarButtonItem = UIBarButtonItem(title: "Validez", style: UIBarButtonItemStyle.done, target: self, action: Selector("doneButtonAction"))
+        
+        var items = NSMutableArray()
+        items.add(flexSpace)
+        items.add(done)
+        
+        doneToolbar.items = items as! [UIBarButtonItem]
+        doneToolbar.sizeToFit()
+        
+        self.minPrice.inputAccessoryView = doneToolbar
+        self.minPrice.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.minPrice.resignFirstResponder()
+    }
+    
     
     func tap(_ gestureRecognizer: UITapGestureRecognizer) {
         categorieView.alpha = 0.5

@@ -152,6 +152,8 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
     }
     
     func getCard(){
+        SwiftSpinner.show("Récupération des infos nécessaires", animated: true)
+        
         let postRequest: APIRequest<CardResponse, ErrorResponse> = tronMango.request("user_get_card.php")
         postRequest.method = .post
         postRequest.parameters = ["idMangoPayUtilisateur": self.user.idMangoPayUtilisateur!]

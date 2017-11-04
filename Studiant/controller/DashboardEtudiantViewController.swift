@@ -36,31 +36,23 @@ class DashboardEtudiantViewController: UIViewController {
         self.tableContainer.filter = nil
         // Create second button
         let buttonTwo = DefaultButton(title: "Valider", height: 60) {
-            print("categorie : ", filterVc.chooseCategorieLabel.text!)
-
-            
-            if filterVc.categorie != nil && filterVc.distance != nil && filterVc.lat != nil{
+            self.tableContainer.filter = ["filter[where][statutJob]": "0"]
+    
+            if filterVc.distance != nil && filterVc.lat != nil{
                 let latlongString = filterVc.lat + "," + filterVc.long
-                self.tableContainer.filter = ["filter[where][latlongJob][near]": latlongString,
-                                              "filter[where][latlongJob][maxDistance]": filterVc.distance,
-                                              "filter[where][latlongJob][unit]": "kilometers",
-                                              "filter[where][categorieJob]": filterVc.categorie!,
-                                              "filter[where][statutJob]": "0"]
-            } else if filterVc.distance != nil && filterVc.lat != nil{
-                let latlongString = filterVc.lat + "," + filterVc.long
-                self.tableContainer.filter = ["filter[where][latlongJob][near]": latlongString,
-                                              "filter[where][latlongJob][maxDistance]": filterVc.distance,
-                                              "filter[where][latlongJob][unit]": "kilometers",
-                                              "filter[where][statutJob]": "0"]
+                self.tableContainer.filter!["filter[where][latlongJob][near]"] = latlongString
+                self.tableContainer.filter!["filter[where][latlongJob][maxDistance]"] = filterVc.distance
+                self.tableContainer.filter!["filter[where][latlongJob][unit]"] = "kilometers"
                 
-                print("have filter distance "+filterVc.distance+" - "+latlongString)
-            } else if filterVc.categorie != nil{
-                self.tableContainer.filter = ["filter[where][categorieJob]": filterVc.categorie!,
-                                              "filter[where][statutJob]": "0"]
-                print("have filter categorie")
+            }
+                
+            if filterVc.categorie != nil{
+                    self.tableContainer.filter!["filter[where][categorieJob]"] = filterVc.categorie!
             }
             
-            print("count : ",self.tableContainer.filter!.count)
+            if filterVc.price != nil{
+                    self.tableContainer.filter!["filter[where][prixJob][gt]"] = filterVc.price!
+            }
             
             self.tableContainer.getData()
         }

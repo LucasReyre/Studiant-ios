@@ -2596,7 +2596,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="698"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fma-7Z-PhS" id="VTH-us-rCf">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="697.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="698"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCh-Ne-Ca6" userLabel="Foreground" customClass="RotatedView" customModule="FoldingCell">
@@ -3169,7 +3169,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="667"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lgn-2Z-pG9" id="ma2-Ji-hl9">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="666.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HK9-yP-ns0" userLabel="Foreground" customClass="RotatedView" customModule="FoldingCell">
