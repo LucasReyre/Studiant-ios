@@ -48,8 +48,7 @@ class CellJobEtudiant: FoldingCell {
         job = jobResponse
         categorieLabel.text = jobResponse.categorieJob
         adresseLabel.text = jobResponse.villeJob
-        tarifHeaderLabel.text = jobResponse.prixJob + "€"
-        tarifContentLabel.text = jobResponse.prixJob + "€"
+        
         horaireLabel.text = jobResponse.heureJob
         dateLabel.text = jobResponse.dateJob
         //nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
@@ -69,12 +68,21 @@ class CellJobEtudiant: FoldingCell {
         switch jobResponse.typePaiementJob {
         case "CB":
             tarifImageView.image = UIImage(named: "credit-card")!
+            let price:Float! = Float(jobResponse.prixJob)! - (Float(jobResponse.prixJob)!*15/100)
+            tarifHeaderLabel.text = String(describing: price!) + "€"
+            tarifContentLabel.text = String(describing: price!) + "€"
         case "CESU":
             tarifImageView.image = UIImage(named: "check")!
+            tarifHeaderLabel.text = jobResponse.prixJob
+            tarifContentLabel.text = jobResponse.prixJob
         case "ESPECES":
             tarifImageView.image = UIImage(named: "change")!
+            tarifHeaderLabel.text = jobResponse.prixJob
+            tarifContentLabel.text = jobResponse.prixJob
         default:
             tarifImageView.image = UIImage(named: "change")!
+            tarifHeaderLabel.text = jobResponse.prixJob
+            tarifContentLabel.text = jobResponse.prixJob
         }
         
 

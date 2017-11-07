@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     
 
     @IBOutlet weak var heightConnexionContraint: NSLayoutConstraint!
-    var connexionContainer: ConnexionViewController!
+    var inscriptionContainer: InscriptionViewController!
     var statusContainer: StatusViewController!
     var oldHeightConnexionConstraint: CGFloat = 0.0
     
@@ -43,9 +43,9 @@ class MainViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? ConnexionViewController,
+        if let vc = segue.destination as? InscriptionViewController,
             segue.identifier == "connexionSegue" {
-            self.connexionContainer = vc
+            self.inscriptionContainer = vc
         }else if let vc = segue.destination as? StatusViewController,
             segue.identifier == "statusSegue" {
             self.statusContainer = vc

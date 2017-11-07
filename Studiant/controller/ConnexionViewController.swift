@@ -1,96 +1,57 @@
-//
-//  ConnexionViewController.swift
-//  Studiant
-//
-//  Created by Lucas REYRE on 15/07/2017.
-//  Copyright © 2017 Studiant. All rights reserved.
-//
-
 import UIKit
-import FacebookLogin
-import FBSDKLoginKit
-import FacebookCore
+import CryptoSwift
+import TRON
+import SwiftSpinner
 
+class ConnexionViewController: UIViewController {
 
-class ConnexionViewController: UIViewController, FBSDKLoginButtonDelegate {
-
-    @IBOutlet var connexionView: UIView!
-    var myViewController: MainViewController!
-    var statusUser: Int!
-    var categorieJob: String!
-    var fromFacebook: Bool?
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var mailTextField: UITextField!
+    let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
+    var myUser : User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("status ", statusUser)
-        
-        let loginButton = FBSDKLoginButton()
-        loginButton.readPermissions = ["email", "public_profile"]
-        loginButton.frame = CGRect(x: 0, y: 200, width: view.frame.width, height: 50)
-        view.addSubview(loginButton)
-        loginButton.delegate = self
-        
-        if let accessToken = AccessToken.current {
-            // User is logged in, use 'accessToken' here.
-            print("user connect")
-        }else{
-            print("user non connect")
-        }
-        // Do any additional setup after loading the view.
+
     }
-    
-    
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("logout")
-    }
-    
-    
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if(error != nil){
+
+    @IBAction func connexionAction(_ sender: Any) {
+        let request: APIRequest<UserResponse, ErrorResponse> = tron.request("Utilisateurs/findOne")
+        request.parameters = ["filter[where][passwordUtilisateur]":passwordTextField.text!.sha512(),
+                              "filter[where][mailUtilisateur]": mailTextField.text!]
+        
+        SwiftSpinner.show("Connexion en cours")
+
+        print(request)
+        request.perform(withSuccess: { (usersResponse) in
+            SwiftSpinner.hide()
+            print(usersResponse)
+            
+            
+            self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 1)
+            self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
+            self.myUser.photoUtilisateur = usersResponse.photoUtilisateur
+            self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
+            self.myUser.prenomUtilisateur = usersResponse.prenomUtilisateur
+            self.myUser.diplomeUtilisateur = usersResponse.diplomeUtilisateur
+            self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
+            self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
+            self.myUser.descriptionUtilisateur = usersResponse.descriptionUtilisateur
+            self.myUser.idWalletUtilisateur = usersResponse.idWalletMangoPayUtilisateur
+            
+            KeychainService.saveUser(user: self.myUser)
+            
+            if(usersResponse.typeUtilisateur == 1){
+                self.performSegue(withIdentifier: "dashboardEtudiantSegue", sender: self)
+            }else if (usersResponse.typeUtilisateur == 0){
+                self.performSegue(withIdentifier: "dashboardParticulierSegue", sender: self)
+            }
+            
+        }) { (error) in
+            SwiftSpinner.show("Login/Mdp invalides", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
             print(error)
         }
-        
-        self.fromFacebook = true
-        if statusUser == 1{
-            self.performSegue(withIdentifier: "profilEtudiantSegue", sender: nil)
-        } else if statusUser == 0{
-            self.performSegue(withIdentifier: "profilParticulierSegue", sender: nil)
-        }
-        
     }
-    
-    @IBAction func inscriptionAction(_ sender: Any) {
-        self.fromFacebook = false
-        if statusUser == 1{
-            self.performSegue(withIdentifier: "profilEtudiantSegue", sender: nil)
-        } else if statusUser == 0{
-            self.performSegue(withIdentifier: "profilParticulierSegue", sender: nil)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let backItem = UIBarButtonItem()
-        backItem.title = "Votre profil"
-        navigationItem.backBarButtonItem = backItem
-        
-        if segue.identifier == "profilParticulierSegue" {
-            let vc = segue.destination as! ProfilParticulierViewController
-            vc.categorieJob = self.categorieJob
-            vc.fromFacebook = self.fromFacebook
-        }else if segue.identifier == "profilEtudiantSegue"{
-            let vc = segue.destination as! ProfilEtudiantViewController
-            vc.fromFacebook = self.fromFacebook
-        }
-    }
-    
-    /*
-
-    override func didMove(toParentViewController parent: UIViewController?) {
-        super.didMove(toParentViewController: parent)
-        myViewController = parent as! MainViewController
-        
-    }
-*/
-    
 }

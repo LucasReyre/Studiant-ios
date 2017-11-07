@@ -13,6 +13,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
     @IBOutlet weak var nomTextField: UITextField!
     @IBOutlet weak var prenomTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     var id: String?
     var categorieJob: String!
@@ -67,8 +68,11 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         } else if textField.tag == 1 {
             emailTextField.becomeFirstResponder()
         } else if textField.tag == 2 {
-            telephoneTextField.becomeFirstResponder()
+            passwordTextField.becomeFirstResponder()
             scrollView.setContentOffset(CGPoint(x: 0, y: 250), animated: true)
+        } else if textField.tag == 3 {
+            telephoneTextField.becomeFirstResponder()
+            scrollView.setContentOffset(CGPoint(x: 0, y: 290), animated:true)
         }
         return true
     }
@@ -88,8 +92,10 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
     
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
-        let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!)
+        let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!.lowercased())
         user.telephoneUtilisateur = telephoneTextField.text!
+        user.passwordUtilisateur = passwordTextField.text!.sha512()
+        
         user.typeUtilisateur = 0
         let token = Messaging.messaging().fcmToken
         
@@ -117,6 +123,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
                                       "telephoneUtilisateur": user.telephoneUtilisateur!,
                                       "typeUtilisateur": user.typeUtilisateur,
                                       "idExterneUtilisateur": user.idExterneUtilisateur!,
+                                      "passwordUtilisateur": user.passwordUtilisateur!,
                                       "typeConnexionUtilisateur": user.typeConnexionUtilisateur,
                                       "descriptionUtilisateur": user.descriptionUtilisateur,
                                       "diplomeUtilisateur": user.diplomeUtilisateur,
@@ -134,6 +141,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
                                       "mailUtilisateur" : user.mailUtilisateur!,
                                       "telephoneUtilisateur": user.telephoneUtilisateur!,
                                       "typeUtilisateur": user.typeUtilisateur,
+                                      "passwordUtilisateur": user.passwordUtilisateur!,
                                       "typeConnexionUtilisateur": user.typeConnexionUtilisateur,
                                       "descriptionUtilisateur": user.descriptionUtilisateur,
                                       "diplomeUtilisateur": user.diplomeUtilisateur,

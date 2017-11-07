@@ -17,4 +17,5 @@ pod 'Firebase/Core'
 pod 'Firebase/Messaging'
 pod 'PopupDialog', '~> 0.5'
 pod 'mangopay'
+pod 'CryptoSwift'
 end

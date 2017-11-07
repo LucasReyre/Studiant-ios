@@ -36,7 +36,7 @@ class StatusViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "inscriptionEtudiantSegue" {
-            let vc = segue.destination as! ConnexionViewController
+            let vc = segue.destination as! InscriptionViewController
             vc.statusUser = 1
 
             let backItem = UIBarButtonItem()

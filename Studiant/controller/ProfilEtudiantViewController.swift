@@ -14,6 +14,7 @@ import TRON
 import SwiftSpinner
 import FirebaseMessaging
 import PopupDialog
+import CryptoSwift
 
 class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate,
                                     UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -25,6 +26,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var descriptionTextField: UITextView!
     
+    @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var telephoneTextField: UITextField!
     @IBOutlet weak var engagementSwitch: UISwitch!
     @IBOutlet weak var cguSwitch: UISwitch!
@@ -173,7 +175,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
         if textField.tag == 2 {
             scrollView.setContentOffset(CGPoint(x: 0, y: 150), animated: true)
         }else {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            //scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
     }
     
@@ -194,11 +196,12 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             emailTextField.becomeFirstResponder()
         } else if textField.tag == 2 {
             scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
-            telephoneTextField.becomeFirstResponder()
+            passwordTextField.becomeFirstResponder()
         }else if textField.tag == 3{
             //textField.resignFirstResponder()
             //scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-        }else if textField.tag == 4{
+            telephoneTextField.becomeFirstResponder()
+        }else if textField.tag == 5{
             //textField.resignFirstResponder()
             descriptionTextField.becomeFirstResponder()
             //scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -237,13 +240,15 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
         
-        let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!)
+        let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!.lowercased())
         user.typeUtilisateur = 1
         user.typeConnexionUtilisateur = 1
         user.diplomeUtilisateur = diplomeTextField.text
         user.descriptionUtilisateur = descriptionTextField.text
         user.telephoneUtilisateur = telephoneTextField.text
         user.permisUtilisateur = permisSwitch.isOn
+        user.passwordUtilisateur = passwordTextField.text!.sha512()
+        
         let token = Messaging.messaging().fcmToken
         
         let postRequest: APIRequest<UserResponse, ErrorResponse> = tron.request("Utilisateurs/")
@@ -255,7 +260,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
             
             if (user.nomUtilisateur == nil || user.prenomUtilisateur == nil ||
                 user.mailUtilisateur == nil || user.diplomeUtilisateur == nil || !cguSwitch.isOn
-                || !engagementSwitch.isOn || user.telephoneUtilisateur == nil || user.telephoneUtilisateur?.count != 10 || self.isValidEmail(testStr: user.mailUtilisateur!) == false){
+                || !engagementSwitch.isOn || user.telephoneUtilisateur == nil || user.telephoneUtilisateur?.count != 10 || self.isValidEmail(testStr: user.mailUtilisateur!) == false || user.passwordUtilisateur == nil){
                 SwiftSpinner.show("Erreur vérifiez le formulaire", animated: false).addTapHandler({
                     SwiftSpinner.hide()
                     
@@ -280,6 +285,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                               "idExterneUtilisateur": user.idExterneUtilisateur!,
                                               "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
                                               "descriptionUtilisateur": user.descriptionUtilisateur!,
+                                              "passwordUtilisateur": user.passwordUtilisateur!,
                                               "diplomeUtilisateur": user.diplomeUtilisateur!,
                                               "permisUtilisateur": user.permisUtilisateur!,
                                               "firebaseToken": token!]
@@ -302,6 +308,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                           "telephoneUtilisateur" : user.telephoneUtilisateur!,
                                           "idExterneUtilisateur": user.idExterneUtilisateur!,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
+                                          "passwordUtilisateur": user.passwordUtilisateur!,
                                           "descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,
@@ -338,6 +345,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
                                           "typeUtilisateur": user.typeUtilisateur,
                                           "telephoneUtilisateur" : user.telephoneUtilisateur!,
                                           "typeConnexionUtilisateur": user.typeConnexionUtilisateur!,
+                                          "passwordUtilisateur": user.passwordUtilisateur!,
                                           "descriptionUtilisateur": user.descriptionUtilisateur!,
                                           "diplomeUtilisateur": user.diplomeUtilisateur!,
                                           "permisUtilisateur": user.permisUtilisateur!,

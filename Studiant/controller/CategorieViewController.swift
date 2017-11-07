@@ -36,7 +36,7 @@ class CategorieViewController: UIViewController, UIGestureRecognizerDelegate, Ca
             vc.delegate = self
             //vc.categorie = ["blal","bla"]
         }else if segue.identifier == "inscriptionSegue"{
-            let vc = segue.destination as! ConnexionViewController
+            let vc = segue.destination as! InscriptionViewController
             vc.statusUser = 0
             vc.categorieJob = categorie
         }

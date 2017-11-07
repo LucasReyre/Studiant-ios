@@ -218,6 +218,11 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         })
         
         let autocompleteController = GMSAutocompleteViewController()
+        
+        let filter = GMSAutocompleteFilter()
+        filter.country = "FR"
+        autocompleteController.autocompleteFilter = filter
+
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }

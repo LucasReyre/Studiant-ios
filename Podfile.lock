@@ -6,6 +6,7 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - CryptoSwift (0.7.1)
   - DateTimePicker (1.1.2)
   - FacebookCore (0.2.0):
     - Bolts (~> 1.8)
@@ -68,6 +69,7 @@ PODS:
     - TRON/Core
 
 DEPENDENCIES:
+  - CryptoSwift
   - DateTimePicker
   - FacebookCore
   - FacebookLogin
@@ -96,6 +98,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  CryptoSwift: c290ac8976cf28c52c8b88bfe2c58c0302a0e0c0
   DateTimePicker: 518bffa5438ef83a7a687cc4d5e187e5c12012b8
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
@@ -119,6 +122,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TRON: 7b9adeb678fe0e25433d207f6a734aaf145fa9b5
 
-PODFILE CHECKSUM: 4baaac612703b80ffad814466459f1fe0fe0fd71
+PODFILE CHECKSUM: bb462a4b7ccc2e196528159daa4cb7637cbb683f
 
 COCOAPODS: 1.2.1

@@ -134,34 +134,46 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         
         SwiftSpinner.show("Paiement en cours")
         
-        let postRequest: APIRequest<PayoutResponse, ErrorResponse> = tron.request("payout.php/")
+        let postRequest: APIRequest<PayoutResponse, ErrorResponse> = tronMango.request("payout.php/")
         postRequest.method = .post
         user = KeychainService.loadUser()
         
-        postRequest.parameters = ["idWalletUtilisateur": user.idWalletUtilisateur!,
-                                  "idMangoPayUtilisateur": user.idMangoPayUtilisateur!,
-                                  "idIbanUtilisateur": user.idIbanUtilisateur!]
+        /*print("--------")
+        print(user.idWalletUtilisateur!)
+        print(user.idMangoPayUtilisateur!)
+        print(user.idIbanUtilisateur!)*/
         
-        postRequest.perform(withSuccess: { (payoutResponse) in
-            print(payoutResponse)
-            SwiftSpinner.hide()
-            if(payoutResponse.idPayout == ""){
+        if(user.idIbanUtilisateur == nil){
+            SwiftSpinner.show("Veuillez ajouter un RIB", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+        }else{
+            postRequest.parameters = ["idWalletUtilisateur": user.idWalletUtilisateur!,
+                                      "idMangoPayUtilisateur": user.idMangoPayUtilisateur!,
+                                      "idIbanUtilisateur": user.idIbanUtilisateur!]
+            
+            postRequest.perform(withSuccess: { (payoutResponse) in
+                print(payoutResponse)
+                print(" id : ")
+                print(payoutResponse.idPayout)
+                if(payoutResponse.idPayout == ""){
+                    SwiftSpinner.show("Vous n'avez pas de fonds disponibles", animated: false).addTapHandler({
+                        SwiftSpinner.hide()
+                    })
+                }else{
+                    print("ok")
+                    let text = "Votre transfert de " + payoutResponse.money.amount + " € est en cours"
+                    SwiftSpinner.show(text, animated: false).addTapHandler({
+                        SwiftSpinner.hide()
+                    })
+                }
+                
+            }) { (error) in
+                print(error)
                 SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
                     SwiftSpinner.hide()
                 })
-            }else{
-                SwiftSpinner.show("Votre paiement à été pris en compte", animated: false).addTapHandler({
-                    SwiftSpinner.hide()
-                })
             }
-            
-            
-        }) { (error) in
-            print(error)
-            SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
-                SwiftSpinner.hide()
-            })
         }
-        
     }
 }

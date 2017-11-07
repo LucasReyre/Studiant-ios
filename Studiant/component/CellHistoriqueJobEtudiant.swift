@@ -51,16 +51,13 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         job = jobResponse
         categorieLabel.text = jobResponse.categorieJob
         adresseLabel.text = jobResponse.villeJob
-        tarifHeaderLabel.text = jobResponse.prixJob + "€"
-        tarifContentLabel.text = jobResponse.prixJob + "€"
+        
         horaireLabel.text = jobResponse.heureJob
         dateLabel.text = jobResponse.dateJob
         descriptionTextView.text = jobResponse.descriptionJob
         //nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur+" "+jobResponse.appartenir.nomUtilisateur
         nomPrenomLabel.text = jobResponse.appartenir.prenomUtilisateur
-        telephoneLabel.text = jobResponse.appartenir.telephoneUtilisateur
-        //adresseLabelContent.text = jobResponse.adresseJob
-        adresseLabelContent.text = jobResponse.adresseJob
+        
         dateLabelContent.text = jobResponse.dateJob
         heureContentLabel.text = jobResponse.heureJob
         
@@ -75,17 +72,29 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         if (jobResponse.statusJob == "2") {
             jobDoneButton.isHidden = true
             leftView.backgroundColor = UIColor.gray
+        }else{
+            telephoneLabel.text = jobResponse.appartenir.telephoneUtilisateur
+            adresseLabelContent.text = jobResponse.adresseJob
         }
         
         switch jobResponse.typePaiementJob {
         case "CB":
             tarifImageView.image = UIImage(named: "credit-card")!
+            let price:Float! = Float(jobResponse.prixJob)! - (Float(jobResponse.prixJob)!*15/100)
+            tarifHeaderLabel.text = String(describing: price!) + "€"
+            tarifContentLabel.text = String(describing: price!) + "€"
         case "CESU":
             tarifImageView.image = UIImage(named: "check")!
+            tarifHeaderLabel.text = jobResponse.prixJob
+            tarifContentLabel.text = jobResponse.prixJob
         case "ESPECES":
             tarifImageView.image = UIImage(named: "change")!
+            tarifHeaderLabel.text = jobResponse.prixJob
+            tarifContentLabel.text = jobResponse.prixJob
         default:
             tarifImageView.image = UIImage(named: "change")!
+            tarifHeaderLabel.text = jobResponse.prixJob
+            tarifContentLabel.text = jobResponse.prixJob
         }
         
     }
