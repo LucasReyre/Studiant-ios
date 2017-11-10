@@ -30,6 +30,8 @@ class DashboardParticulierViewController: UIViewController, CellJobParticulierDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        print("badge number",UIApplication.shared.applicationIconBadgeNumber)
+        
         UIApplication.shared.applicationIconBadgeNumber = 0
         getData()
         if (isDataLoad == false) {

@@ -50,6 +50,9 @@ class StatusViewController: UIViewController {
         }
     }
 
+    @IBAction func connexionAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "connexionSegue", sender: nil)
+    }
     @IBAction func onEtudiantTouch(_ sender: Any) {
         /*UIView.animate(withDuration: 0.5, animations: {
             self.myViewController.onEtudiantTouch()

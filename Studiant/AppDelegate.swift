@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
-        
+        print("didReceiveRemoteNotification1")
         
         // Print full message.
         print(userInfo)
@@ -111,11 +111,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
 
-        
+        print("didReceiveRemoteNotification")
         // Print full message.
         print(userInfo)
         
         completionHandler(UIBackgroundFetchResult.newData)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let content = notification.request.content
+        // Process notification content
+        print("\(content.userInfo)")
+        completionHandler([.alert, .sound]) // Display notification as
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

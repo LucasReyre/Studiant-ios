@@ -16,13 +16,16 @@ class DashboardEtudiantViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         filterFloatingButton.layer.cornerRadius = 0.5 * filterFloatingButton.bounds.size.width
         filterFloatingButton.clipsToBounds = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        print("badge number",UIApplication.shared.applicationIconBadgeNumber)
+        if(UIApplication.shared.applicationIconBadgeNumber == 1){
+            tabBarController?.tabBar.items![1].badgeValue = "1"
+        }
     }
 
     @IBAction func filterAction(_ sender: Any) {

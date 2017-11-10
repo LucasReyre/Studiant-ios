@@ -3,7 +3,7 @@ import CryptoSwift
 import TRON
 import SwiftSpinner
 
-class ConnexionViewController: UIViewController {
+class ConnexionViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var mailTextField: UITextField!
@@ -14,7 +14,21 @@ class ConnexionViewController: UIViewController {
         super.viewDidLoad()
 
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(textField.tag)
+        if textField.tag == 0{
+            passwordTextField.becomeFirstResponder()
+        } else if textField.tag == 1 {
+            textField.resignFirstResponder()
+        }
+        return true
+        
+    }
 
+    @IBAction func abandonAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBAction func connexionAction(_ sender: Any) {
         let request: APIRequest<UserResponse, ErrorResponse> = tron.request("Utilisateurs/findOne")
         request.parameters = ["filter[where][passwordUtilisateur]":passwordTextField.text!.sha512(),

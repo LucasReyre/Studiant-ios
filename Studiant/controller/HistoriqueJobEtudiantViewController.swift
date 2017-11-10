@@ -29,6 +29,9 @@ class HistoriqueJobEtudiantViewController: UITableViewController, CellHistoriqeJ
         if(self.isDataLoad == false){
             SwiftSpinner.show("Récupération des jobs en cours")
         }
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        tabBarController?.tabBar.items![1].badgeValue = nil
     }
     
     func getData() {
