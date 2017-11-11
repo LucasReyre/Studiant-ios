@@ -71,8 +71,11 @@ class CellHistoriqeJobEtudiant: FoldingCell {
         
         if (jobResponse.statusJob == "2") {
             jobDoneButton.isHidden = true
+            telephoneLabel.text = ""
+            adresseLabelContent.text = ""
             leftView.backgroundColor = UIColor.gray
         }else{
+            jobDoneButton.isHidden = false
             telephoneLabel.text = jobResponse.appartenir.telephoneUtilisateur
             adresseLabelContent.text = jobResponse.adresseJob
         }

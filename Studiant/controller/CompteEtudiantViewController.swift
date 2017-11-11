@@ -138,10 +138,10 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         postRequest.method = .post
         user = KeychainService.loadUser()
         
-        /*print("--------")
+        print("--------")
         print(user.idWalletUtilisateur!)
         print(user.idMangoPayUtilisateur!)
-        print(user.idIbanUtilisateur!)*/
+        print(user.idIbanUtilisateur!)
         
         if(user.idIbanUtilisateur == nil){
             SwiftSpinner.show("Veuillez ajouter un RIB", animated: false).addTapHandler({
@@ -150,6 +150,7 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         }else{
             postRequest.parameters = ["idWalletUtilisateur": user.idWalletUtilisateur!,
                                       "idMangoPayUtilisateur": user.idMangoPayUtilisateur!,
+                                      "mailUtilisateur": user.mailUtilisateur!,
                                       "idIbanUtilisateur": user.idIbanUtilisateur!]
             
             postRequest.perform(withSuccess: { (payoutResponse) in
@@ -161,11 +162,18 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
                         SwiftSpinner.hide()
                     })
                 }else{
-                    print("ok")
-                    let text = "Votre transfert de " + payoutResponse.money.amount + " € est en cours"
-                    SwiftSpinner.show(text, animated: false).addTapHandler({
-                        SwiftSpinner.hide()
-                    })
+                    if(payoutResponse.status == "CREATED"){
+                        let amount = Float(payoutResponse.amount/100)
+                        print(amount)
+                        let text = "Votre transfert de " + String(amount) + " € est en cours"
+                        SwiftSpinner.show(text, animated: false).addTapHandler({
+                            SwiftSpinner.hide()
+                        })
+                    }else{
+                        SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                            SwiftSpinner.hide()
+                        })
+                    }
                 }
                 
             }) { (error) in

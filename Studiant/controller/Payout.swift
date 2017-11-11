@@ -14,12 +14,14 @@ struct PayoutResponse: JSONDecodable{
     
     let idPayout: String
     let status: String
-    let money: MoneyResponse
+    //let money: MoneyResponse
+    let amount: Float
     
     init(json: JSON) {
         idPayout = json["Id"].stringValue
         status = json["Status"].stringValue
-        money = MoneyResponse.init(json: json["CreditedFunds"])
+        //money = MoneyResponse.init(json: json["CreditedFunds"])
+        amount = json["Amount"].floatValue
     }
     
 }
