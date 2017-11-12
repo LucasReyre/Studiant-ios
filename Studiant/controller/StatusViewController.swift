@@ -46,7 +46,9 @@ class StatusViewController: UIViewController {
             let backItem = UIBarButtonItem()
             backItem.title = "Catégorie"
             navigationItem.backBarButtonItem = backItem
-            
+        }else if segue.identifier == "profilEtudiantSegue"{
+            let vc = segue.destination as! ProfilEtudiantViewController
+            vc.fromFacebook = false
         }
     }
 
@@ -54,6 +56,7 @@ class StatusViewController: UIViewController {
         self.performSegue(withIdentifier: "connexionSegue", sender: nil)
     }
     @IBAction func onEtudiantTouch(_ sender: Any) {
+        self.performSegue(withIdentifier: "profilEtudiantSegue", sender: nil)
         /*UIView.animate(withDuration: 0.5, animations: {
             self.myViewController.onEtudiantTouch()
             let xPosition = self.statusView.frame.origin.x - self.statusView.frame.width

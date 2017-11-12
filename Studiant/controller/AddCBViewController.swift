@@ -21,6 +21,8 @@ class AddCBViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var yyCBTextField: UITextField!
     
     @IBOutlet weak var scrollview: UIScrollView!
+    
+    var currentTextField : UITextField? = nil
     var delegate: AddCBDelegate? = nil
     
     let tron = TRON(baseURL: "https://www.studiant.fr/mangoApi/demos/")
@@ -32,6 +34,7 @@ class AddCBViewController: UIViewController, UITextFieldDelegate {
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        currentTextField = textField
         switch textField.tag {
         case 1...3:
             scrollview.setContentOffset(CGPoint(x: 0, y: 180), animated: true)
@@ -45,6 +48,9 @@ class AddCBViewController: UIViewController, UITextFieldDelegate {
         self.delegate?.onCbIsCancel(controller: self)
     }
     @IBAction func validerAction(_ sender: Any) {
+        
+        currentTextField?.resignFirstResponder()
+    
         SwiftSpinner.show("Validation en cours")
         let user : User
         user = KeychainService.loadUser()!

@@ -41,9 +41,6 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
        
         telephoneTextField.text = user.telephoneUtilisateur
         self.profileImageView.hnk_setImageFromURL(url!)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         
         if (user.idIbanUtilisateur != nil){
             addRibButton.isEnabled = false

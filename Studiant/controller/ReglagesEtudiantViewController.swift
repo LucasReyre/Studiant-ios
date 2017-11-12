@@ -20,6 +20,19 @@ class ReglagesEtudiantViewController: UIViewController {
         
     }
     
+    @IBAction func instagramAction(_ sender: Any) {
+        
+        guard let url = URL(string: "https://www.instagram.com/studiantofficiel/") else {
+            return //be safe
+        }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
     @IBAction func facebookAction(_ sender: Any) {
         
         guard let url = URL(string: "https://www.facebook.com/StudiantOfficiel/") else {

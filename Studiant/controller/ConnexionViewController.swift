@@ -74,6 +74,9 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func connexionAction(_ sender: Any) {
         
+        mailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
         if !isValidEmail(testStr: mailTextField.text!) {
             SwiftSpinner.show("Adresse mail invalide", animated: false).addTapHandler({
                 SwiftSpinner.hide()

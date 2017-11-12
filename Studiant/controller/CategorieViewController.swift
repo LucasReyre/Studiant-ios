@@ -39,6 +39,10 @@ class CategorieViewController: UIViewController, UIGestureRecognizerDelegate, Ca
             let vc = segue.destination as! InscriptionViewController
             vc.statusUser = 0
             vc.categorieJob = categorie
+        }else if segue.identifier == "profilParticulierSegue" {
+            let vc = segue.destination as! ProfilParticulierViewController
+            vc.categorieJob = categorie
+            vc.fromFacebook = false
         }
     }
 

@@ -72,17 +72,24 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
             //seeStudiantButton.isHidden = true
             deleteButton.isEnabled = false
             seeStudiantButton.isEnabled = false
+            studiantCodeButton.isEnabled = false
+            
             seeStudiantButton.backgroundColor = UIColor.gray
             deleteButton.backgroundColor = UIColor.gray
+            studiantCodeButton.backgroundColor = UIColor.gray
+            
             leftView.backgroundColor = UIColor.gray
             descriptionTextView.isEditable = false
         }else{
             seeStudiantButton.backgroundColor = self.hexStringToUIColor(hex: "7F0301")
             deleteButton.backgroundColor = self.hexStringToUIColor(hex: "7F0301")
+            studiantCodeButton.backgroundColor = self.hexStringToUIColor(hex: "7F0301")
+            
             descriptionTextView.isEditable = true
             //seeStudiantButton.isHidden = false
             seeStudiantButton.isEnabled = true
             deleteButton.isEnabled = true
+            studiantCodeButton.isEnabled = true
         }
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
@@ -110,6 +117,27 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
     }
     
     @IBAction func deleteJobAction(_ sender: Any) {
+        
+        // Create the dialog
+        let popup = PopupDialog(title: "Attention", message: "Voulez vous supprimer ce job ?")
+        
+        // Create buttons
+        let buttonValidate = DefaultButton(title: "VALIDEZ") {
+            
+            self.deleteJob()
+        }
+        
+        let buttonCancel = DefaultButton(title: "ANNULEZ") {
+            return
+        }
+        
+        popup.addButtons([buttonValidate, buttonCancel])
+        
+        self.delegate?.presentStudiantCode(popup: popup)
+        
+    }
+    
+    func deleteJob() {
         SwiftSpinner.show("Suppression en cours")
         let urlWithParam = "Jobs/"+(job?.idJob)!
         
