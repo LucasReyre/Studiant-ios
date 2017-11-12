@@ -29,11 +29,37 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         print("catégorie choisie", categorieJob)
+        self.addDoneButtonOnKeyboard()
+        
         if fromFacebook == true
         {
             initForm()
         }
         
+    }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        var doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x:0, y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.default
+        
+        var flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        var done: UIBarButtonItem = UIBarButtonItem(title: "Validez", style: UIBarButtonItemStyle.done, target: self, action: Selector("doneButtonAction"))
+        
+        var items = NSMutableArray()
+        items.add(flexSpace)
+        items.add(done)
+        
+        doneToolbar.items = items as! [UIBarButtonItem]
+        doneToolbar.sizeToFit()
+        
+        self.telephoneTextField.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.telephoneTextField.resignFirstResponder()
     }
     
     func initForm() {
@@ -92,6 +118,7 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
     
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
+        self.telephoneTextField.resignFirstResponder()
         let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!.lowercased())
         user.telephoneUtilisateur = telephoneTextField.text!
         user.passwordUtilisateur = passwordTextField.text!.sha512()

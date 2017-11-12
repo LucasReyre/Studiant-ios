@@ -6,6 +6,7 @@ import SwiftSpinner
 
 class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
+    @IBOutlet weak var addRibButton: UIButton!
     @IBOutlet weak var telephoneTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
@@ -31,9 +32,7 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         
         let url = URL(string: user.photoUtilisateur!)
         
-        print("idWallet")
-        print(user.idWalletUtilisateur!)
-        
+    
         let nomprenom = user.prenomUtilisateur! + " " + user.nomUtilisateur!
         nomPrenomLabel.text = nomprenom
         diplomeTextField.text = user.diplomeUtilisateur
@@ -42,6 +41,15 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
        
         telephoneTextField.text = user.telephoneUtilisateur
         self.profileImageView.hnk_setImageFromURL(url!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if (user.idIbanUtilisateur != nil){
+            addRibButton.isEnabled = false
+            addRibButton.backgroundColor = UIColor.gray
+            addRibButton.setTitle("RIB déja ajouté", for: .disabled)
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -149,6 +157,8 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
             })
         }else{
             postRequest.parameters = ["idWalletUtilisateur": user.idWalletUtilisateur!,
+                                      "nomUtilisateur": user.nomUtilisateur!,
+                                      "prenomUtilisateur": user.prenomUtilisateur!,
                                       "idMangoPayUtilisateur": user.idMangoPayUtilisateur!,
                                       "mailUtilisateur": user.mailUtilisateur!,
                                       "idIbanUtilisateur": user.idIbanUtilisateur!]

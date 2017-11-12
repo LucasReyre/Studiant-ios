@@ -20,6 +20,44 @@ class ReglagesEtudiantViewController: UIViewController {
         
     }
     
+    @IBAction func facebookAction(_ sender: Any) {
+        
+        guard let url = URL(string: "https://www.facebook.com/StudiantOfficiel/") else {
+            return //be safe
+        }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    @IBAction func twitterAction(_ sender: Any) {
+        
+        guard let url = URL(string: "https://twitter.com/s_tudiant") else {
+            return //be safe
+        }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    @IBAction func studientWebAction(_ sender: Any) {
+        
+        guard let url = URL(string: "http://www.studiant.fr/") else {
+            return //be safe
+        }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
     
     @IBAction func onDeconnexionTouch(_ sender: Any) {
         user = KeychainService.loadUser()

@@ -29,7 +29,7 @@ import SwiftSpinner
 class ParticulierTableViewContainer: UITableViewController {
     
     let kCloseCellHeight: CGFloat = 179
-    let kOpenCellHeight: CGFloat = 460
+    let kOpenCellHeight: CGFloat = 510
     let kRowsCount = 10
     var cellHeights: [CGFloat] = []
     

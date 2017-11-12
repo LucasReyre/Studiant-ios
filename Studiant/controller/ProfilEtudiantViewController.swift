@@ -239,6 +239,7 @@ class ProfilEtudiantViewController: UIViewController, UITextFieldDelegate,UIText
     
     @IBAction func validerAction(_ sender: Any) {
         SwiftSpinner.show("Inscription en cours")
+        self.descriptionTextField.resignFirstResponder()
         
         let user = User.init(nomUtilisateur: nomTextField.text!, prenomUtilisateur: prenomTextField.text!, mailUtilisateur: emailTextField.text!.lowercased())
         user.typeUtilisateur = 1

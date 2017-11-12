@@ -31,6 +31,7 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
     @IBOutlet weak var tarifHeaderLabel: UILabel!
     @IBOutlet weak var nomPrenomLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var deleteButton: UIButton!
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var job : JobResponse?
     var categorie: Categorie?
@@ -68,12 +69,20 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
         leftView.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundJob")!)
         
         if (jobResponse.statusJob == "2") {
-            seeStudiantButton.isHidden = true
+            //seeStudiantButton.isHidden = true
+            deleteButton.isEnabled = false
+            seeStudiantButton.isEnabled = false
+            seeStudiantButton.backgroundColor = UIColor.gray
+            deleteButton.backgroundColor = UIColor.gray
             leftView.backgroundColor = UIColor.gray
             descriptionTextView.isEditable = false
         }else{
+            seeStudiantButton.backgroundColor = self.hexStringToUIColor(hex: "7F0301")
+            deleteButton.backgroundColor = self.hexStringToUIColor(hex: "7F0301")
             descriptionTextView.isEditable = true
-            seeStudiantButton.isHidden = false
+            //seeStudiantButton.isHidden = false
+            seeStudiantButton.isEnabled = true
+            deleteButton.isEnabled = true
         }
         //leftView.backgroundColor = categorie?.color
         pictoCategorieImageView.image = categorie?.picto
@@ -98,6 +107,29 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
         super.awakeFromNib()
+    }
+    
+    @IBAction func deleteJobAction(_ sender: Any) {
+        SwiftSpinner.show("Suppression en cours")
+        let urlWithParam = "Jobs/"+(job?.idJob)!
+        
+        let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request(urlWithParam)
+        postRequest.method = .delete
+        
+        postRequest.perform(withSuccess: { (userResponse) in
+            
+            SwiftSpinner.show("Suppression effectué", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+                self.delegate?.onJobDelete()
+            })
+            
+        }) { (error) in
+            print(error)
+            SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
+            print("Error")
+        }
     }
     
     override func animationDuration(_ itemIndex: NSInteger, type: FoldingCell.AnimationType) -> TimeInterval {
@@ -136,6 +168,28 @@ class CellJobParticulier: FoldingCell, UITextViewDelegate {
             })
             print("Error")
         }
+    }
+    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.characters.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
     }
     
 }
@@ -180,4 +234,5 @@ extension CellJobParticulier {
 protocol CellJobParticulierDelegate {
     func onButtonVoirPostulantTouch(postulants: UsersResponse, job: JobResponse)
     func presentStudiantCode(popup: PopupDialog)
+    func onJobDelete()
 }

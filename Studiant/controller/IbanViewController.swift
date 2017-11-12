@@ -30,8 +30,8 @@ class IbanViewController: UIViewController, UITextFieldDelegate{
         user = KeychainService.loadUser()
         
         postRequest.parameters = ["idMangoPayUtilisateur": user.idMangoPayUtilisateur!,
-                                  "IBAN": ibanTextField.text!,
-                                  "BIC": bicTextField.text!,
+                                  "IBAN": ibanTextField.text!.trimmingCharacters(in: .whitespaces),
+                                  "BIC": bicTextField.text!.trimmingCharacters(in: .whitespaces),
                                   "nameUtilisateur" : nameTextField.text!,
                                   "AddressLine1": adresseTextField.text!,
                                   "city": cityTextField.text!,
@@ -46,7 +46,10 @@ class IbanViewController: UIViewController, UITextFieldDelegate{
                 })
             }else{
                 KeychainService.saveIdIban(id: ibanResponse.id)
-                self.dismiss(animated: true, completion: nil)
+                SwiftSpinner.show("Votre RIB à bien été ajouté", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                    self.dismiss(animated: true, completion: nil)
+                })
             }
             
             

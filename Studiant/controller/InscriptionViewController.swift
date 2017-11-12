@@ -25,12 +25,12 @@ class InscriptionViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         print("status ", statusUser)
         
-        let loginButton = FBSDKLoginButton()
+       /* let loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["email", "public_profile"]
         loginButton.frame = CGRect(x: 0, y: 200, width: view.frame.width, height: 50)
         view.addSubview(loginButton)
         loginButton.delegate = self
-        
+        */
         if let accessToken = AccessToken.current {
             // User is logged in, use 'accessToken' here.
             print("user connect")
