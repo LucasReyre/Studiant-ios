@@ -38,14 +38,16 @@ class IbanViewController: UIViewController, UITextFieldDelegate{
                                   "codePostal": cpTextField.text!]
         
         postRequest.perform(withSuccess: { (ibanResponse) in
-            print(ibanResponse)
-            SwiftSpinner.hide()
+            //SwiftSpinner.hide()
             if(ibanResponse.id == ""){
                 SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
                     SwiftSpinner.hide()
                 })
             }else{
                 KeychainService.saveIdIban(id: ibanResponse.id)
+                
+                self.user.ibanUtilisateur = self.ibanTextField.text!.trimmingCharacters(in: .whitespaces)
+                KeychainService.saveUser(user: self.user)
                 SwiftSpinner.show("Votre RIB à bien été ajouté", animated: false).addTapHandler({
                     SwiftSpinner.hide()
                     self.dismiss(animated: true, completion: nil)

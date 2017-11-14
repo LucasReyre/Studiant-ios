@@ -32,7 +32,6 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         
         let url = URL(string: user.photoUtilisateur!)
         
-    
         let nomprenom = user.prenomUtilisateur! + " " + user.nomUtilisateur!
         nomPrenomLabel.text = nomprenom
         diplomeTextField.text = user.diplomeUtilisateur
@@ -158,6 +157,7 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
                                       "prenomUtilisateur": user.prenomUtilisateur!,
                                       "idMangoPayUtilisateur": user.idMangoPayUtilisateur!,
                                       "mailUtilisateur": user.mailUtilisateur!,
+                                      "ibanUtilisateur": user.ibanUtilisateur!,
                                       "idIbanUtilisateur": user.idIbanUtilisateur!]
             
             postRequest.perform(withSuccess: { (payoutResponse) in

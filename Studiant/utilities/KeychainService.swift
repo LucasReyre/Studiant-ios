@@ -25,6 +25,7 @@ let telephoneUtilisateurKey = "telephoneUtilisateurKey"
 let descriptionUtilisateurKey = "descriptionUtilisateurKey"
 let idIbanUtilisateurKey = "idIbanUtilisateurKey"
 let idWalletUtilisateurKey = "idWalletUtilisateurKey"
+let ibanUtilisateurKey = "ibanUtilisateurKey"
 
 // Arguments for the keychain queries
 let kSecClassValue = NSString(format: kSecClass)
@@ -100,6 +101,11 @@ public class KeychainService: NSObject {
             let idWalletUtilisateur = String(describing: user.idWalletUtilisateur!)
             self.save(service: idWalletUtilisateurKey as NSString, data: idWalletUtilisateur as NSString)
         }
+        
+        if user.ibanUtilisateur != nil {
+            let ibanUtilisateur = String(describing: user.ibanUtilisateur!)
+            self.save(service: ibanUtilisateurKey as NSString, data: ibanUtilisateur as NSString)
+        }
     }
     
     
@@ -142,6 +148,9 @@ public class KeychainService: NSObject {
         if let idWalletUtilisateur = self.load(service: idWalletUtilisateurKey as String as NSString){
             user.idWalletUtilisateur = idWalletUtilisateur as String
         }
+        if let ibanUtilisateur = self.load(service: ibanUtilisateurKey as String as NSString){
+            user.ibanUtilisateur = ibanUtilisateur as String
+        }
         
         return user
     }
@@ -160,6 +169,7 @@ public class KeychainService: NSObject {
         self.delete(service: photoUtilisateurKey as NSString)
         self.delete(service: idIbanUtilisateurKey as NSString)
         self.delete(service: idWalletUtilisateurKey as NSString)
+        self.delete(service: ibanUtilisateurKey as NSString)
     }
     
     /**

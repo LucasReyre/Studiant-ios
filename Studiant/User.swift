@@ -27,6 +27,7 @@ public class User {
     var permisUtilisateur: Bool?
     var idExterneUtilisateur: String?
     var idWalletUtilisateur: String?
+    var ibanUtilisateur: String?
     
     let tron = TRON(baseURL: "https://loopbackstudiant.herokuapp.com/api/")
     var userUrl = "https://loopbackstudiant.herokuapp.com/api/Utilisateurs/594e691306f7e60011421949"
