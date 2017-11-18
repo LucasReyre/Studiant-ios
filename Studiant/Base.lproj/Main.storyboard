@@ -182,7 +182,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L7S-PK-BPs">
-                                <rect key="frame" x="0.0" y="64" width="414" height="940"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="940"/>
                                 <color key="backgroundColor" red="1" green="0.93725490199999995" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyI-a7-NAe">
@@ -415,6 +415,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xzc-dw-zjN"/>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="414" height="940"/>
                     <connections>
                         <outlet property="cguSwitch" destination="PBN-xN-mmy" id="H1n-xN-aW1"/>
@@ -1163,7 +1165,7 @@
                     <connections>
                         <outlet property="statusView" destination="IA3-TH-Rdg" id="JP8-pS-wAD"/>
                         <segue destination="XIe-0g-qRo" kind="presentation" identifier="connexionSegue" id="7U4-iT-hMW"/>
-                        <segue destination="VVj-97-txP" kind="show" identifier="profilEtudiantSegue" id="cF9-VR-sxX"/>
+                        <segue destination="VVj-97-txP" kind="presentation" identifier="profilEtudiantSegue" id="cF9-VR-sxX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UYa-7A-Qfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4537,7 +4539,7 @@
         <segue reference="B0n-Iu-BIG"/>
         <segue reference="K4N-Lg-8Qu"/>
         <segue reference="dW5-2Z-Jeg"/>
-        <segue reference="WwS-9L-y0Y"/>
+        <segue reference="DMG-Ki-eff"/>
         <segue reference="cF9-VR-sxX"/>
         <segue reference="wmz-P8-Hjk"/>
     </inferredMetricsTieBreakers>

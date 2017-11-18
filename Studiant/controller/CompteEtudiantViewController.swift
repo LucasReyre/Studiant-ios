@@ -41,6 +41,11 @@ class CompteEtudiantViewController: UIViewController, UITextViewDelegate, UIText
         telephoneTextField.text = user.telephoneUtilisateur
         self.profileImageView.hnk_setImageFromURL(url!)
         
+   
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        user = KeychainService.loadUser()
         if (user.idIbanUtilisateur != nil){
             addRibButton.isEnabled = false
             addRibButton.backgroundColor = UIColor.gray
