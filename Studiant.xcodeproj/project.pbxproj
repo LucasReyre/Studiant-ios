@@ -63,6 +63,7 @@
 		E52C8BCE1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BCD1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift */; };
 		E52C8BD21F66C4250069E76A /* PostulantsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */; };
 		E52C8BD41F6708350069E76A /* CellHistoriqueJobEtudiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C8BD31F6708350069E76A /* CellHistoriqueJobEtudiant.swift */; };
+		E53750041FC4B4830049ABFE /* PostulantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53750031FC4B4830049ABFE /* PostulantResponse.swift */; };
 		E5635C831FAF9D4000B78540 /* ConnexionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5635C821FAF9D4000B78540 /* ConnexionViewController.swift */; };
 		E56C70A91F69CE8300360C0A /* PaymentJobEtudiantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */; };
 		E5843E191F8A1CC30060B127 /* CompteParticulierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5843E181F8A1CC30060B127 /* CompteParticulierViewController.swift */; };
@@ -156,6 +157,7 @@
 		E52C8BCD1F66B2BD0069E76A /* HistoriqueJobEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HistoriqueJobEtudiantViewController.swift; path = controller/HistoriqueJobEtudiantViewController.swift; sourceTree = "<group>"; };
 		E52C8BD11F66C4250069E76A /* PostulantsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostulantsContainerViewController.swift; path = controller/PostulantsContainerViewController.swift; sourceTree = "<group>"; };
 		E52C8BD31F6708350069E76A /* CellHistoriqueJobEtudiant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellHistoriqueJobEtudiant.swift; path = component/CellHistoriqueJobEtudiant.swift; sourceTree = "<group>"; };
+		E53750031FC4B4830049ABFE /* PostulantResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostulantResponse.swift; path = class/PostulantResponse.swift; sourceTree = "<group>"; };
 		E5635C821FAF9D4000B78540 /* ConnexionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConnexionViewController.swift; path = controller/ConnexionViewController.swift; sourceTree = "<group>"; };
 		E56C70A81F69CE8300360C0A /* PaymentJobEtudiantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentJobEtudiantViewController.swift; path = controller/PaymentJobEtudiantViewController.swift; sourceTree = "<group>"; };
 		E5843E181F8A1CC30060B127 /* CompteParticulierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompteParticulierViewController.swift; path = controller/CompteParticulierViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				D22551281F2001D4006EA709 /* JobsResponse.swift */,
 				D255912D1F2DF1DD00EE5662 /* GeoplaceResponse.swift */,
 				E5B303C91F82C284001E1F67 /* NotificationResponse.swift */,
+				E53750031FC4B4830049ABFE /* PostulantResponse.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				D295250D1F27E252008F1838 /* ReglagesEtudiantViewController.swift in Sources */,
 				D22F76921F1D4B7C0038EE78 /* CellJobEtudiant.swift in Sources */,
 				E5B543B91FAE1A7500E9A9F5 /* MoneyResponse.swift in Sources */,
+				E53750041FC4B4830049ABFE /* PostulantResponse.swift in Sources */,
 				D22551271F1FD9F7006EA709 /* JobResponse.swift in Sources */,
 				D25591361F324D1F00EE5662 /* CardReg.swift in Sources */,
 				D22551291F2001D4006EA709 /* JobsResponse.swift in Sources */,

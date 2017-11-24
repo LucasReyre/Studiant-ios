@@ -79,46 +79,67 @@ class MainTableViewController: UITableViewController, CellJobEtudiantDelegate {
     
     func onPostulerTouch(job : JobResponse) {
         SwiftSpinner.show("Candidature en cours")
-        let postRequest: APIRequest<JobResponse, ErrorResponse> = tron.request("Postulants/")
-        postRequest.method = .post
+        let postRequest: APIRequest<PostulantResponse, ErrorResponse> = tron.request("Postulants/findOne/")
         
-        postRequest.parameters = ["timePostulant": String(NSDate().timeIntervalSince1970),
-                                  "statutPostulant": "0",
-                                  "jobId": job.idJob,
-                                  "utilisateurId" : self.user.idUtilisateur!]
+        postRequest.method = .get
+        print("jobid : ", job.idJob)
+        print("utilisateurId : ", self.user.idUtilisateur!)
         
-        postRequest.perform(withSuccess: { (jobResponse) in
-            SwiftSpinner.show("Votre Candidature à bien été prise en compte !", animated: false).addTapHandler({
-                SwiftSpinner.hide()
-            })
-            
-            let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
-            postRequest.method = .get
-            
-            let body : String = self.user.prenomUtilisateur!+" à postulé à votre job "+job.categorieJob
-            postRequest.parameters = ["token": job.appartenir.firebaseToken,
-                                      "body": body]
-            
-            postRequest.perform(withSuccess: { (notificationResponse) in
-                print("success")
-                print(notificationResponse)
-                
-            }) { (error) in
-                print("error")
-                print(error)
-            }
-            
+        postRequest.parameters = ["filter[where][jobId]": job.idJob,
+                                  "filter[where][utilisateurId]" : self.user.idUtilisateur!]
         
-            print(jobResponse)
-            //self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)
-        }) { (error) in
+        
+        postRequest.perform(withSuccess: { (postulantResponse) in
+            print("postulantResponse")
+            print(postulantResponse)
             SwiftSpinner.show("Erreur vous avez déja postulé", animated: false).addTapHandler({
                 SwiftSpinner.hide()
             })
             
-            print(error)
-        }
-
+        
+        }){ (error) in
+                print(error)
+            //si erreur 404 : modele non trouvé donc ok
+            let postRequest: APIRequest<PostulantResponse, ErrorResponse> = self.tron.request("Postulants/")
+            postRequest.method = .post
+            
+            postRequest.parameters = ["timePostulant": String(NSDate().timeIntervalSince1970),
+                                      "statutPostulant": "0",
+                                      "jobId": job.idJob,
+                                      "utilisateurId" : self.user.idUtilisateur!]
+            
+            postRequest.perform(withSuccess: { (jobResponse) in
+                SwiftSpinner.show("Votre Candidature à bien été prise en compte !", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                })
+                
+                let postRequest: APIRequest<NotificationResponse, ErrorResponse> = self.tronStudiant.request("notification.php")
+                postRequest.method = .get
+                
+                let body : String = self.user.prenomUtilisateur!+" à postulé à votre job "+job.categorieJob
+                postRequest.parameters = ["token": job.appartenir.firebaseToken,
+                                          "body": body]
+                
+                postRequest.perform(withSuccess: { (notificationResponse) in
+                    print("success")
+                    print(notificationResponse)
+                    
+                }) { (error) in
+                    print("error")
+                    print(error)
+                }
+                
+                
+                print(jobResponse)
+                //self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)
+            }) { (error) in
+                SwiftSpinner.show("Une erreure s'est produite", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                })
+                
+                print(error)
+            }
+            }
         
     }
 }

@@ -180,17 +180,24 @@ class ProfilParticulierViewController: UIViewController, UITextFieldDelegate, UI
         
         postRequest.perform(withSuccess: { (usersResponse) in
             print(usersResponse)
-            self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 0)
-            self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
-            self.myUser.prenomUtilisateur = usersResponse.prenomUtilisateur
-            self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
-            self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
-            self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
-            self.myUser.idWalletUtilisateur = usersResponse.idWalletMangoPayUtilisateur
-            
-            KeychainService.saveUser(user: self.myUser)
-            SwiftSpinner.hide()
-            self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)
+            if(usersResponse.idUtilisateur == ""){
+                SwiftSpinner.show("Une erreure est survenue", animated: false).addTapHandler({
+                    SwiftSpinner.hide()
+                })
+            }else{
+                self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 0)
+                self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
+                self.myUser.prenomUtilisateur = usersResponse.prenomUtilisateur
+                self.myUser.mailUtilisateur = usersResponse.mailUtilisateur
+                self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
+                self.myUser.telephoneUtilisateur = usersResponse.telephoneUtilisateur
+                self.myUser.idWalletUtilisateur = usersResponse.idWalletMangoPayUtilisateur
+                
+                KeychainService.saveUser(user: self.myUser)
+                SwiftSpinner.hide()
+                self.performSegue(withIdentifier: "AjoutJobSegue", sender: self)
+            }
+  
         }) { (error) in
             SwiftSpinner.show("Une erreure s'est produite", animated: false).addTapHandler({
                 SwiftSpinner.hide()

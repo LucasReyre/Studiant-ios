@@ -33,14 +33,18 @@ class PaymentJobEtudiantViewController: UIViewController, UITextFieldDelegate {
                               "jobId": jobId!,
                               "secret": "cQEWS7UoI39I7Uk1FxC0YcuG8ge3kXEWArhu2DM1"]
         
+        print("postulantId :",utilisateurId!)
+        print("jobId :",jobId!)
+        
         request.perform(withSuccess: { (jobResponse) in
         SwiftSpinner.hide()
         self.dismiss(animated: true, completion: nil)
             
         }) { (error) in
             print(error)
-            SwiftSpinner.hide()
-            print("Error")
+            SwiftSpinner.show("Veuillez vérifier le code !", animated: false).addTapHandler({
+                SwiftSpinner.hide()
+            })
         }
 
     }
