@@ -17,6 +17,9 @@ class PaymentJob: UIViewController{
         priceLabel.text = price + " €"
     }
     
+    @IBAction func cancelPayment(_ sender: Any) {
+        self.delegate?.onJobIsPaying(controller: self)
+    }
     @IBAction func validerAction(_ sender: Any) {
         
         let user : User
@@ -56,5 +59,6 @@ class PaymentJob: UIViewController{
 
 protocol PaymentDelegate {
     func onJobIsPaying(controller: PaymentJob)
+    func onPaymentCancel(controller: PaymentJob)
     func onPayingError(controller: PaymentJob)
 }

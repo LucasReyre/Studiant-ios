@@ -293,6 +293,13 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
         
     }
     
+    func onPaymentCancel(controller: PaymentJob) {
+        controller.dismiss(animated: true, completion: {
+            
+        })
+    }
+    
+    
     func onPayingError(controller: PaymentJob) {
         controller.dismiss(animated: true, completion: {
             SwiftSpinner.show("Une erreure est survenue lors du paiement", animated: false).addTapHandler({
