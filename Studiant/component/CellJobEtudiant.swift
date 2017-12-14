@@ -73,16 +73,16 @@ class CellJobEtudiant: FoldingCell {
             tarifContentLabel.text = String(describing: price!) + "€"
         case "CESU":
             tarifImageView.image = UIImage(named: "check")!
-            tarifHeaderLabel.text = jobResponse.prixJob
-            tarifContentLabel.text = jobResponse.prixJob
+            tarifHeaderLabel.text = jobResponse.prixJob + "€"
+            tarifContentLabel.text = jobResponse.prixJob + "€"
         case "ESPECES":
             tarifImageView.image = UIImage(named: "change")!
-            tarifHeaderLabel.text = jobResponse.prixJob
-            tarifContentLabel.text = jobResponse.prixJob
+            tarifHeaderLabel.text = jobResponse.prixJob + "€"
+            tarifContentLabel.text = jobResponse.prixJob + "€"
         default:
             tarifImageView.image = UIImage(named: "change")!
-            tarifHeaderLabel.text = jobResponse.prixJob
-            tarifContentLabel.text = jobResponse.prixJob
+            tarifHeaderLabel.text = jobResponse.prixJob + "€"
+            tarifContentLabel.text = jobResponse.prixJob + "€"
         }
         
 
