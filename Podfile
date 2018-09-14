@@ -15,7 +15,7 @@ pod 'SwiftSpinner'
 pod 'Firebase', '4.0.3'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
-pod 'PopupDialog', '~> 0.5'
+pod 'PopupDialog', '~> 0.5.4'
 pod 'mangopay'
 pod 'CryptoSwift'
 end

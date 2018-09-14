@@ -233,10 +233,18 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
             self.chooseDateTimeView.alpha = 1
         })
         
-        let picker = DateTimePicker.show()
+        let min = Date().addingTimeInterval(-60 * 60 * 24 * 4)
+        let max = Date().addingTimeInterval(60 * 60 * 24 * 4)
+        let picker = DateTimePicker.create(minimumDate: min, maximumDate: max)
         picker.cancelButtonTitle = "Annuler"
         picker.todayButtonTitle = "Aujourd'hui"
         picker.doneButtonTitle = "Validez !"
+    
+        let screenSize: CGRect = UIScreen.main.bounds
+        
+        picker.frame = CGRect(x: 0, y: screenSize.height-picker.frame.size.height, width: picker.frame.size.width, height: picker.frame.size.height)
+        self.view.addSubview(picker)
+
         picker.selectedDate = Date()
         //picker.darkColor = UIColor(red: 102.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1)
         //picker.highlightColor = UIColor(red: 102.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1)
@@ -252,7 +260,10 @@ class AjoutJobViewController: UIViewController,UIGestureRecognizerDelegate,
             formatter.dateFormat = "dd MMM yyyy HH:mm:ss"
 
             self.dateTimeLabel.text = "Date : " + formatter.string(from: date)
+            picker.removeFromSuperview()
         }
+        
+        picker.dismissHandler = {picker.removeFromSuperview()}
         
     }
     

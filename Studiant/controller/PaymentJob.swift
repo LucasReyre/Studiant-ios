@@ -44,7 +44,7 @@ class PaymentJob: UIViewController{
                 self.delegate?.onPayingError(controller: self)
             }
             
-            //self.delegate?.onJobIsPaying(controller: self)
+//            self.delegate?.onJobIsPaying(controller: self)
 
             
         }) { (error) in

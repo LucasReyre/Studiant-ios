@@ -55,6 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         if user.typeUtilisateur != nil{
         
+            print("type utilisateur : %s", user.typeUtilisateur)
+            print(user.typeUtilisateur)
+            print(user.idUtilisateur)
+            print(user.nomUtilisateur)
+            print(user.prenomUtilisateur)
+            print(user.mailUtilisateur)
             self.window = UIWindow(frame: UIScreen.main.bounds)
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

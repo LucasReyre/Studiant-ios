@@ -107,7 +107,7 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
                 print(error)
             }
             
-            self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: 1)
+            self.myUser = User.init(idUtilisateur: usersResponse.idUtilisateur, typeUtilisateur: usersResponse.typeUtilisateur)
             self.myUser.idMangoPayUtilisateur = usersResponse.idMangoPayUtilisateur
             self.myUser.photoUtilisateur = usersResponse.photoUtilisateur
             self.myUser.nomUtilisateur = usersResponse.nomUtilisateur
